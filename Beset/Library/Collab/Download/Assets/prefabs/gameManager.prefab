@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4936252383295538487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4936252383295538490}
+  - component: {fileID: 4936252383295538484}
+  - component: {fileID: 4936252383295538485}
+  m_Layer: 0
+  m_Name: gameManager
+  m_TagString: GameManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4936252383295538490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936252383295538487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.84, y: 3.91, z: -0.15625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4936252383295538484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936252383295538487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f4f7ff99f5e4042a89ba94f4ab2fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flits: []
+  purgingZone:
+  - {x: 3.6912966e+20, y: 0}
+  flitCount: 0
+  maxFlitCount: 10
+  splittingEnabled: 0
+  purgePermission: 0
+  nextTrailId: 0
+--- !u!114 &4936252383295538485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936252383295538487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e5796513685d046992935e919bc2b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trail: {fileID: 1929538040657352, guid: 3471445e13b054942bdad95b24dfdeea, type: 3}
+  flit: {fileID: 1466173779497062, guid: 27f6b4452a443ab48995055779143fde, type: 3}
+  psTemplate: {fileID: 9072473505103226727, guid: 9024b2780a094a846ac483b712af28c8,
+    type: 3}
+  killZone: {fileID: 1672167644551288, guid: 246ad566965d79b4aa4ef210d12837a8, type: 3}
+  flitRecylceWaitTime: 4.1
+  psRecycleWaitTime: 4
