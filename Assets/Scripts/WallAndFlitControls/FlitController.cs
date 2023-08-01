@@ -154,11 +154,9 @@ public class FlitController : MonoBehaviour
 
     private void randOdds()
     {
-        //print("randodds called");
         int randInt = UnityEngine.Random.Range(0, (int) randMovOdds);
         if (randInt == 0)
         {
-            //StopAllCoroutines();
             StopCoroutine("moveTo");
             Vector2 randPoint = (UnityEngine.Random.insideUnitCircle * randMovDistMax) + new Vector2(transform.position.x, transform.position.y);
 
