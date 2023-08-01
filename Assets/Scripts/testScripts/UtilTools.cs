@@ -34,12 +34,7 @@ public class UtilTools : MonoBehaviour {
         }
         
 
-        if (Mathf.Abs(angle) < Mathf.PI){
-            return (false);
-        }
-        else{
-            return (true);
-        }
+        return !(Mathf.Abs(angle) < Mathf.PI);
     }
 
     /*
@@ -59,7 +54,7 @@ public class UtilTools : MonoBehaviour {
         while (dtheta < -Mathf.PI)
             dtheta += Mathf.PI * 2;
 
-        return (dtheta);
+        return dtheta;
     }
 
     

@@ -96,31 +96,6 @@ public class TutorialManager : MonoBehaviour
         genericText.displayText(cmd.duringDelay, cmd.text);
         yield return new WaitForSeconds(cmd.duringDelay + cmd.afterDelay);
         StepDone();
-        /*
-        TextMeshProUGUI text = newTextObj.GetComponent<TextMeshProUGUI>();
-        RectTransform rect = newTextObj.GetComponent<RectTransform>();
-        rect.anchoredPosition = new Vector2(0, 0);
-        rect.position = new Vector2(cmd.xCoord, cmd.yCoord);
-        print("setting new text to: " + cmd.text);
-        text.SetText(cmd.text);
-        text.alpha = 0;
-        LeanTween.value(
-            gameObject, 0, 1, 0.7f)
-            .setOnUpdate((float val) =>
-            {
-                text.alpha = val;
-            });
-        yield return new WaitForSeconds(cmd.duringDelay);
-        LeanTween.value(
-            gameObject, 1, 0, 0.7f)
-            .setOnUpdate((float val) =>
-            {
-                text.alpha = val;
-            });
-        yield return new WaitForSeconds(cmd.afterDelay);
-        GameObject.Destroy(newTextObj);
-        StepDone();
-        */
     }
 
 }

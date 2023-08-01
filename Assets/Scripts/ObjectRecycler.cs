@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Recycles objects to prevent Instantiate calls at runtime
+// The game is *much* less performant without this
 public class ObjectRecycler : MonoBehaviour {
 
     public Queue<GameObject> trails = new Queue<GameObject>();

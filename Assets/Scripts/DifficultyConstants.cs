@@ -33,8 +33,8 @@ public class DifficultyConstants : MonoBehaviour
     public float MaxSplitTimer = 7f;
     public int SpawnMoreThreshold = 0;
 
-// messing with these finely tuned constants feels like a bad idea
-// BUT they're already referenced so uh. oop.
+// messing with these finely tuned constants around enemy movement
+// feels like a bad idea, leaving them nonserialized
     [System.NonSerialized]
     public float PSpace = 3f;
     [System.NonSerialized]

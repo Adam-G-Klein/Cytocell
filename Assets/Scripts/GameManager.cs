@@ -41,10 +41,6 @@ public class GameManager : MonoBehaviour
         LeanTween.init(1600);
         score = 0;
         constants = GetComponent<DifficultyConstants>();
-        /* //for testing js integration
-        res = GameObject.FindGameObjectWithTag("ResolutionControls").GetComponent<ResolutionSetter>();
-        res.setResolution(42);
-        */
 
         if (!menuMode)
         {
@@ -67,15 +63,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        //dumb convoluted way of doing a state machine for resetting the purge
-        /*if (purgeReset)
-        {
-            purgingZone = null;
-            purgeReset = purgeCalled = false;
-
-        }
-        if (purgeCalled) purgeReset = true;
-        */
         if (Input.GetKeyDown(KeyCode.Escape))
         {
 #if UNITY_EDITOR
@@ -88,10 +75,8 @@ public class GameManager : MonoBehaviour
         }
 
         //only enable splitting if we're less than the max flits 
+        //TODO: event bus so that we don't have to poll for this
         splittingEnabled = flitCount <= constants.MaxEnemies;
-
-
-
 
     }
 
@@ -102,7 +87,6 @@ public class GameManager : MonoBehaviour
     }
     public void flitCreated(FlitController flitControl)
     {
-        //print("gamemanager adding " + flitControl.gameObject.name);
         flits.Add(flitControl);
         flitCount += 1;
 
@@ -123,11 +107,6 @@ public class GameManager : MonoBehaviour
     }
     public void spawnFlits()
     {
-        /*
-        GameObject newflit2 = recycler.RecycleFlit(new Vector3(1f, 2f, 0), transform.rotation);
-        GameObject newflit3 = recycler.RecycleFlit(new Vector3(-1f, -2f, 0), transform.rotation);
-        */
-        print("SPAWNING MORE ENEMIES");
         Vector3 spawnWallPos;
         int i = 0;
         while (i < constants.AmountToSpawnWhenCleared)
@@ -169,23 +148,7 @@ public class GameManager : MonoBehaviour
         {
             playerManager.startRegen(currentPurgeKillCount);
         }
-        //need to do this loop twice because we can't purge flits during 
-        //list iteration: remove can happen anywhere in the list,
-        //so C# is gonna lose track of where we were iterating
-        /*         foreach(FlitController flitControl in flits) {
-                    if(flitControl.isToBePurged()){
-                        flitControl.purgeAtEndOfFrame();
-                        purged += 1;
-                    }
-                }*/
-
-
-        /* 
-
-        purgingZone = killZone;
-        purgeCalled = true;
-        purgeReset = false;
-        */
+        
     }
 
     public float getCamDistance() { return camDistance; }

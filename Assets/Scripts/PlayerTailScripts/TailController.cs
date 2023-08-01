@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// A prototype for a procedurally animated chain of cells that
+// would follow the player around, as an indication of how many
+// red cells had been consumed
 public class TailController : MonoBehaviour
 {
     [SerializeField]
@@ -45,33 +48,6 @@ public class TailController : MonoBehaviour
 
 
     public void move(Vector2 newPlayerLoc){
-        //update the target position list:
-            // each node will be (nodeDist) seperated from each other along the angle 
-            // of the player's last movement
-        //tween each node to the next position in the list
-        /*example:
-            1) node1 gets last pos in new list, 
-                nodes 2-4 get the old positions of nodes 1-3
-            2) node1 gets second to last pos in new list, 
-                node 2 gets the secont to last pos in new list, 
-                nodes 3-4 get the old positions of nodes  1-2
-            repeat until node1 has the position of the new root positions
-            Could append the old list to the new one and just walk through until no old
-            positions are being used.
-        */
-        /*
-        targPosLst = genNewPositions(newPlayerLoc);
-        updateCurrPosLst();
-        for(int i = 0; i < numNodes; i++){
-            Debug.DrawLine(currPosLst[i], targPosLst[i], Color.red, nodeMovTime*2);
-        }
-        targAndCurrLst = listCombine(targPosLst, currPosLst);
-        StartCoroutine("moveCorout");
-        */
-
-
-
-
 
         //has to be done at end
         oldPlayerLoc = newPlayerLoc;

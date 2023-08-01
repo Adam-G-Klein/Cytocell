@@ -13,7 +13,6 @@ public class TrailCollapser : MonoBehaviour {
 
 
     private GameManager gameManager;
-    private ObjectRecycler recylcer;
     public bool collapseTriggered = false;
     public GameObject killZone;
     private Transform player;
@@ -26,17 +25,11 @@ public class TrailCollapser : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         killZone = GameObject.FindGameObjectWithTag("KillZone");
-        recylcer = gameManager.GetComponent<ObjectRecycler>();
         swiper = player.GetComponent<PlayerSwiper>();
         xpManager = player.GetComponent<XPManager>();
         
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        //print("trails: " + activeTrails.Count);
-
-	}
     public void triggerCollapse(){
         collapseTriggered = true; //only for the tutorial at this point, don't need to reset
         bool firstTrailFound = false;
@@ -70,15 +63,14 @@ public class TrailCollapser : MonoBehaviour {
     }
     public void trailCreated(GameObject trail){
         
-
-
         if(!swiper.swipeEnabled){
+            // handle edge case where trails are disabled mid-swipe
             trail.SetActive(false);
             return;
         }
 
-
         activeTrails.Add(trail);
+        // TODO: optimize to not GetComp at runtime
         if(activeTrails.Count == maxTrails){
             activeTrails[0].GetComponent<TrailController>().nextToDie();
         }
@@ -98,8 +90,6 @@ public class TrailCollapser : MonoBehaviour {
             cnt+=1;
         }
         activeTrails.Clear();
-        //print("cleared " + cnt + " trails");
-
     }
 
     private void printObjList(List<GameObject> objs){
@@ -119,17 +109,7 @@ public class TrailCollapser : MonoBehaviour {
     private void collapseTrails(List<TrailController> collTrails)
     {
         Vector2[] killZonePoints = getKillZonePoints(collTrails);
-        //print("trail collapsed!");
-        //GameObject zone = Instantiate(killZone, killZonePoints[0], collTrails[0].transform.rotation);
-        /*Transform killTran = killZone.transform;
-        killTran.position = killZonePoints[0];
-        killTran.rotation = collTrails[0].transform.rotation;
-        EdgeCollider2D coll = killZone.GetComponent<EdgeCollider2D>();
-
-        coll.points = getLocalPoints(killZone.transform, killZonePoints);*/
-
         disableTrails(collTrails);
-        //manager.purgeKillZone(killZone);
         gameManager.purgeKillZone(killZonePoints);
         collapsingTrails.Clear();
 

@@ -87,7 +87,6 @@ public class XPManager : MonoBehaviour
         
         nextLevelXP = getNextLevelXP(nextLevelXP);
         barController.maxXpPoints = nextLevelXP;
-        //here in case we want this game mechanic
         level += 1;
         updateMaxTrails();
         

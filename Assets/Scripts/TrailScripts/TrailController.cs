@@ -25,14 +25,11 @@ public class TrailController : MonoBehaviour
                 quadrant = rot >= 270f ? 4 : 3;
             else
                 quadrant = rot >= 90f ? 2 : 1;
-            //print("rot: " + rot + " quadrant: " + quadrant);
 
             Collider2D coll = GetComponent<Collider2D>();
             Vector2 center = coll.bounds.center;
             Vector2 ext = coll.bounds.extents;
 
-            /*Vector2 worldpt1 = center + (Vector2)coll.bounds.extents;
-            Vector2 worldpt2 = center - (Vector2)coll.bounds.extents;*/
             Vector2 wp1;
             Vector2 wp2;
             //do some experiment based manipulation, if it's rotated these ways the method above finds the wrong points

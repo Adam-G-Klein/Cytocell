@@ -12,6 +12,9 @@ public class Resolution {
         this.height = height;
     }
 }
+// An attempt at manipulating the JS container Unity WebGL runs inside of
+// Was able to contact the "set" API but ran into issues querying the browser's
+// current window size.
 public class ResolutionSetter : MonoBehaviour
 {
 

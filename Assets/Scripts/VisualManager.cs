@@ -36,11 +36,9 @@ public class VisualManager : MonoBehaviour
     }
 
     public void displayDeathMessage(){
-        print("player dead!");
         deathGroup.displayAll();
         if(!hscoreSet)
             hscoreText.SetText("Record: " + PlayerPrefs.GetInt("Highscore"+constants.SceneName));
-        //LeanTween.value(0, 1, deathDisplayTime).setOnUpdate(;
     }
     public void restartGame()
     {
@@ -56,7 +54,7 @@ public class VisualManager : MonoBehaviour
     {
         hscoreText.SetText("New Record! Score: " + newHighScore.ToString());
         hscoreSet = true;
-        //IF AN EFFECT GOES HERE, CHECK SCORE != 0 
+        //IF A CELEBRATION EFFECT ENDS UP HERE, CHECK SCORE != 0 
 
     }
     public void displayLevelText()

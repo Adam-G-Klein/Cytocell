@@ -49,6 +49,7 @@ public class TrailLeaver : MonoBehaviour {
             if (collapser.activeTrails.Count != 0) 
                 //this sets the last trail we left to know it's been fully placed
                 //we can only know this is true on the next swipe
+                //doing otherwise places unnecessary constraints on the player control system
                 newTrail.GetComponent<TrailController>().trailPlaced = true;
             if (trailPlacing)
                 StopCoroutine(corout);
@@ -62,7 +63,6 @@ public class TrailLeaver : MonoBehaviour {
                  + manager.nextTrailId;
             manager.trailCreated();
             collapser.trailCreated(newTrail.gameObject);
-            //print(string.Format("inst at pos: {0}",player.position));
             corout = TrailPlacer(newTrail);
             StartCoroutine(corout);
             
@@ -72,7 +72,6 @@ public class TrailLeaver : MonoBehaviour {
 	}
     private void instantiatePS(){
         Instantiate(swipePS,transform, false);
-
     }
     public void currentTrailPlaced(){
         if(newTrail != null)
@@ -89,11 +88,9 @@ public class TrailLeaver : MonoBehaviour {
         //this should be interruptable by another trail being formed
         while (LeanTween.isTweening(mover.ltidMov) && !trailCont.isTrailPlaced())
         {
-            
             newPos = (((Vector2)player.position - startPos) / 2) + startPos;
             newScale = new Vector3(Vector2.Distance(startPos, player.position),
                                     trail.localScale.y, trail.localScale.z);
-            //print(string.Format("angs: {0} pos: {1} scale: {2}", newAngs, newPos, newScale));
             trail.eulerAngles = newAngs;
             trail.localScale = newScale;
 
