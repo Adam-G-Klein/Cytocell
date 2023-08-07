@@ -6,7 +6,9 @@ using UnityEngine;
 public class PlayerSwiper : MonoBehaviour {
 
     private float swipeTime = 0.5f, rotTime;
-    public float swipeLength = 1f;
+    // Now the ratio of the swipe magnitude to the distance the player will move
+    public float swipeMultiplier = 0.001f;
+    public float maxSwipeLength = 1f;
     public bool mouseDebug;
     public bool plSwiped = false;
     public bool swipeInterruptable = false;
@@ -55,15 +57,18 @@ public class PlayerSwiper : MonoBehaviour {
         }
         #endregion
         
+        // Use a oneframe boolean to communicate to outher systems.
+        // TODO: Actual event bus implementation
         if (plSwiped)
             plSwiped = false;
         if(swipeCont.swiped && !swipeEnabled)
             print("swipe rejected");
-        if (swipeCont.swiped && swipeEnabled)
+        else if (swipeCont.swiped && swipeEnabled)
         {
             //these lines used to be under this conditional because we didn't know if we wanted swipe
             //to be interruptable. If want uniterruptable swipes, restore this line
             //if (!(ltidMov != 0 && LeanTween.isTweening(ltidMov)) || swipeInterruptable)
+            float swipeLength = Mathf.Clamp(swipeCont.lastDir.magnitude * swipeMultiplier, 0, maxSwipeLength);
             
             mover.movePlayer(swipeCont.lastDir, swipeLength, swipeTime, rotTime);
             //make sure trailleaver does it's stuff after the player is moving
@@ -74,7 +79,7 @@ public class PlayerSwiper : MonoBehaviour {
 
     public void setSwipeTimeAndDist(float newSwipeTime, float newSwipeDistance){
         swipeTime = newSwipeTime;
-        swipeLength = newSwipeDistance; 
+        swipeMultiplier = newSwipeDistance; 
     }
     public void setSwipeTime(float newSwipeTime){
         swipeTime = newSwipeTime;
@@ -82,6 +87,6 @@ public class PlayerSwiper : MonoBehaviour {
     }
 
     public void setSwipeLength(float newSwipeLen){
-        swipeLength = newSwipeLen;
+        maxSwipeLength = newSwipeLen;
     }
 }

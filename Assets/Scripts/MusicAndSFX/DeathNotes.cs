@@ -64,8 +64,6 @@ public class DeathNotes : MonoBehaviour
     {
         // this note doesn't play until after enemydeath,
         //snotes will always have advanced
-        print("note: " + note);
-        print("ind into chords: " + ((snotes.lastChord * chordlen) + note));
         int ind = chords[(snotes.lastChord * chordlen) + note];
         src.PlayOneShot(
             notes[ind], vol);

@@ -5,7 +5,6 @@ using UnityEngine;
 public class SwipeController : MonoBehaviour
 {
 
-
     public bool isDragging;
     private Vector2 startTouch, swipeDelta, endTouch;
     public float deadZoneRadius = 125f;
@@ -38,9 +37,11 @@ public class SwipeController : MonoBehaviour
         {
             isDragging = false;
             currDir = (Vector2)Input.mousePosition - startPos;
-            /*Debug.Log(string.Format("mousePos: {0} startPos: {1} mpos-spos: {2} dir: {3} dirMag: {4}", 
+            swiped = true;
+            lastDir = currDir;
+            Debug.Log(string.Format("mousePos: {0} startPos: {1} mpos-spos: {2} dir: {3} dirMag: {4}", 
             (Vector2) Input.mousePosition,startPos, (Vector2) Input.mousePosition - startPos, 
-               direction.ToString(), direction.magnitude));*/
+               direction.ToString(), direction.magnitude));
 
         }
         else
@@ -71,6 +72,11 @@ public class SwipeController : MonoBehaviour
                     touchPoint = touch.position;
                     dirRunningAvg = touchPoint - startPos;
                     break;
+                // next step for swipe overhaul: indicator reads from currDir
+                case TouchPhase.Ended:
+                    swiped = true;
+                    lastDir = currDir;
+                    break;
 
             }
         }
@@ -83,15 +89,15 @@ public class SwipeController : MonoBehaviour
         //did we cross deadzone?
        
         
+        /*
         if (currDir.magnitude > deadZoneRadius)
         {
             //which dir?
             swiped = true;
             lastDir = currDir;
             //Debug.Log(string.Format("swiped, startPos: {0}, mousPos: {1}, dir: {2}", startPos, (Vector2)Input.mousePosition, direction.ToString()));
-            
-
         }
+        */
         
 
     }

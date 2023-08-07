@@ -40,6 +40,7 @@ public class SwipeController : MonoBehaviour
         {
             isDragging = false;
             currDir = (Vector2)Input.mousePosition - startPos;
+            
 
         }
         else
@@ -71,19 +72,24 @@ public class SwipeController : MonoBehaviour
                     dirRunningAvg = touchPoint - startPos;
                     break;
 
+                case TouchPhase.Ended:
+                    swiped = true;
+                    lastDir = currDir;
+                    break;
+
             }
         }
 
         #endregion
+            if (currDir.magnitude > deadZoneRadius)
+            {
+                swiped = true;
+                lastDir = currDir;
+            }
 
         //Calculate the distance
         //did we cross deadzone?
-        if (currDir.magnitude > deadZoneRadius)
-        {
-            //which dir?
-            swiped = true;
-            lastDir = currDir;
-        }
+        
         
 
     }

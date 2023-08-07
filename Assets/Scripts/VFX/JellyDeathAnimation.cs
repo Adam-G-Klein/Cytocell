@@ -99,7 +99,6 @@ public class JellyDeathAnimation : MonoBehaviour
             StartCoroutine("deathAnimation", doneCallBack);
         else
         {
-            //remains to be seen if this is okay
             doneCallBack();
         }
     }

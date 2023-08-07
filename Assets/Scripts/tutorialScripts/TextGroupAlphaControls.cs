@@ -17,7 +17,6 @@ public class TextGroupAlphaControls : MonoBehaviour
     void Start()
     {
         textComps = transform.GetComponentsInChildren<TextMeshProUGUI>();
-        print("textcomps length: " + textComps.Length);
 
         foreach (TextMeshProUGUI tm in textComps)
         {

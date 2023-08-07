@@ -40,7 +40,7 @@ public class PlayerMover : MonoBehaviour
             2: ltidCam */
         float targAngle = FindAngle(movDir);
         Vector2 movTarg = (movDir.normalized * movDist) + (Vector2)player.transform.position;
-        motScale.move(movTime);
+        motScale.move(movTime, movDist);
         sNotes.swipeSound();
 
 

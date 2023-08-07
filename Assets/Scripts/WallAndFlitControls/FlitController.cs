@@ -297,7 +297,7 @@ public class FlitController : MonoBehaviour
     {
 
         // Use the custom polygon checker to see if we're inside the purge zone.
-        if (UtilTools.InsidePolygon(killzone, (Vector2)transform.position))
+        if (InsidePolygonUtil.InsidePolygon(killzone, (Vector2)transform.position))
         {
             purge();
             return true;
