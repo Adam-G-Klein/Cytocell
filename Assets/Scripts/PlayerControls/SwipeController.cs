@@ -81,11 +81,6 @@ public class SwipeController : MonoBehaviour
         }
 
         #endregion
-            if (currDir.magnitude > deadZoneRadius)
-            {
-                swiped = true;
-                lastDir = currDir;
-            }
 
         //Calculate the distance
         //did we cross deadzone?
