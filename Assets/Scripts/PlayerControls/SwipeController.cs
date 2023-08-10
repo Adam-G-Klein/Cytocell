@@ -79,6 +79,9 @@ public class SwipeController : MonoBehaviour
 
             }
         }
+        else {
+            startPos = currDir = Vector2.zero;
+        }
 
         #endregion
 
@@ -87,6 +90,11 @@ public class SwipeController : MonoBehaviour
         
         
 
+    }
+
+    public Vector2 getDir()
+    {
+        return currDir;
     }
 
 

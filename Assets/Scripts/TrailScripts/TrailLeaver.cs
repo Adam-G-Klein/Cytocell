@@ -23,6 +23,7 @@ public class TrailLeaver : MonoBehaviour {
     private string trailName;
     public float psInstDelay;
     public GameObject swipePS;
+    public Vector2 swipePSOffset;
 
 	// Use this for initialization
 	void Start () {
@@ -71,7 +72,8 @@ public class TrailLeaver : MonoBehaviour {
 
 	}
     private void instantiatePS(){
-        Instantiate(swipePS,transform, false);
+        GameObject psgo = Instantiate(swipePS,transform, false);
+        psgo.transform.localPosition = swipePSOffset;
     }
     public void currentTrailPlaced(){
         if(newTrail != null)

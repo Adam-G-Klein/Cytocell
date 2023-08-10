@@ -12,7 +12,5 @@ public class SetColorDimmer : MonoBehaviour
     {
         rend = GetComponent<SpriteRenderer>();
         rend.material.SetFloat("_colorDimmer", val);
-        
     }
-
 }

@@ -72,7 +72,8 @@ public class PlayerManager : MonoBehaviour
                 dead = takeDamage(1);
             }
             print(string.Format("health after: {0} invuln? {1}", health, invulnerable));
-            enemyCollision(dead, other.gameObject);
+            if(!dead)
+                enemyCollision(dead, other.gameObject);
 
         } 
         if(other.gameObject.layer == LayerMask.NameToLayer("Walls")){

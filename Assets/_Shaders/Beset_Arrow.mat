@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NoisePP
-  m_Shader: {fileID: 4800000, guid: dff6b1a24d0d0fd4f845851735847160, type: 3}
+  m_Name: Beset_Arrow
+  m_Shader: {fileID: 4800000, guid: 55eb812e9130cbb40b32fbab64bc16db, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -28,12 +28,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _DepthDistance: 0
-    - _DepthStart: 0
-    - _NoiseFrequency: 1.1
-    - _NoiseScale: 1.9
-    - _NoiseSpeed: 4
-    - _PixelOffset: 0.002
-    m_Colors: []
+    m_Floats: []
+    m_Colors:
+    - _circle1: {r: 1, g: 1, b: 0.5, a: 0}
+    - _circle2: {r: 1, g: 1, b: 0.5, a: 0}
   m_BuildTextureStacks: []

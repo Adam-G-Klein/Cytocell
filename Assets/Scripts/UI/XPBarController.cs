@@ -7,7 +7,7 @@ public class XPBarController : MonoBehaviour
     [SerializeField]
     private Image image;
     [SerializeField]
-    private GameObject levelPs; 
+    private LevelPSController levelPs; 
     [SerializeField]
     private float locMaxXPPoints = 100;
     [SerializeField]
@@ -141,6 +141,7 @@ public class XPBarController : MonoBehaviour
         realXPvalue = 0; 
         barAlpha = 0;
         borderAlpha = minMinAlpha;
+        levelPs = GetComponentInChildren<LevelPSController>();
 
     }
 
@@ -149,6 +150,7 @@ public class XPBarController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             barAppear();
+            levelUpAnimate();
         }
         if (barVisible)
         {
@@ -242,15 +244,15 @@ public class XPBarController : MonoBehaviour
 
     public void levelUpAnimate()
     {
+
         StartCoroutine("levelUpAnimation");
     }
     public IEnumerator levelUpAnimation()
     {
 
         vis.displayLevelText();
-        levelPs.SetActive(true);
+        levelPs.emit();
         yield return new WaitForSeconds(XPDisplayLevelUpTime); 
-        levelPs.SetActive(false);
     }
 
 }

@@ -77,9 +77,12 @@ public class SwipeController : MonoBehaviour
                     swiped = true;
                     lastDir = currDir;
                     break;
-
-            }
+            }         
+            
+        } else {
+            startPos = currDir = Vector2.zero;
         }
+
 
         #endregion
 
