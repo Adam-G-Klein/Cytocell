@@ -165,4 +165,14 @@ public class GameManager : MonoBehaviour
         ui.displayDeathMessage();
     }
 
+    public bool soundEnabled()
+    {
+        return PlayerPrefs.GetInt("SoundEnabled", 1) == 1;
+    }
+
+    public void setSoundEnabled(bool enabled)
+    {
+        PlayerPrefs.SetInt("SoundEnabled", enabled ? 1 : 0);
+    }
+
 }

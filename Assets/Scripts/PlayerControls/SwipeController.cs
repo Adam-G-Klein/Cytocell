@@ -73,8 +73,10 @@ public class SwipeController : MonoBehaviour
                     break;
 
                 case TouchPhase.Ended:
-                    swiped = true;
-                    lastDir = currDir;
+                    if(dirRunningAvg.magnitude > deadZoneRadius) {
+                        swiped = true;
+                        lastDir = currDir;
+                    }
                     break;
 
             }
