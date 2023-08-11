@@ -53,7 +53,6 @@ public class JellyMotionScaler : MonoBehaviour
         float currentScaleFactor =  (sprite.localScale.y - sprite.localScale.x)/2;
         
         float targetScaleFactorPlusAndMinus = Mathf.Clamp((movDist / movTime) * targetScaleMultiplier, 0, maxScale);
-        print(string.Format("movDist: {0} movTime: {1} targetScaleMultiplier: {2} maxScale: {3} targetScaleFactorPlusAndMinus: {4}", movDist, movTime, targetScaleMultiplier, maxScale, targetScaleFactorPlusAndMinus));
         //note the scalefactor goes negative here, jelly is oriented differently
         //TODO: break these tweens into separate methods. Access information from a shared
         // object reference

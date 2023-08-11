@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Debug.Log("GameManager Start");
         LeanTween.init(1600);
         score = 0;
         constants = GetComponent<DifficultyConstants>();

@@ -52,6 +52,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         foreach (Material mat in buttonMats)
         {
             mat.SetFloat("_publicAlpha", initAlpha);
+            print("Set button to: " + initAlpha + " Shader val is: " + mat.GetFloat("_publicAlpha"));
         }
         SendMessageUpwards("initDone", null, SendMessageOptions.DontRequireReceiver);
     }
@@ -129,6 +130,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             .setOnUpdate((float val) =>
             {
                 mat.SetFloat("_publicAlpha", val);
+                print("Set button to: " + val + " Shader val is: " + mat.GetFloat("_publicAlpha"));
             });
         }
     }
@@ -142,6 +144,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             {
                 renderer.color = new Color(renderer.color.r, renderer.color.b, renderer.color.g, val);
             });
+
         }
     }
 

@@ -59,7 +59,6 @@ public class SwipeIndicatorController : MonoBehaviour
 
     void positionOnPointDir(){
         Vector2 pos = rotationCenter + (currPointDir * distanceFromCenter);
-        print(string.Format("pos: {0} rotCenter: {1} currPointDir: {2}", pos, rotationCenter, currPointDir));
         transform.position = pos;
     }
 

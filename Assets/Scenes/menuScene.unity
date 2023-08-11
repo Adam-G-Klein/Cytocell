@@ -1148,6 +1148,11 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7565067082053528030, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 02b114fbbadc3f64e819263bc1533f24, type: 2}
     - target: {fileID: 7838351375155339458, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
         type: 3}
       propertyPath: m_havePropertiesChanged

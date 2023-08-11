@@ -55,7 +55,6 @@ public class SwipeController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            print("went into mobile controls");
             // Handle finger movements based on touch phase.
             switch (touch.phase)
             {
