@@ -1,4 +1,4 @@
-﻿  Shader "Sprites/HealthBar"
+﻿  Shader "Beset/XPBar"
   {
       Properties
       {
@@ -35,9 +35,9 @@
       {
           Tags
           { 
-              "Queue"="Transparent" 
-              "IgnoreProjector"="True" 
-              "RenderType"="Transparent" 
+              "Queue"="Transparent"
+              "IgnoreProjector"="True"
+              "RenderType"="Transparent"
               "PreviewType"="Plane"
               "CanUseSpriteAtlas"="True"
           }
@@ -54,6 +54,7 @@
               #pragma fragment frag
               #pragma multi_compile _ PIXELSNAP_ON
               #include "UnityCG.cginc"
+              #include "UnityUI.cginc"
               
               struct appdata_t
               {
