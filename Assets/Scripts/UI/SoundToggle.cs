@@ -6,21 +6,19 @@ using TMPro;
 public class SoundToggle : MonoBehaviour
 {
     private TextMeshProUGUI text;
-    private AudioListener listener;
 
     // Start is called before the first frame update
     void Start()
     {
         text = GetComponentInChildren<TextMeshProUGUI>();
-        listener = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioListener>();
         setTextForSoundState();
-        listener.enabled = soundEnabled();
+        AudioListener.volume = soundEnabled() ? 1 : 0;
     }
 
     public void click(){
         setSoundEnabled(!soundEnabled());
         setTextForSoundState();
-        listener.enabled = soundEnabled();
+        AudioListener.volume = soundEnabled() ? 1 : 0;
     }
 
     private void setTextForSoundState(){

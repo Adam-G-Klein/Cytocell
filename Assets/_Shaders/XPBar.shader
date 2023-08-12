@@ -29,6 +29,7 @@
       
           _ImageSize ("Image Size", Vector) = (100, 100, 0, 0)
           _ImageCenter ("Image Size", Vector) = (0.5, 0.5, 0, 0)
+          _ColorMask ("Color Mask", Float) = 15
       }
   
       SubShader
@@ -46,15 +47,21 @@
           Lighting Off
           ZWrite Off
           Blend SrcAlpha OneMinusSrcAlpha
+          ZTest [unity_GUIZTestMode]
+          ColorMask [_ColorMask]
   
           Pass
           {
           CGPROGRAM
               #pragma vertex vert
               #pragma fragment frag
-              #pragma multi_compile _ PIXELSNAP_ON
+              #pragma target 2.0
+
               #include "UnityCG.cginc"
               #include "UnityUI.cginc"
+
+              #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
+              #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
               
               struct appdata_t
               {
