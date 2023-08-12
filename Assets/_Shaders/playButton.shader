@@ -1,19 +1,27 @@
-﻿Shader "Beset/UIButtons"
+Shader "Beset/UIButtons"
 {
     Properties
     {
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
 
-        _StencilComp ("Stencil Comparison", Float) = 8
-        _Stencil ("Stencil ID", Float) = 0
-        _StencilOp ("Stencil Operation", Float) = 0
-        _StencilWriteMask ("Stencil Write Mask", Float) = 255
-        _StencilReadMask ("Stencil Read Mask", Float) = 255
-
         _ColorMask ("Color Mask", Float) = 15
+        _cellSolid ("Cell Solidness", float) = 0.5
+        _minAlpha ("Min Alpha", float) = 0.1
+        _membraneThickness ("Membrane Thickness", float)  = 0.2
+        _membraneGradient ("Membrane Gradient", float) = 0.5
+        [PerRendererData] _nucleusLocation ("Nucleus Location",Vector ) = (0.5,0.5,0,0)
+        _nucleusRadius ("Nucleus Radius", float) = 0.2
+        _nucleusGradient ("Nucleus Gradient", float) = 0.5
+        [PerRendererData] _publicAlpha ("Publicly Setable Alpha", float) = 1
 
-        [Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip ("Use Alpha Clip", Float) = 0
+    
+
+        _membraneColor ("Membrane Color", Color) = (1,0,0,1)
+        _nucleusColor ("Nucleus Color", Color) = (1,0,0,1)
+        _cytoplasmColor ("Cytoplasm Color", Color) = (1,0,0,0.5)
+        _isButton ("Is Menu Button", float) = 0
+
     }
 
     SubShader
@@ -27,14 +35,6 @@
             "CanUseSpriteAtlas"="True"
         }
 
-        Stencil
-        {
-            Ref [_Stencil]
-            Comp [_StencilComp]
-            Pass [_StencilOp]
-            ReadMask [_StencilReadMask]
-            WriteMask [_StencilWriteMask]
-        }
 
         Cull Off
         Lighting Off
@@ -79,6 +79,19 @@
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
             float4 _MainTex_ST;
+            fixed4 _membraneColor;
+            fixed4 _nucleusColor;
+            fixed4 _cytoplasmColor;
+            float _cellSolid;
+            float _minAlpha;
+            Vector _nucleusLocation;
+            float _membraneThickness;
+            float _membraneGradient;
+            float _nucleusGradient;
+            float _nucleusRadius;
+            float _publicAlpha;
+            float _isButton;
+
 
             v2f vert(appdata_t v)
             {
@@ -96,17 +109,32 @@
 
             fixed4 frag(v2f IN) : SV_Target
             {
-                half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
+                half4 c = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
 
-                #ifdef UNITY_UI_CLIP_RECT
-                color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
-                #endif
+                fixed4 _realCenter = fixed4(0.5,0.5,0.5,0);//fixed values of geometric center of cell
+                float _centerDist = distance(IN.texcoord, _realCenter.xyz);
+                float _nucleusDist = distance(IN.texcoord, _nucleusLocation.xyz);
+                if(_nucleusDist < _nucleusRadius){
+                    c *= _nucleusColor;
+                    c.a = 1 / (_nucleusGradient * _nucleusDist);
+                }else if(_centerDist > 1 - _membraneThickness){
+                    if(_isButton == 1){
+                        c.a = 0;
+                    }else{
+                        c *= _membraneColor;
+                        c.a = 1 / (_membraneGradient * (1-_centerDist));
+                    }
+                }
+                else {
 
-                #ifdef UNITY_UI_ALPHACLIP
-                clip (color.a - 0.001);
-                #endif
 
-                return color;
+                    c *= _cytoplasmColor;
+                    c.a = _minAlpha;
+                }
+                clamp(c.a, _minAlpha, 1);
+                c.a *= _publicAlpha;
+
+                return c;
             }
         ENDCG
         }

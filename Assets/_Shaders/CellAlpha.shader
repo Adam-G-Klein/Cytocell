@@ -19,6 +19,8 @@
         _cytoplasmColor ("Cytoplasm Color", Color) = (1,0,0,0.5)
         _isButton ("Is Menu Button", float) = 0
 
+        // allows display in ios
+        _ColorMask ("Color Mask", Float) = 15
     }
 
     SubShader
@@ -36,15 +38,20 @@
         Lighting Off
         ZWrite Off //don't render to depth buffer
         Blend SrcAlpha OneMinusSrcAlpha //traditional transparency
+        ColorMask [_ColorMask]
 
         Pass
         {
         CGPROGRAM
             #pragma vertex vert
-            #pragma fragment frag addshadow keepalpha
-            #pragma multi_compile _ PIXELSNAP_ON
+            #pragma fragment frag
+            #pragma target 2.0
+
             #include "UnityCG.cginc"
-            
+            #include "UnityUI.cginc"
+
+            #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
+            #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
             struct appdata_t
             {
                 float4 vertex   : POSITION;
