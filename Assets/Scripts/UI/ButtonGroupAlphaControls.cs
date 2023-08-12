@@ -38,8 +38,8 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             if(btnMat) buttonMats.Add(btnMat.materialForRendering);
             Clickable clickable = obj.GetComponent<Clickable>();
             clickables.Add(clickable);
-            obj.SetActive(initActive);
             if(clickable) clickable.clickable = initActive;
+            obj.SetActive(initActive);
             SpriteRenderer renderer = obj.GetComponentInChildren<SpriteRenderer>();
             if (renderer) sprites.Add(renderer);
             
@@ -93,7 +93,6 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             img.SetActive(true);
         }
         if(textGroup) textGroup.displayAll();
-        print("calling tweenButtonsAlphaTo with " + maxButtonMatAlpha + " and " + displayTime + " seconds");
         tweenButtonsAlphaTo(maxButtonMatAlpha, displayTime);
         tweenImageAlphaTo(imageEndAlpha, displayTime);
         Invoke("setAllClickable", displayTime);
@@ -129,13 +128,11 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     {
         foreach (Material mat in buttonMats)
         {
-            print(gameObject.name + ": Tweening button _publicAlpha from: " + mat.GetFloat("_publicAlpha") + " to: " + to + " in " + time + " seconds");
             LeanTween.value(
             gameObject, mat.GetFloat("_publicAlpha"), to, time)
             .setOnUpdate((float val) =>
             {
                 mat.SetFloat("_publicAlpha", val);
-                print("Set button to: " + val + " Shader val is: " + mat.GetFloat("_publicAlpha"));
             });
         }
     }
