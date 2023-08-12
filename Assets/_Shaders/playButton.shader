@@ -1,110 +1,114 @@
-﻿Shader "PeerPlay/NoiseGround"
+﻿Shader "Beset/UIButtons"
 {
     Properties
     {
-        _Tess ("Tessellation", Range(1,8)) = 4
-        _Color ("Color", Color) = (1,1,1,1)
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
-        _NoiseScale ("Noise Scale" ,float) = 1
-        _NoiseFrequency ("Noise Frequency" , float) = 1
-        _NoiseOffset("Noise Offset", Vector) = (0,0,0,0)
-        _whiteScale("white scale", float) = 0.5
+        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        _Color ("Tint", Color) = (1,1,1,1)
+
+        _StencilComp ("Stencil Comparison", Float) = 8
+        _Stencil ("Stencil ID", Float) = 0
+        _StencilOp ("Stencil Operation", Float) = 0
+        _StencilWriteMask ("Stencil Write Mask", Float) = 255
+        _StencilReadMask ("Stencil Read Mask", Float) = 255
+
+        _ColorMask ("Color Mask", Float) = 15
+
+        [Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip ("Use Alpha Clip", Float) = 0
     }
+
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags
+        {
+            "Queue"="Transparent"
+            "IgnoreProjector"="True"
+            "RenderType"="Transparent"
+            "PreviewType"="Plane"
+            "CanUseSpriteAtlas"="True"
+        }
 
+        Stencil
+        {
+            Ref [_Stencil]
+            Comp [_StencilComp]
+            Pass [_StencilOp]
+            ReadMask [_StencilReadMask]
+            WriteMask [_StencilWriteMask]
+        }
+
+        Cull Off
+        Lighting Off
+        ZWrite Off
+        ZTest [unity_GUIZTestMode]
+        Blend SrcAlpha OneMinusSrcAlpha
+        ColorMask [_ColorMask]
+
+        Pass
+        {
+            Name "Default"
         CGPROGRAM
-        #pragma surface surf Standard fullforwardshadows tessellate:tess vertex:vert
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma target 2.0
 
-        #pragma target 4.6
+            #include "UnityCG.cginc"
+            #include "UnityUI.cginc"
 
-        #include "noiseSimplex.cginc"
+            #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
+            #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
-        struct appdata{
-            float4 vertex : POSITION;
-            float3 normal : NORMAL;
-            float4 tangent : TANGENT;
-            float2 texcoord : TEXCOORD0;
-        };
+            struct appdata_t
+            {
+                float4 vertex   : POSITION;
+                float4 color    : COLOR;
+                float2 texcoord : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
 
-        sampler2D _MainTex;
+            struct v2f
+            {
+                float4 vertex   : SV_POSITION;
+                fixed4 color    : COLOR;
+                float2 texcoord  : TEXCOORD0;
+                float4 worldPosition : TEXCOORD1;
+                UNITY_VERTEX_OUTPUT_STEREO
+            };
 
-        struct Input
-        {
-            float2 uv_MainTex;
-        };
+            sampler2D _MainTex;
+            fixed4 _Color;
+            fixed4 _TextureSampleAdd;
+            float4 _ClipRect;
+            float4 _MainTex_ST;
 
-        float _Tess;
-        half _Glossiness;
-        half _Metallic;
-        fixed4 _Color;
-        float _whiteScale;
+            v2f vert(appdata_t v)
+            {
+                v2f OUT;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
+                OUT.worldPosition = v.vertex;
+                OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
 
-        float _NoiseScale, _NoiseFrequency;
-        float4 _NoiseOffset;
-        
-        float4 tess(){
-            return _Tess;
-        }
+                OUT.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 
-        void vert(inout appdata v){
-            float3 v0 = v.vertex.xyz;
-            float3 bitangent = cross(v.normal, v.tangent.xyz);
-            float3 v1 = v0 + (v.tangent.xyz * 0.01); 
-            float3 v2 = v0 + (bitangent * 0.01); 
+                OUT.color = v.color * _Color;
+                return OUT;
+            }
 
-            float ns0 = _NoiseScale * snoise(
-                                float3(v0.x + _NoiseOffset.x, 
-                                       v0.y + _NoiseOffset.y,
-                                       v0.z + _NoiseOffset.z) 
-                                    * _NoiseFrequency);
-            v0.xyz += (ns0 + 1)/2 * v.normal;
-            float ns1 = _NoiseScale * snoise(
-                                float3(v1.x + _NoiseOffset.x, 
-                                       v1.y + _NoiseOffset.y,
-                                       v1.z + _NoiseOffset.z) 
-                                    * _NoiseFrequency);
-            v1.xyz += (ns1 + 1)/2 * v.normal;
-            float ns2 = _NoiseScale * snoise(
-                                float3(v2.x + _NoiseOffset.x, 
-                                       v2.y + _NoiseOffset.y,
-                                       v2.z + _NoiseOffset.z) 
-                                    * _NoiseFrequency);
-            v2.xyz += (ns2 + 1)/2 * v.normal;
+            fixed4 frag(v2f IN) : SV_Target
+            {
+                half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
 
-            float3 vn = cross(v2-v0, v1-v0);
+                #ifdef UNITY_UI_CLIP_RECT
+                color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
+                #endif
 
-            v.normal = normalize(-vn);
-            v.vertex.xyz = v0;
-        }
+                #ifdef UNITY_UI_ALPHACLIP
+                clip (color.a - 0.001);
+                #endif
 
-        void surf (Input IN, inout SurfaceOutputStandard o)
-        {
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
-            float r = (c.r + c.g + c.b)/3;
-            float rShift = abs(r - .5) * _whiteScale;
-            r = r <= .5 ? r - rShift : r + rShift;
-
-            float g = (c.r + c.g + c.b)/3;
-            float gShift = abs(g - .5) * _whiteScale;
-            g = g <= .5 ? g - gShift : g + gShift;
-
-            float b = (c.r + c.g + c.b)/3;
-            float bShift = abs(b - .5) * _whiteScale;
-            b = b <= .5 ? b - bShift : b + bShift;
-
-            c = fixed4(r,g,b,
-                        1);
-
-            o.Albedo = c.rgb;
-            
-        }
+                return color;
+            }
         ENDCG
+        }
     }
-    FallBack "Diffuse"
 }

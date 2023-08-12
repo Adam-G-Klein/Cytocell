@@ -33,12 +33,15 @@ public class ButtonGroupAlphaControls : MonoBehaviour
 
         foreach (GameObject obj in buttons)
         {
-            Material btnMat = obj.GetComponent<Image>().materialForRendering;
-            buttonMats.Add(btnMat);
+            Image btnMat = obj.GetComponent<Image>();
+            if(btnMat) buttonMats.Add(btnMat.materialForRendering);
             Clickable clickable = obj.GetComponent<Clickable>();
             clickables.Add(clickable);
             obj.SetActive(initActive);
             if(clickable) clickable.clickable = initActive;
+            SpriteRenderer renderer = obj.GetComponentInChildren<SpriteRenderer>();
+            if (renderer) sprites.Add(renderer);
+            
         }
 
         foreach (GameObject obj in images)

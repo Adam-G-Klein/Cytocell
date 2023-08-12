@@ -68,10 +68,8 @@
             fixed4 frag(v2f IN) : SV_Target
             {
 
-                fixed4 c = tex2D(_MainTex, IN.texcoord);
+                fixed4 c = fixed4(0,0,0,0.5);
 
-                _epicenterDist = distance(IN.texcoord, _centerLoc.xy);
-                c.a = IN.texcoord.x > IN.texcoord.y && _epicenterDist < _radius ? 1 : 0;
                 return c;
             }
         ENDCG
