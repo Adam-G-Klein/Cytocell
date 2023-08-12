@@ -77,7 +77,7 @@ Material:
     - _Size: 15.6
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 4
+    - _Speed: -4
     - _SrcBlend: 1
     - _Tess: 4
     - _UVSec: 0

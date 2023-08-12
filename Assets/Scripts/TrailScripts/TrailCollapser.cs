@@ -20,6 +20,7 @@ public class TrailCollapser : MonoBehaviour {
     private int maxTrails;
     private PlayerSwiper swiper;
     private XPManager xpManager;
+    private KillzoneAnimation killAnim;
     // Use this for initialization
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -27,6 +28,7 @@ public class TrailCollapser : MonoBehaviour {
         killZone = GameObject.FindGameObjectWithTag("KillZone");
         swiper = player.GetComponent<PlayerSwiper>();
         xpManager = player.GetComponent<XPManager>();
+        killAnim = GetComponent<KillzoneAnimation>();
         
 	}
 	
@@ -44,11 +46,13 @@ public class TrailCollapser : MonoBehaviour {
             else
                 edgeTrails.Add(trail.GetComponent<TrailController>());
         }
+        if(killAnim) killAnim.animate(collapsingTrails);
         activeTrails.Clear();
         collapseTrails(collapsingTrails);
         disableTrails(edgeTrails);
         gameManager.nextTrailId = 0;
         xpManager.trailCollapsed();
+
 
     }
 

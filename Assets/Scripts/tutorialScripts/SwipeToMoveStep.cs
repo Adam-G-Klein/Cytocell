@@ -7,11 +7,13 @@ public class SwipeToMoveStep : MonoBehaviour
     private TextGroupAlphaControls alphaControls;
     private PlayerSwiper swiper;
     private bool hasSwiped = false;
+    private float waitTime = 1f;
     
 
     void Start() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
         swiper = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSwiper>();
+        hasSwiped = false;
     }
 
     void Update(){
@@ -25,6 +27,7 @@ public class SwipeToMoveStep : MonoBehaviour
     private IEnumerator corout(){
         print("calling swipe to move display all");
         alphaControls.displayAll();
+        yield return new WaitForSeconds(waitTime);
         yield return new WaitUntil(() => swiper.plSwiped);
         yield return new WaitForSeconds(1f);
         alphaControls.hideAll();

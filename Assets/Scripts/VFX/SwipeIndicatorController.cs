@@ -20,10 +20,6 @@ public class SwipeIndicatorController : MonoBehaviour
     private Transform playerTrans;
     [SerializeField]
     private float maxMagnitude;
-    [SerializeField]
-    private float minAnimationSpeed;
-    [SerializeField]
-    private float maxAnimationSpeed;
 
     // Start is called before the first frame update
     void Start()
