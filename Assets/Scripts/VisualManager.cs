@@ -36,6 +36,7 @@ public class VisualManager : MonoBehaviour
     }
 
     public void displayDeathMessage(){
+        Camera.main.GetComponent<DamageCameraEffect>().clearEffect = true;
         deathGroup.displayAll();
         if(!hscoreSet)
             hscoreText.SetText("Record: " + PlayerPrefs.GetInt("Highscore"+constants.SceneName));
@@ -43,6 +44,7 @@ public class VisualManager : MonoBehaviour
     public void restartGame()
     {
         deathGroup.hideAll();
+        Camera.main.GetComponent<DamageCameraEffect>().clearEffect = false;
 
     }
     public void updateScore(int newScore)

@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 506347473}
   - component: {fileID: 506347475}
   - component: {fileID: 506347474}
-  m_Layer: 5
+  m_Layer: 23
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Persist
+  m_text: Go Again
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 310b890aa31d16d46a9b7ca697fabe85, type: 2}
   m_sharedMaterial: {fileID: 21734820958663162, guid: 310b890aa31d16d46a9b7ca697fabe85,
@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1435468005}
   - component: {fileID: 1435468006}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: PauseTint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 1778142581}
   - component: {fileID: 1959816719370890983}
   - component: {fileID: 1466926084}
-  m_Layer: 5
+  m_Layer: 23
   m_Name: RetryButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 1978856364}
   - component: {fileID: 1978856366}
   - component: {fileID: 1978856365}
-  m_Layer: 5
+  m_Layer: 23
   m_Name: Highscore Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -922,7 +922,7 @@ GameObject:
   - component: {fileID: 1033619699594646412}
   - component: {fileID: 6683981770884498739}
   - component: {fileID: 1948326406}
-  m_Layer: 5
+  m_Layer: 23
   m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1083,7 +1083,7 @@ GameObject:
   - component: {fileID: 1286973311506998956}
   - component: {fileID: 4669101379477702980}
   - component: {fileID: 7948165824947979693}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: SoundToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 5876977935021465367}
   - component: {fileID: 5868741412398898478}
   - component: {fileID: 6110328682540493305}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1378,7 +1378,7 @@ GameObject:
   - component: {fileID: 3428428061115567817}
   - component: {fileID: 6629247153652120248}
   - component: {fileID: 964272869}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: ExitToMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1536,7 +1536,7 @@ GameObject:
   - component: {fileID: 2179325220834892919}
   - component: {fileID: 915032791266104169}
   - component: {fileID: 3148434574574360565}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1671,7 +1671,7 @@ GameObject:
   - component: {fileID: 1154699374249367988}
   - component: {fileID: 529472663863378907}
   - component: {fileID: 4465355549759569220}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1808,7 +1808,7 @@ GameObject:
   - component: {fileID: 69484365085252974}
   - component: {fileID: 5151105038510610971}
   - component: {fileID: 1422001161371102065}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: Pause Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1945,7 +1945,7 @@ GameObject:
   - component: {fileID: 5100494461650058140}
   - component: {fileID: 714356707932888774}
   - component: {fileID: 6656748888726890530}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: PauseMenu
   m_TagString: PauseGroup
   m_Icon: {fileID: 0}
@@ -2027,7 +2027,7 @@ GameObject:
   - component: {fileID: 6162645636767198932}
   - component: {fileID: 6162645636767198934}
   - component: {fileID: 6162645636767198933}
-  m_Layer: 5
+  m_Layer: 23
   m_Name: Death Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2391,7 +2391,7 @@ GameObject:
   - component: {fileID: 5958257373941344804}
   - component: {fileID: 5723509351204536916}
   - component: {fileID: 2230078213918080161}
-  m_Layer: 5
+  m_Layer: 23
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2528,7 +2528,7 @@ GameObject:
   - component: {fileID: 8265413165789046928}
   - component: {fileID: 188480436770748841}
   - component: {fileID: 3052913622209689036}
-  m_Layer: 5
+  m_Layer: 23
   m_Name: DeathScreen
   m_TagString: DeathGroup
   m_Icon: {fileID: 0}
@@ -2608,7 +2608,7 @@ GameObject:
   - component: {fileID: 2733627101737185768}
   - component: {fileID: 177154512038295165}
   - component: {fileID: 1869467128}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: ResumeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2770,7 +2770,7 @@ GameObject:
   - component: {fileID: 906454591897836322}
   - component: {fileID: 2542506397764491683}
   - component: {fileID: 4264378706762354459}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2910,7 +2910,7 @@ GameObject:
   - component: {fileID: 165310770353017549}
   - component: {fileID: 5820919884105099130}
   - component: {fileID: 1521602894}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}

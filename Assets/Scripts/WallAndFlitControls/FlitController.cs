@@ -89,6 +89,7 @@ public class FlitController : MonoBehaviour
         deathDelegate = deathCallback;
         startHasRun = true;
         noScoreOrXPonDeath = false;
+        toBePurged = false;
     }
 
     // Update is called once per frame
@@ -99,6 +100,7 @@ public class FlitController : MonoBehaviour
 
     }
     public void respawnReset(){
+        toBePurged = false;
         state = FlitState.idle;
         // TODO: incorporate to XPManager call, have flits call XP directly
         noScoreOrXPonDeath = false;
@@ -364,6 +366,7 @@ public class FlitController : MonoBehaviour
     }
     public void purge()
     {
+        toBePurged = true;
         state = FlitState.dying;
         StopAllCoroutines();
         Debug.Log("Just called playDeathAnimation");
@@ -372,6 +375,7 @@ public class FlitController : MonoBehaviour
     }
     public void purgeNoScoreOrXP()
     {
+        toBePurged = true;
         state = FlitState.dying;
         StopAllCoroutines();
         Debug.Log("Just called playDeathAnimation");

@@ -66,7 +66,6 @@ public class TrailLeaver : MonoBehaviour {
             collapser.trailCreated(newTrail.gameObject);
             corout = TrailPlacer(newTrail);
             StartCoroutine(corout);
-            
 
         }
 
@@ -78,9 +77,12 @@ public class TrailLeaver : MonoBehaviour {
     public void currentTrailPlaced(){
         if(newTrail != null)
             newTrail.GetComponent<TrailController>().trailPlaced = true;
+        if(trailPlacing)
+            StopCoroutine(corout);
     }
     IEnumerator TrailPlacer(Transform trail)
     {
+        trailPlacing = true;
         TrailController trailCont = trail.GetComponent<TrailController>();
         Vector2 startPos = player.position;
         Vector3 newAngs, newScale;

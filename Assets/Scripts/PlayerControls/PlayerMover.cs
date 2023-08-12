@@ -56,6 +56,12 @@ public class PlayerMover : MonoBehaviour
                     .setEaseInQuad().setEaseOutSine().id;
         return new int[] {ltidMov,ltidRot,ltidCam};
     }
+
+    public void stopPlayer() {
+        LeanTween.cancel(ltidMov);
+        LeanTween.cancel(ltidRot);
+        LeanTween.cancel(ltidCam);
+    }
     //takes explicit angle, used for movement after collisions
     public int[] movePlayer(Vector2 movDir, float movDist, 
       float movTime, float rotTime, float targAngle){

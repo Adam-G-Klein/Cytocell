@@ -11,6 +11,7 @@ public class DamageCameraEffect : MonoBehaviour
     private float maxHealth;
 
     public float effectVal;
+    public bool clearEffect = false;
 
     private PlayerManager pManage;
     // Start is called before the first frame update
@@ -23,7 +24,7 @@ public class DamageCameraEffect : MonoBehaviour
     }
     void Update()
     {
-        effectVal = (-maxEffect / maxHealth)*pManage.health + maxEffect;
+        effectVal = clearEffect ? 0 : (-maxEffect / maxHealth)*pManage.health + maxEffect;
         //print(string.Format("maxH: {0} maxEff: {1} effectVal: {2}", maxHealth, maxEffect, effectVal));
         _bloodLossMat.SetFloat("_LossAmnt", effectVal);
 

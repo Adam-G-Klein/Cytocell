@@ -67,11 +67,11 @@ public class PlayerManager : MonoBehaviour
     private void collision(Collider2D other){
         bool dead = false;
         if(other.gameObject.layer == LayerMask.NameToLayer("3nemies")){
-            print(string.Format("health before: {0} invuln? {1}", health, invulnerable));
-            if(!invulnerable){
+            FlitController flitController = other.gameObject.GetComponent<FlitController>();
+            bool otherDead = flitController && !flitController.toBePurged;
+            if(!invulnerable && !otherDead){
                 dead = takeDamage(1);
             }
-            print(string.Format("health after: {0} invuln? {1}", health, invulnerable));
             if(!dead)
                 enemyCollision(dead, other.gameObject);
 
@@ -89,11 +89,13 @@ public class PlayerManager : MonoBehaviour
         }
         health -= amnt;
         if(health <= 0){
+            mover.stopPlayer();
+            collapser.killAllTrails();
             gameManager.playerKilled();
             rend.enabled = false;
             deathPs.transform.parent = null;
             deathPs.Play();
-            idlePs.gameObject.SetActive(false);
+            if(idlePs) idlePs.gameObject.SetActive(false);
             return true;
         }
         return false;
@@ -125,8 +127,8 @@ public class PlayerManager : MonoBehaviour
             wallCont.knockMovTime, wallCont.knockRotTime,rot);
         if(disableSwipesOnKnock){
             swiper.swipeEnabled = false;
-            StopCoroutine("swipeDisableCorout");
-            StartCoroutine("swipeDisableCorout",Mathf.Max(wallCont.knockMovTime, wallCont.knockRotTime) * disableSwipeTimeRatio);
+            StopCoroutine("swipeReenableCorout");
+            StartCoroutine("swipeReenableCorout",Mathf.Max(wallCont.knockMovTime, wallCont.knockRotTime) * disableSwipeTimeRatio);
         }
 
     }
@@ -164,8 +166,8 @@ public class PlayerManager : MonoBehaviour
         
         if(disableSwipesOnKnock){
             swiper.swipeEnabled = false;
-            StopCoroutine("swipeDisableCorout");
-            StartCoroutine("swipeDisableCorout",Mathf.Max(knockInfo[1], knockInfo[2]) * disableSwipeTimeRatio);
+            StopCoroutine("swipeReenableCorout");
+            StartCoroutine("swipeReenableCorout",Mathf.Max(knockInfo[1], knockInfo[2]) * disableSwipeTimeRatio);
         }
 
         invulnerable = true;
@@ -190,7 +192,7 @@ public class PlayerManager : MonoBehaviour
         print("invulnerability stopped");
         yield return null;
     }
-    private IEnumerator swipeDisableCorout(float disableTime){
+    private IEnumerator swipeReenableCorout(float disableTime){
         yield return new WaitForSeconds(disableTime);
         swiper.swipeEnabled = true;
         yield return null;
