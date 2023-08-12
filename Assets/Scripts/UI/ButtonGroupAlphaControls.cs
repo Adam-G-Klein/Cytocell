@@ -19,6 +19,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     [SerializeField]
     private float buttonToTextAlphaRatio2 = 1 / 28;
     private float buttonToImageAlphaRatio = 1 / 60;
+    [SerializeField]
     private float maxButtonMatAlpha = 28;
     public float displayTime = 0.7f;
     public float initAlpha = 0;
@@ -55,7 +56,6 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         foreach (Material mat in buttonMats)
         {
             mat.SetFloat("_publicAlpha", initAlpha);
-            print("Set button to: " + initAlpha + " Shader val is: " + mat.GetFloat("_publicAlpha"));
         }
         SendMessageUpwards("initDone", null, SendMessageOptions.DontRequireReceiver);
     }
@@ -93,6 +93,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             img.SetActive(true);
         }
         if(textGroup) textGroup.displayAll();
+        print("calling tweenButtonsAlphaTo with " + maxButtonMatAlpha + " and " + displayTime + " seconds");
         tweenButtonsAlphaTo(maxButtonMatAlpha, displayTime);
         tweenImageAlphaTo(imageEndAlpha, displayTime);
         Invoke("setAllClickable", displayTime);
@@ -128,6 +129,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     {
         foreach (Material mat in buttonMats)
         {
+            print(gameObject.name + ": Tweening button _publicAlpha from: " + mat.GetFloat("_publicAlpha") + " to: " + to + " in " + time + " seconds");
             LeanTween.value(
             gameObject, mat.GetFloat("_publicAlpha"), to, time)
             .setOnUpdate((float val) =>

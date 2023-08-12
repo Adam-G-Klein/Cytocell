@@ -54,13 +54,16 @@ public class TextGroupAlphaControls : MonoBehaviour
 
     public void tweenAlphaTo(float to, float time)
     {
+        print("gameobject: " + gameObject.name + " tweening alpha to " + to + " over " + time + " seconds");
         foreach (TextMeshProUGUI tm in textComps)
         {
             LeanTween.value(
                 gameObject, tm.alpha, to, time)
                 .setOnUpdate((float val) =>
                 {
+                    print("set text alpha to " + val);
                     tm.alpha = val;
+                    print("tm.alpha is now " + tm.alpha);
                 });
         }
 
