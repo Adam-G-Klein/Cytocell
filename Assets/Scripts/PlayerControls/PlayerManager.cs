@@ -92,6 +92,7 @@ public class PlayerManager : MonoBehaviour
         health -= amnt;
         if(health <= 0){
             mover.stopPlayer();
+            swiper.swipeEnabled = false;
             collapser.killAllTrails();
             gameManager.playerKilled();
             rend.enabled = false;

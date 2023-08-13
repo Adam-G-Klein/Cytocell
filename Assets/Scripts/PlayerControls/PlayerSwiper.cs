@@ -63,7 +63,7 @@ public class PlayerSwiper : MonoBehaviour {
             plSwiped = false;
         if(swipeCont.swiped && !swipeEnabled)
             print("swipe rejected");
-        else if (swipeCont.swiped && swipeEnabled)
+        else if (swipeCont.swiped)
         {
             //these lines used to be under this conditional because we didn't know if we wanted swipe
             //to be interruptable. If want uniterruptable swipes, restore this line

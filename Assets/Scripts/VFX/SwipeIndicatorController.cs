@@ -16,6 +16,7 @@ public class SwipeIndicatorController : MonoBehaviour
     float maxSideCircleRadius = 1.65f;
     public Vector2 currPointDir;
     private SwipeController swipeController;
+    private PlayerSwiper playerSwiper;
     private float currMagnitude;
     private Transform playerTrans;
     [SerializeField]
@@ -25,16 +26,18 @@ public class SwipeIndicatorController : MonoBehaviour
     void Start()
     {
         GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+        playerSwiper = playerGO.GetComponent<PlayerSwiper>();
         playerTrans = playerGO.transform;
         swipeController = playerGO.GetComponent<SwipeController>();
         arrowMat = GetComponent<SpriteRenderer>().material;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         currMagnitude = swipeController.getDir().magnitude;
-        if(currMagnitude > 0) {
+        if(currMagnitude > 0 && playerSwiper.swipeEnabled) {
             arrowMat.SetInt("_visible", 1);
             rotationCenter = (Vector2)playerTrans.position + rotationCenterOffset;
             currPointDir = swipeController.getDir().normalized;
