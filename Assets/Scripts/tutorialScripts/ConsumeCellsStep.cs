@@ -26,6 +26,7 @@ public class ConsumeCellsStep : MonoBehaviour
 
     private IEnumerator corout(){
         yield return new WaitForSeconds(waitTime);
+        hasConsumed = manager.currentPurgeKillCount > 0;
         if(!hasConsumed) {
             alphaControls.displayAll();
         } else {
