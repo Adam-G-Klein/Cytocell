@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+If player has not swiped, and the playerPref isn't set, display text.
+
+*/
 public class SwipeToMoveStep : MonoBehaviour
 {
     private TextGroupAlphaControls alphaControls;
     private PlayerSwiper swiper;
     private bool hasSwiped = false;
+    [SerializeField]
     private float waitTime = 1f;
     
 
-    void Start() {
+    void Awake() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
         swiper = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSwiper>();
         hasSwiped = false;
@@ -21,14 +26,25 @@ public class SwipeToMoveStep : MonoBehaviour
     }
 
     public void SwipeToMove(){
+        if(PlayerPrefs.GetInt("hasSwiped") == 1) {
+            SendMessageUpwards("StepDone");
+            return;
+        } 
         StartCoroutine("corout");
     }
 
     private IEnumerator corout(){
-        print("calling swipe to move display all");
-        alphaControls.displayAll();
         yield return new WaitForSeconds(waitTime);
+        if(!hasSwiped) {
+            alphaControls.displayAll();
+        } else {
+            PlayerPrefs.SetInt("hasSwiped", 1);
+            SendMessageUpwards("StepDone");
+            yield break;
+        }
         yield return new WaitUntil(() => swiper.plSwiped);
+        PlayerPrefs.SetInt("hasSwiped", 1);
+        hasSwiped = true;
         yield return new WaitForSeconds(1f);
         alphaControls.hideAll();
         SendMessageUpwards("StepDone");

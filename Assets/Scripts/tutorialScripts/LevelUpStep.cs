@@ -8,7 +8,7 @@ public class LevelUpStep : MonoBehaviour
     private XPManager xPManager;
     private DifficultyConstants constants;
 
-    void Start() {
+    void Awake() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
         xPManager = GameObject.FindGameObjectWithTag("Player").GetComponent<XPManager>();
     }

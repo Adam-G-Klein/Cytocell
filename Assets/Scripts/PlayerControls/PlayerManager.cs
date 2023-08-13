@@ -68,11 +68,13 @@ public class PlayerManager : MonoBehaviour
         bool dead = false;
         if(other.gameObject.layer == LayerMask.NameToLayer("3nemies")){
             FlitController flitController = other.gameObject.GetComponent<FlitController>();
-            bool otherDead = flitController && !flitController.toBePurged;
+            bool otherDead = flitController && flitController.toBePurged;
+            print("otherDead: " + otherDead + " flitController: " + flitController + " toBePurged: " + flitController.toBePurged + " hp before: " + health);
             if(!invulnerable && !otherDead){
                 dead = takeDamage(1);
             }
-            if(!dead)
+            print("hp after: " + health);
+            if(!dead && !otherDead)
                 enemyCollision(dead, other.gameObject);
 
         } 

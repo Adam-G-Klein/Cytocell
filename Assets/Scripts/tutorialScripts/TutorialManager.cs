@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Text;
@@ -60,6 +60,7 @@ public class TutorialManager : MonoBehaviour
     private void processStep(string step)
     {
         string[] stepSplit = step.Split();
+        print("step: " + step);
         if (step.Split()[0] == "~")
         {
             TextCommand cmd = parseTextCommand(step);

@@ -7,23 +7,38 @@ public class MoveAcrossTrailStep : MonoBehaviour
     private TextGroupAlphaControls alphaControls;
     private TrailCollapser collapser;
     private bool hasCollapsed = false;
+    [SerializeField]
+    private float waitTime = 1f;
 
-    void Start() {
+    void Awake() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
         collapser = GameObject.FindGameObjectWithTag("Player").GetComponent<TrailCollapser>();
     }
 
     void Update() {
-        //if(collapser.collapseTriggered && !hasCollapsed) hasCollapsed = true;
+        if(collapser.collapseTriggered && !hasCollapsed) hasCollapsed = true;
     }
 
     public void MoveAcrossTrail(){
+        if(PlayerPrefs.GetInt("hasCollapsed") == 1) {
+            SendMessageUpwards("StepDone");
+            return;
+        } 
         StartCoroutine("corout");
     }
 
     private IEnumerator corout(){
-        alphaControls.displayAll();
+        yield return new WaitForSeconds(waitTime);
+        if(!hasCollapsed) {
+            alphaControls.displayAll();
+        } else {
+            PlayerPrefs.SetInt("hasCollapsed", 1);
+            SendMessageUpwards("StepDone");
+            yield break;
+        }
         yield return new WaitUntil(() => collapser.collapseTriggered);
+        PlayerPrefs.SetInt("hasCollapsed", 1);
+        hasCollapsed = true;
         yield return new WaitForSeconds(1f);
         alphaControls.hideAll();
         SendMessageUpwards("StepDone");
