@@ -56,19 +56,12 @@ public class ObjectRecycler : MonoBehaviour {
     }
     public GameObject RecycleTrail(Vector3 position, Quaternion rotation)
     {
-        /**/
-        if (trails.Count < 1)
-        {
-            GameObject newTrail = Instantiate(trail, position, rotation);
-            //print("returned a new trail");
-            return newTrail;
-        }
-        //print("len of trails: " + trails.Count);
-        Transform tran = trails.Dequeue().transform;
-        tran.position = position;
-        tran.rotation = rotation;
-        tran.gameObject.SetActive(true);
-        return tran.gameObject;
+        //TODO recycle trails
+        GameObject newTrail = Instantiate(trail, position, rotation);
+        newTrail.transform.position = position;
+        newTrail.transform.rotation = rotation;
+        newTrail.transform.gameObject.SetActive(true);
+        return newTrail;
 
     }
 

@@ -67,7 +67,7 @@ public class TrailCollapser : MonoBehaviour {
 
 
         if(!swiper.swipeEnabled){
-            trail.SetActive(false);
+            trail.die();
             return;
         }
 
@@ -170,7 +170,7 @@ public class TrailCollapser : MonoBehaviour {
             
             GameObject obj = trail.gameObject;
             //recylcer.trails.Enqueue(obj);
-            obj.SetActive(false);
+            trail.die();
 
         }
 

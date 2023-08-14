@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Debug.Log("GameManager Start");
         LeanTween.init(1600);
         score = 0;
         constants = GetComponent<DifficultyConstants>();
@@ -164,14 +165,6 @@ public class GameManager : MonoBehaviour
         ui.displayDeathMessage();
     }
 
-    public bool soundEnabled()
-    {
-        return PlayerPrefs.GetInt("SoundEnabled", 1) == 1;
-    }
-
-    public void setSoundEnabled(bool enabled)
-    {
-        PlayerPrefs.SetInt("SoundEnabled", enabled ? 1 : 0);
-    }
+    
 
 }

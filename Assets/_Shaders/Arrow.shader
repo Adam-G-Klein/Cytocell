@@ -13,6 +13,8 @@
         _pulseSpeed("Pulse Speed", Float) = 1
         _bandWidth("Band Width", Float) = 0.1
         _visible("Visible", Int) = 1
+        _pulseVertical("Pulse Vertical", Int) = 1
+        [PerRendererData] _publicAlpha("Public Alpha", Float) = 1
         //Good values:
         //circle1: (-1,1,1.5,0)
         //circle2: (2,1,1.5,0)
@@ -80,6 +82,8 @@
             fixed4 _mainColor;
             int _visible;
             float _sideCirclesRadius;
+            int _pulseVertical;
+            float _publicAlpha;
 
 
             float distFromCircle(float2 pos, float4 circle)
@@ -113,8 +117,14 @@
                     c.a = 0;
                 }
                 // pulse the arrow with the gradient waves
-                c.a *= sin((IN.texcoord.y + (frac(_Time) * _pulseSpeed)) / (_bandWidth * 3.14159)) + 1;
+                if (_pulseVertical == 1)
+                {
+                    c.a *= sin((IN.texcoord.y + (frac(_Time) * _pulseSpeed)) / (_bandWidth * 3.14159)) + 1;
+                } else {
+                    c.a *= sin((IN.texcoord.x + (frac(_Time) * _pulseSpeed)) / (_bandWidth * 3.14159)) + 1;
+                }
                 c *= _mainColor;
+                c.a *= _publicAlpha;
                 c.a = _visible == 1 ? c.a : 0;
                 return c;
             }

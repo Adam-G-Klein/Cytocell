@@ -10,6 +10,7 @@ public class TrailCollapser : MonoBehaviour {
     public List<GameObject> activeTrails = new List<GameObject>();
     public List<TrailController> collapsingTrails = new List<TrailController>();
     public List<TrailController> edgeTrails = new List<TrailController>();
+    private List<Vector2> lastKillzonePoints = new List<Vector2>();
 
 
     private GameManager gameManager;
@@ -34,24 +35,27 @@ public class TrailCollapser : MonoBehaviour {
 	
     public void triggerCollapse(){
         collapseTriggered = true; //only for the tutorial at this point, don't need to reset
-        bool firstTrailFound = false;
-        foreach(GameObject trail in activeTrails)
-        {
-            if (trail.GetComponent<TrailController>().trailCrossed){
-                firstTrailFound = true;
+        TrailController firstTrail = null;
+        for(int i = activeTrails.Count - 1; i >= 0; i--){
+            TrailController trailController = activeTrails[i].GetComponent<TrailController>();
+            if (trailController.trailCrossed){
+                firstTrail = trailController;
             }
-            if (firstTrailFound){
-                collapsingTrails.Add(trail.GetComponent<TrailController>());
+            if (firstTrail != null){
+                collapsingTrails.Add(trailController);
             }
             else
-                edgeTrails.Add(trail.GetComponent<TrailController>());
+                edgeTrails.Add(trailController);
         }
+        
         if(killAnim) killAnim.animate(collapsingTrails);
         activeTrails.Clear();
-        collapseTrails(collapsingTrails);
+        print("collapsing trails: " + collapsingTrails.Count);
+        collapseTrails(collapsingTrails, firstTrail);
         disableTrails(edgeTrails);
         gameManager.nextTrailId = 0;
         xpManager.trailCollapsed();
+        edgeTrails.Clear();
 
 
     }
@@ -67,9 +71,10 @@ public class TrailCollapser : MonoBehaviour {
     }
     public void trailCreated(GameObject trail){
         
+        TrailController trailController = trail.GetComponent<TrailController>();
         if(!swiper.swipeEnabled){
             // handle edge case where trails are disabled mid-swipe
-            trail.SetActive(false);
+            trailController.die();
             return;
         }
 
@@ -110,32 +115,53 @@ public class TrailCollapser : MonoBehaviour {
 
 
 
-    private void collapseTrails(List<TrailController> collTrails)
+    private void collapseTrails(List<TrailController> collTrails, TrailController firstTrail)
     {
-        Vector2[] killZonePoints = getKillZonePoints(collTrails);
-        disableTrails(collTrails);
+        Vector2[] killZonePoints = getKillZonePoints(collTrails, firstTrail);
+        foreach(TrailController trail in collTrails)
+        {
+            trail.collapse();
+        }
         gameManager.purgeKillZone(killZonePoints);
         collapsingTrails.Clear();
 
     }
 
-    private Vector2[] getKillZonePoints(List<TrailController> trails)
+    void OnDrawGizmos()
     {
-        List<Vector2> killZonePoints = new List<Vector2>();
-        killZonePoints.Add(trails[0].endpoints[1]);//add the second point of the first trail
-        
-        foreach (TrailController trail in trails.GetRange(1,trails.Count-1))
+        if (lastKillzonePoints.Count > 0)
         {
-            
+            Gizmos.color = Color.red;
+            for(int i = 0; i < lastKillzonePoints.Count; i++)
+            {
+                Gizmos.DrawLine(lastKillzonePoints[i], lastKillzonePoints[(i + 1) % lastKillzonePoints.Count]);
+            }
+        }
+    }
+    
+    private Vector2[] getKillZonePoints(List<TrailController> trails, TrailController firstTrail)
+    {
+        print("getKillZonePoints called with trails: " + trails.Count);
+        lastKillzonePoints.Clear();
+        List<Vector2> killZonePoints = new List<Vector2>();
+        
+        foreach (TrailController trail in trails)
+        {
             //end points are stored in a 2 item array
             foreach (Vector2 endpoint in trail.endpoints)
             {
+
                 killZonePoints.Add(endpoint);
                 //print(string.Format("added kill point {0}", endpoint));
             }
 
         }
-        killZonePoints.Add(killZonePoints[0]); //add the first point back
+        /*
+        TrailController lastTrail = trails[trails.Count - 1];
+        killZonePoints.Add(lastTrail.endpoints[0]); 
+        killZonePoints.Add(firstTrail.endpoints[1]); //add the first point back
+        */
+        lastKillzonePoints = killZonePoints;
 
         return killZonePoints.ToArray();
     }
@@ -158,10 +184,8 @@ public class TrailCollapser : MonoBehaviour {
         {
             enqCount += 1;
             
-            GameObject obj = trail.gameObject;
             //recylcer.trails.Enqueue(obj);
-            obj.SetActive(false);
-
+            trail.die();
         }
 
         //print("enq count" + enqCount);

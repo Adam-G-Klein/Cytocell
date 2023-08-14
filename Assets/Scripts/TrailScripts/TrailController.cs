@@ -12,8 +12,16 @@ public class TrailController : MonoBehaviour
     public int trailNum;
     public bool trailCrossed;
     public ObjectRecycler recycler;
-
+    public float trailCollapseAnimTime = 0.5f;
+    public float trailFadeLevel = 0.2f;
+    private Material mat;
+    int ltidAlpha = -1;
+    [SerializeField]
+    private float yScale;
+    [SerializeField]
+    private float zScale;
     public bool debugPrint = false;
+    private GameManager gm;
     public Vector2[] endpoints
     {
         get {
@@ -70,7 +78,8 @@ public class TrailController : MonoBehaviour
     void Start()
     {
         coll = GetComponent<Collider2D>();
-        
+        mat = GetComponent<SpriteRenderer>().material;
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -105,14 +114,17 @@ public class TrailController : MonoBehaviour
         {
             TrailController otherCont = other.GetComponent<TrailController>();
             //don't want to collapse if neighboring or other one is fading
-            if (this.trailNum < otherCont.trailNum
-                && Mathf.Abs(otherCont.trailNum - trailNum) != 1
+            print("trails collided. this trailNum: " + trailNum + " other trailNum: " + otherCont.trailNum + " other dead: " + otherCont.dead + " this dead: " + this.dead + " nextTrailId: " + gm.nextTrailId);
+            if (
+                Mathf.Abs(otherCont.trailNum - trailNum) != 1
                 && !otherCont.dead
-                && !this.dead)
+                && !this.dead
+                && this.trailNum == gm.nextTrailId - 1)
             {
-                trailCrossed = true;
                 //stop this from being called twice
+                otherCont.trailCrossed = true;
                 otherCont.dead = true;   
+                print(gameObject.name + " collided with " + other.gameObject.name);
                 collapser.triggerCollapse();
 
             }
@@ -132,6 +144,8 @@ public class TrailController : MonoBehaviour
         dead = false;
         trailPlaced = false;
         trailCrossed = false;
+        if(ltidAlpha != -1)
+            LeanTween.cancel(ltidAlpha);
 
         StopCoroutine("fade");
         StopCoroutine("deathFade");
@@ -139,42 +153,70 @@ public class TrailController : MonoBehaviour
         Color tempColor = image.color;
         tempColor.a = 1f;
         image.color = tempColor;
-}
+        transform.localScale = new Vector3(transform.localScale.x, yScale, zScale);
+    }
+
     private void OnDisable()
     {
         dead = true;
-        recycler.trails.Enqueue(gameObject);
         trailCrossed = false;
         trailNum = -1;
         trailPlaced = false;
-    }
-    public void nextToDie(){
+        if(ltidAlpha != -1)
+            LeanTween.cancel(ltidAlpha);
 
-        StartCoroutine("fade",0.2);
+        //mat.SetFloat("_publicAlpha", 1f);
     }
+
+    /*
+    private IEnumerator recycleTrail(){
+        yield return new WaitUntil(() => !LeanTween.isTweening(gameObject));
+        recycler.trails.Enqueue(gameObject);
+    }
+    */
+
+    public void nextToDie(){
+        StartCoroutine("fade", trailFadeLevel);
+    }
+
 
     public void die(){
         //used for trails outside maxTrails
         //slowly die and then disable
         //right now will just fade and then disable
         dead = true;
+        trailPlaced = true;
         StartCoroutine("deathFade");
-        
+    }
+
+    public void collapse(){
+        trailPlaced = true;
+        StartCoroutine("collapseCorout");
+    }
+
+    IEnumerator collapseCorout(){
+        yield return new WaitForSeconds(trailCollapseAnimTime);
+        Destroy(gameObject);
     }
 
     IEnumerator deathFade(){
         LeanTween.alpha(gameObject,0,
             GetComponent<SpriteRenderer>().color.a);
         yield return new WaitForSeconds(1);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     IEnumerator fade(float final){
+        // for using a real shader, TODO
+        /*  LeanTween.value(gameObject, mat.GetFloat("_publicAlpha"),final,trailFadeTime)
+            .setOnUpdate((float val)=>{
+                print(gameObject.name + " alpha set to " + val);
+                mat.SetFloat("_publicAlpha", val);
+            });*/
         LeanTween.alpha(gameObject,final,
+
             GetComponent<SpriteRenderer>().color.a);
         yield return new WaitForSeconds(1);
     }
-
-
 
 }

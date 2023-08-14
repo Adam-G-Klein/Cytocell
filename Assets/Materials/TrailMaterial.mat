@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BloodLoss
-  m_Shader: {fileID: 4800000, guid: 407779afec32d62439a1d7f042129db5, type: 3}
+  m_Name: TrailMaterial
+  m_Shader: {fileID: 4800000, guid: 55eb812e9130cbb40b32fbab64bc16db, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -68,7 +68,6 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LossAmnt: -59997
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -78,10 +77,17 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _maxAlpha: 0.9
+    - _bandWidth: 0.03
+    - _publicAlpha: 1
+    - _pulseSpeed: -5
+    - _pulseVertical: 0
+    - _sideCirclesRadius: 0
+    - _visible: 1
     m_Colors:
-    - _AspectRatio: {r: 640, g: 480, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LossColor: {r: 0.4666667, g: 0.13725491, b: 0.11764707, a: 1}
+    - _baseCircle: {r: 0, g: 0, b: 0, a: 0}
+    - _circle1: {r: 1, g: 1, b: 0.5, a: 0}
+    - _circle2: {r: 1, g: 1, b: 0.5, a: 0}
+    - _mainColor: {r: 0.6862745, g: 0.98039216, b: 1, a: 1}
   m_BuildTextureStacks: []
