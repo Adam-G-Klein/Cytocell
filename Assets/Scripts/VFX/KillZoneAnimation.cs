@@ -17,19 +17,46 @@ public class KillzoneAnimation : MonoBehaviour
     private Color lineStartColor = new Color(0, 0, 0, 1);
     [SerializeField]
     private Color lineEndColor = new Color(0, 0, 0, 0);
+    [SerializeField]
+    private GameObject animatedTrailPrefab;
+    [SerializeField]
+    private float trailCollapseAnimTime = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
+        /*
         for(int i = 0; i < numLines; i++){
             GameObject line = Instantiate(linePrefab, transform);
             lines.Add(line.GetComponent<LineRenderer>());
         }
+        */
     }
     
     public void animate(List<TrailController> trails){
+        /* TODO: make this look good. Disabling for now 
         StartCoroutine(animateLines(trails));
+        */
+        Vector2 midpoint = trailMidpoint(trails);
+
+        foreach(TrailController trail in trails){
+            AnimationTrailController animTrail = Instantiate(animatedTrailPrefab, trail.transform.position, trail.transform.rotation).GetComponent<AnimationTrailController>();
+            animTrail.transform.localScale = trail.transform.localScale;
+            LeanTween.value(animTrail.gameObject, animTrail.transform.localScale.x, 0, trailCollapseAnimTime).setOnUpdate((float val) => {
+                animTrail.transform.localScale = new Vector3(val, animTrail.transform.localScale.y, animTrail.transform.localScale.z);
+            }).setEaseInOutSine();
+            LeanTween.move(animTrail.gameObject, midpoint, trailCollapseAnimTime).setEaseInOutSine();
+            //animTrail.destroyAfterTween();
+        }
     }
 
+    private Vector2 trailMidpoint(List<TrailController> trails){
+        Vector2 midpoint = Vector2.zero;
+        foreach(TrailController trail in trails){
+            midpoint += (Vector2) trail.transform.position;
+        }
+        midpoint /= trails.Count;
+        return midpoint;
+    }
     private void placeLine(LineRenderer line, TrailController trail1, TrailController trail2){
         line.SetPosition(0, trail1.endpoints[Random.Range(0, 2)]);
         line.SetPosition(1, trail2.endpoints[Random.Range(0, 2)]);

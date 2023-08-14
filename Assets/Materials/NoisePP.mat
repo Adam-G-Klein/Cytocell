@@ -32,8 +32,8 @@ Material:
     - _DepthDistance: 0
     - _DepthStart: 0
     - _NoiseFrequency: 1.1
-    - _NoiseScale: 2.68
-    - _NoiseSpeed: 10.3
+    - _NoiseScale: 1.9
+    - _NoiseSpeed: 4
     - _PixelOffset: 0.002
     m_Colors: []
   m_BuildTextureStacks: []
