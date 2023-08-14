@@ -44,13 +44,18 @@ public class SwipeNotes : MonoBehaviour
         
     }
 
-    private void playNoteOfCurrChord(int note)
+    public void resetVol()
+    {
+        vol = initvol;
+        volscale = initvolscale;
+    }
+    public void playNoteOfCurrChord(int note)
     {
         int ind = chords[(currChord * chordlen) + note];
         src.PlayOneShot(
             notes[ind], vol);
-
     }
+
     private void playRandSfx()
     {
         src.PlayOneShot(sfx[Random.Range(0, sfx.Count - 1)], 0.2f);
@@ -65,9 +70,9 @@ public class SwipeNotes : MonoBehaviour
         {
             currChord += 1;
         }
+
         note = 0;
-        vol = initvol;
-        volscale = initvolscale;
+        resetVol();
     }
     public void swipeSound()
     {

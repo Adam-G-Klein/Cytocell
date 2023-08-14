@@ -52,8 +52,6 @@ public class TrailCollapser : MonoBehaviour {
         disableTrails(edgeTrails);
         gameManager.nextTrailId = 0;
         xpManager.trailCollapsed();
-
-
     }
 
     public int getMaxTrails(){
