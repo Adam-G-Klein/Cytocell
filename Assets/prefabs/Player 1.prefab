@@ -214,7 +214,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 5
   regenOnFlitKilled: 0
-  disableSwipesOnKnock: 0
+  disableSwipesOnKnock: 1
   disableSwipeTimeRatio: 0.5
   knockBackRotMaxVal: 900
   knockBackRotMinVal: 420

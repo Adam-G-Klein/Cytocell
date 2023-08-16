@@ -27,6 +27,7 @@ public class SoundToggle : MonoBehaviour
         } else {
             text.text = "Enable Sound";
         }
+        print("Sound enabled: " + soundEnabled() + " text: " + text.text);
     }
 
     public bool soundEnabled()

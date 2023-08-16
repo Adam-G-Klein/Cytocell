@@ -69,7 +69,6 @@ public class PlayerManager : MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("3nemies")){
             FlitController flitController = other.gameObject.GetComponent<FlitController>();
             bool otherDead = flitController && flitController.toBePurged;
-            print("otherDead: " + otherDead + " flitController: " + flitController + " toBePurged: " + flitController.toBePurged + " hp before: " + health);
             if(!invulnerable && !otherDead){
                 dead = takeDamage(1);
             }
@@ -124,7 +123,6 @@ public class PlayerManager : MonoBehaviour
             new Vector2(playerPos.x - wallPos.x, playerPos.y - wallPos.y);
         collapser.killAllTrails();
         leaver.currentTrailPlaced();
-        //stop
         float rot = getKnockBackRot(gameObject.transform.eulerAngles.z);
         mover.movePlayer(wallToPlayerDir, wallCont.knockBack, 
             wallCont.knockMovTime, wallCont.knockRotTime,rot);

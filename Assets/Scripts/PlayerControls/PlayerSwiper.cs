@@ -69,7 +69,6 @@ public class PlayerSwiper : MonoBehaviour {
             //these lines used to be under this conditional because we didn't know if we wanted swipe
             //to be interruptable. If want uniterruptable swipes, restore this line
             //if (!(ltidMov != 0 && LeanTween.isTweening(ltidMov)) || swipeInterruptable)
-            print("accepted swipe, swipeInterruptable: " + swipeInterruptable + " swipeEnabled: " + swipeEnabled);
             float swipeLength = Mathf.Clamp(swipeCont.lastDir.magnitude * swipeMultiplier, 0, maxSwipeLength);
             
             mover.movePlayer(swipeCont.lastDir, swipeLength, swipeTime, rotTime);
