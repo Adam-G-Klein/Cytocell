@@ -18,6 +18,7 @@ public class PauseButton : MonoBehaviour
     private PauseButton pauseButtonScript;
 
     public GameObject pauseMenuContainer;
+    private PlayerSwiper playerSwiper;
 
 
     void Start()
@@ -30,6 +31,7 @@ public class PauseButton : MonoBehaviour
         rend = pauseButton.GetComponent<Image>();
         pauseMenuContainer = GameObject.FindGameObjectWithTag("PauseGroup");
         pauseMenuControls = pauseMenuContainer.GetComponent<ButtonGroupAlphaControls>();
+        playerSwiper = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSwiper>();
 
     }
     public void clicked()
@@ -41,6 +43,7 @@ public class PauseButton : MonoBehaviour
             manager.gamePaused = false;
             pauseMenuContainer.SetActive(false);
             pauseMenuControls.hideAll();
+            playerSwiper.swipeEnabled = true;
         }
         else
         {
@@ -49,6 +52,7 @@ public class PauseButton : MonoBehaviour
             manager.gamePaused = true;
             pauseMenuContainer.SetActive(true);
             pauseMenuControls.displayAll();
+            playerSwiper.swipeEnabled = false;
         }
 
     }

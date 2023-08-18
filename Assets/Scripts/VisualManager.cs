@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 
 public class VisualManager : MonoBehaviour
 {
@@ -21,6 +21,8 @@ public class VisualManager : MonoBehaviour
     private ButtonGroupAlphaControls deathGroup;
     private bool hscoreSet = false;
     private DifficultyConstants constants;
+    // one in pause menu, one on death screen
+    private TotalScoreDisplay[] totalScoreDisplay;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,7 @@ public class VisualManager : MonoBehaviour
         addTrailText = addTrailObj.GetComponent<TextMeshProUGUI>();
         xpBar = GameObject.FindGameObjectWithTag("Canvas").GetComponentInChildren<XPBarController>();
         startAddTrailWorldpos = addTrailObj.transform.position;
+        totalScoreDisplay = GetComponentsInChildren<TotalScoreDisplay>();
         addTrailText.alpha = 0;
     }
 
@@ -49,9 +52,12 @@ public class VisualManager : MonoBehaviour
     }
     public void updateScore(int newScore)
     {
+        foreach(TotalScoreDisplay tsd in totalScoreDisplay){
+            tsd.setThisRoundScore(newScore);
+        }
         scoreText.SetText(newScore.ToString());
-
     }
+
     public void newHighScore(int newHighScore)
     {
         hscoreText.SetText("New Record! Score: " + newHighScore.ToString());

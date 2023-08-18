@@ -18,6 +18,7 @@ TagManager:
   - DeathGroup
   - PauseButton
   - ResolutionControls
+  - TotalScore
   layers:
   - Default
   - TransparentFX

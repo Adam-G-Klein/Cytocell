@@ -6,21 +6,25 @@ using TMPro;
 public class TotalScoreDisplay : MonoBehaviour
 {
     private TextMeshProUGUI text;
-    public string mode = "Balanced";
+    private DifficultyConstants constants;
+    private int scoreAtStartRound;
 
     // Start is called before the first frame update
     void Start()
     {
         text = GetComponentInChildren<TextMeshProUGUI>();
+        constants = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DifficultyConstants>();
+        scoreAtStartRound = PlayerPrefs.GetInt("TotalScore" + constants.SceneName, 0);
         setTextForScore();
     }
 
-    void Update() {
+    public void setThisRoundScore(int thisRoundScore){
+        PlayerPrefs.SetInt("TotalScore" + constants.SceneName, scoreAtStartRound + thisRoundScore);
         setTextForScore();
     }
 
     private void setTextForScore(){
-        text.text = "Total " + mode + " Score: " + intWithCommas(PlayerPrefs.GetInt("TotalScore" + mode, 0));
+        text.text = "Total " + constants.SceneName+ " Score: " + intWithCommas(PlayerPrefs.GetInt("TotalScore" + constants.SceneName, 0));
     }
 
     private string intWithCommas(int num){

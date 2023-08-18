@@ -130,7 +130,6 @@ public class GameManager : MonoBehaviour
         currentPurgeKillCount = 0;
         bool flitKilled = false;
         sNotes.resetVol();
-        sNotes.playNoteOfCurrChord(0);
         sNotes.nextChord();
         dNotes.currNote = 0;
 
