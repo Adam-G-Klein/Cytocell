@@ -24,11 +24,7 @@ public class PauseButton : MonoBehaviour
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        pauseButton = GameObject.FindGameObjectWithTag("PauseButton");
-        pauseButtonScript = pauseButton.GetComponent<PauseButton>();
-        pauseColor = pauseButtonScript.pauseColor;
-        playColor = pauseButtonScript.playColor;
-        rend = pauseButton.GetComponent<Image>();
+        rend = GetComponent<Image>();
         pauseMenuContainer = GameObject.FindGameObjectWithTag("PauseGroup");
         pauseMenuControls = pauseMenuContainer.GetComponent<ButtonGroupAlphaControls>();
         playerSwiper = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSwiper>();
