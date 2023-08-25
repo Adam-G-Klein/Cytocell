@@ -953,6 +953,11 @@ PrefabInstance:
       propertyPath: buttonToTextAlphaRatio
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 616349806993362340, guid: 5e3e657c1e4dc7a4ab0a9040f56719ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 714356707932888774, guid: 5e3e657c1e4dc7a4ab0a9040f56719ea,
         type: 3}
       propertyPath: images.Array.size
@@ -982,6 +987,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638494708991080093, guid: 5e3e657c1e4dc7a4ab0a9040f56719ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3148434574574360565, guid: 5e3e657c1e4dc7a4ab0a9040f56719ea,
         type: 3}
@@ -1141,6 +1151,11 @@ PrefabInstance:
     - target: {fileID: 6656748888726890530, guid: 5e3e657c1e4dc7a4ab0a9040f56719ea,
         type: 3}
       propertyPath: displayTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7080743918164893529, guid: 5e3e657c1e4dc7a4ab0a9040f56719ea,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7349805552282634004, guid: 5e3e657c1e4dc7a4ab0a9040f56719ea,
