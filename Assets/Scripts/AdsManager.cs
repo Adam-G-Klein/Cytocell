@@ -26,5 +26,6 @@ public class AdsManager : MonoBehaviour
         }
         Advertisement.Banner.Show("Banner");
         */
+        yield return null;
     }
 }
