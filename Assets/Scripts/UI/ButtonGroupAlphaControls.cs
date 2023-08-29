@@ -83,6 +83,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
 
     public void displayAll()
     {
+        print("displaying all for gameobject " + gameObject.name);
         foreach (GameObject obj in buttons)
         {
             obj.SetActive(true);

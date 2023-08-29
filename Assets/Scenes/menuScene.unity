@@ -131,6 +131,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4687817506934582109, guid: efcb38418afcfcc46845994d3607bfb3,
+        type: 3}
+      propertyPath: adsEnabledInScene
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4936252383295538484, guid: efcb38418afcfcc46845994d3607bfb3,
         type: 3}
       propertyPath: menuMode
@@ -206,11 +211,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4687817506934582109, guid: efcb38418afcfcc46845994d3607bfb3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4936252383295538487, guid: efcb38418afcfcc46845994d3607bfb3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 509795678}
   m_SourcePrefab: {fileID: 100100000, guid: efcb38418afcfcc46845994d3607bfb3, type: 3}
+--- !u!1 &509795677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4936252383295538487, guid: efcb38418afcfcc46845994d3607bfb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 509795676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &509795678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509795677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c7b5fa87d2f4524acd6e6bd1756cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ironSourceIosAppKey: 1b4b0e1dd
 --- !u!1001 &544368167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -849,15 +878,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 191329197, guid: bdfd0d02c9c2c764e9d89019d59e6d5c, type: 3}
-      propertyPath: initAlpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 838059347350467043, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
-        type: 3}
-      propertyPath: initActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2738030844454936297, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
         type: 3}
       propertyPath: m_Pivot.x

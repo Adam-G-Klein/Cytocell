@@ -23,6 +23,12 @@ public class VisualManager : MonoBehaviour
     private DifficultyConstants constants;
     // one in pause menu, one on death screen
     private TotalScoreDisplay[] totalScoreDisplay;
+    [SerializeField]
+    private GameObject pauseButton;
+    [SerializeField]
+    private int bannerVerticalOffset;
+    [SerializeField]
+    private List<GameObject> nonBannerOffsetObjects = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +42,16 @@ public class VisualManager : MonoBehaviour
         startAddTrailWorldpos = addTrailObj.transform.position;
         totalScoreDisplay = GetComponentsInChildren<TotalScoreDisplay>();
         addTrailText.alpha = 0;
+    }
+
+    public void applyBannerOffset(){
+        for(int i = 0; i < transform.childCount; i++){
+            Transform child = transform.GetChild(i);
+            RectTransform rect = child.GetComponent<RectTransform>();
+            if(rect && !nonBannerOffsetObjects.Contains(child.gameObject)) {
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + bannerVerticalOffset);
+            }
+        }
     }
 
     public void displayDeathMessage(){
