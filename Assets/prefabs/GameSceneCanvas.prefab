@@ -2038,7 +2038,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Total Balanced Score:'
+  m_text: 'Balanced Mode
+
+    Total Score:
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 310b890aa31d16d46a9b7ca697fabe85, type: 2}
   m_sharedMaterial: {fileID: 21734820958663162, guid: 310b890aa31d16d46a9b7ca697fabe85,

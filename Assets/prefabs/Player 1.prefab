@@ -19,8 +19,8 @@ GameObject:
   - component: {fileID: 4769174998043119873}
   - component: {fileID: 4769174997755540640}
   - component: {fileID: 4767608338057128907}
-  - component: {fileID: 4767608338057128906}
   - component: {fileID: 7095961163662193262}
+  - component: {fileID: 2330777566233094639}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: Player
@@ -272,27 +272,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unchangedScale: {x: 1, y: 1, z: 1}
-  maxScale: 0.3
+  maxScale: 0.5
   prepTimeRatio: 0.1
   movTimeRatio: 0.2
   normalizeTimeRatio: 0.3
   targetScaleMultiplier: 0.06
---- !u!114 &4767608338057128906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767608338057128901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 085324d8b3dac5041a822a7f420c589a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nucleusMovRatio: 1
-  xFlangeRatio: -0.82
-  yFlangeRatio: -1.34
-  epDistRatio: 0.34
 --- !u!114 &7095961163662193262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +299,24 @@ MonoBehaviour:
   animatedTrailPrefab: {fileID: 1929538040657352, guid: 89dd1ce3b1add8b4bb5a5a00aef5ef9c,
     type: 3}
   trailCollapseAnimTime: 0.25
+--- !u!114 &2330777566233094639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767608338057128901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c360565d8e5dc014c8d46bf8c91352bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nucleusMovRatio: 0.38
+  initialNucleusPos: {x: 0.5, y: 0.5, z: 0.5, w: 0}
+  initialScale: {x: 1, y: 1, z: 1, w: 0}
+  _mat: {fileID: 0}
+  trackingObj: {fileID: 4769174997201676792}
+  enemyCoordSystem: 0
 --- !u!1 &4769174996430328523
 GameObject:
   m_ObjectHideFlags: 0

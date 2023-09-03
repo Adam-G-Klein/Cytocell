@@ -42,6 +42,7 @@ public class VisualManager : MonoBehaviour
         startAddTrailWorldpos = addTrailObj.transform.position;
         totalScoreDisplay = GetComponentsInChildren<TotalScoreDisplay>();
         addTrailText.alpha = 0;
+        scoreText.text = constants.SceneName;
     }
 
     public void applyBannerOffset(){
@@ -49,6 +50,7 @@ public class VisualManager : MonoBehaviour
             Transform child = transform.GetChild(i);
             RectTransform rect = child.GetComponent<RectTransform>();
             if(rect && !nonBannerOffsetObjects.Contains(child.gameObject)) {
+                //child.transform.position += new Vector3(0, bannerVerticalOffset, 0);
                 rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + bannerVerticalOffset);
             }
         }
@@ -79,7 +81,6 @@ public class VisualManager : MonoBehaviour
         hscoreText.SetText("New Record! Score: " + newHighScore.ToString());
         hscoreSet = true;
         //IF A CELEBRATION EFFECT ENDS UP HERE, CHECK SCORE != 0 
-
     }
     public void displayLevelText()
     {
@@ -96,8 +97,6 @@ public class VisualManager : MonoBehaviour
         LeanTween.cancel(movid);
         addTrailObj.transform.position = startAddTrailWorldpos;
         addTrailText.alpha = 0;
-
-        
         yield return null;
     }
    

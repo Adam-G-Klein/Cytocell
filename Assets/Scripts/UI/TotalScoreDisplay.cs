@@ -24,7 +24,7 @@ public class TotalScoreDisplay : MonoBehaviour
     }
 
     private void setTextForScore(){
-        text.text = "Total " + constants.SceneName+ " Score: " + intWithCommas(PlayerPrefs.GetInt("TotalScore" + constants.SceneName, 0));
+        text.text = constants.SceneName + " Mode\nTotal Score:\n" + intWithCommas(PlayerPrefs.GetInt("TotalScore" + constants.SceneName, 0));
     }
 
     private string intWithCommas(int num){
