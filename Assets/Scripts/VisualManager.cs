@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -50,8 +50,8 @@ public class VisualManager : MonoBehaviour
             Transform child = transform.GetChild(i);
             RectTransform rect = child.GetComponent<RectTransform>();
             if(rect && !nonBannerOffsetObjects.Contains(child.gameObject)) {
-                //child.transform.position += new Vector3(0, bannerVerticalOffset, 0);
-                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + bannerVerticalOffset);
+                child.transform.localPosition += new Vector3(0, bannerVerticalOffset, 0);
+                //rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + bannerVerticalOffset);
             }
         }
     }
@@ -81,6 +81,7 @@ public class VisualManager : MonoBehaviour
         hscoreText.SetText("New Record! Score: " + newHighScore.ToString());
         hscoreSet = true;
         //IF A CELEBRATION EFFECT ENDS UP HERE, CHECK SCORE != 0 
+
     }
     public void displayLevelText()
     {
@@ -97,6 +98,8 @@ public class VisualManager : MonoBehaviour
         LeanTween.cancel(movid);
         addTrailObj.transform.position = startAddTrailWorldpos;
         addTrailText.alpha = 0;
+
+        
         yield return null;
     }
    

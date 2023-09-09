@@ -17,13 +17,24 @@ public class GoogleAds : MonoBehaviour
     #else
     private string _adUnitId = "unused";
     #endif
+    private VisualManager visualManager;
 
     BannerView _bannerView;
-    public void Start()
+    public void Awake()
     {
-        // Initialize the Google Mobile Ads SDK.
-        MobileAds.Initialize(initStatus => { });
-        LoadAd();
+        if(PlayerPrefs.GetInt("adsRemoved", 0) == 1){
+            IronSource.Agent.hideBanner();
+            Debug.Log("ads disabled");
+        } else {
+            MobileAds.Initialize(initStatus => { });
+            LoadAd();
+            GameObject visualManagerGO = GameObject.FindGameObjectWithTag("Canvas");
+            if(visualManagerGO) {
+                visualManager = visualManagerGO.GetComponent<VisualManager>();
+                visualManager.applyBannerOffset();
+            }
+        }   
+        
     }
 
     /// <summary>
