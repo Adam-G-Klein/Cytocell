@@ -13,6 +13,7 @@ public class GoogleAds : MonoBehaviour
     #elif UNITY_IPHONE
     // actual unit id:
     // private string _adUnitId = "ca-app-pub-1921297679445527/9672515541";
+    // app id: ca-app-pub-1921297679445527~3521170629
     private string _adUnitId = "ca-app-pub-3940256099942544/2934735716";
     #else
     private string _adUnitId = "unused";
