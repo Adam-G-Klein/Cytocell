@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
     public void playerKilled()
     {
         int hScore = PlayerPrefs.GetInt("Highscore"+constants.SceneName, -1);
-        if (hScore == -1 || score > hScore)
+        if ((hScore == -1 || score > hScore) && score != 0)
         {
             ui.newHighScore(score);
             PlayerPrefs.SetInt("Highscore"+constants.SceneName, score);

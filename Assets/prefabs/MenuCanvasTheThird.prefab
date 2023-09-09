@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1812319362a31e4a8fd4f8ca342f83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToChangeTo: 5
+  sceneToChangeTo: 4
 --- !u!114 &489236991670494274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1433,7 +1433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1812319362a31e4a8fd4f8ca342f83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToChangeTo: 3
+  sceneToChangeTo: 2
 --- !u!114 &1483950285151262241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2690,7 +2690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1812319362a31e4a8fd4f8ca342f83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToChangeTo: 2
+  sceneToChangeTo: 5
 --- !u!114 &3224755964669923417
 MonoBehaviour:
   m_ObjectHideFlags: 0

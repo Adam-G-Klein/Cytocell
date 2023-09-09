@@ -21,7 +21,7 @@ public class GoogleAds : MonoBehaviour
     private VisualManager visualManager;
 
     BannerView _bannerView;
-    public void Awake()
+    public void Start()
     {
         if(PlayerPrefs.GetInt("adsRemoved", 0) == 1){
             IronSource.Agent.hideBanner();
@@ -58,7 +58,8 @@ public class GoogleAds : MonoBehaviour
         print("topBannerpos: " + topBannerPos[0] + ", " + topBannerPos[1]);
         */
         //_bannerView = new BannerView(_adUnitId, AdSize.Banner, topBannerPos[0],topBannerPos[1]);
-        _bannerView = new BannerView(_adUnitId, AdSize.Banner, 0,0);
+       // _bannerView = new BannerView(_adUnitId, AdSize.Banner, 0,0);
+        _bannerView = new BannerView(_adUnitId, AdSize.Banner, AdPosition.Top);
     }
 
     /// <summary>

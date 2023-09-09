@@ -46,21 +46,26 @@ public class VisualManager : MonoBehaviour
     }
 
     public void applyBannerOffset(){
-        for(int i = 0; i < transform.childCount; i++){
-            Transform child = transform.GetChild(i);
+        List<Transform> objs = new List<Transform>();
+        objs.AddRange(transform.GetComponentsInChildren<Transform>());
+        Transform tutorialCanvas = GameObject.FindGameObjectWithTag("TutorialCanvas").transform;
+        if(tutorialCanvas)
+            objs.AddRange(tutorialCanvas.GetComponentsInChildren<Transform>());
+        for(int i = 0; i < objs.Count; i++){
+            Transform child = objs[i];
             RectTransform rect = child.GetComponent<RectTransform>();
             if(rect && !nonBannerOffsetObjects.Contains(child.gameObject)) {
                 child.transform.localPosition += new Vector3(0, bannerVerticalOffset, 0);
-                //rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + bannerVerticalOffset);
             }
         }
     }
+
 
     public void displayDeathMessage(){
         Camera.main.GetComponent<DamageCameraEffect>().clearEffect = true;
         deathGroup.displayAll();
         if(!hscoreSet)
-            hscoreText.SetText("Record: " + PlayerPrefs.GetInt("Highscore"+constants.SceneName));
+            hscoreText.SetText("One-run Record: " + PlayerPrefs.GetInt("Highscore"+constants.SceneName));
     }
     public void restartGame()
     {
