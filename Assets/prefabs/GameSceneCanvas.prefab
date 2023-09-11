@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToChangeTo: -1
+  destroyAds: 0
 --- !u!114 &1466926084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1083,6 +1084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToChangeTo: 0
+  destroyAds: 1
 --- !u!114 &1948326406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1539,6 +1541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToChangeTo: 0
+  destroyAds: 0
 --- !u!114 &964272869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2330,7 +2333,11 @@ MonoBehaviour:
   bannerVerticalOffset: -100
   nonBannerOffsetObjects:
   - {fileID: 6162645637473313529}
-  - {fileID: 6162645637473313529}
+  - {fileID: 1778142579}
+  - {fileID: 518218059332692286}
+  - {fileID: 506347472}
+  - {fileID: 7951657891115793356}
+  - {fileID: 371712749}
 --- !u!1 &6162645637473313529
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ TagManager:
   - PauseButton
   - ResolutionControls
   - TotalScore
+  - TutorialCanvas
   layers:
   - Default
   - TransparentFX

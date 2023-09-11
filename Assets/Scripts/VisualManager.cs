@@ -29,6 +29,8 @@ public class VisualManager : MonoBehaviour
     private int bannerVerticalOffset;
     [SerializeField]
     private List<GameObject> nonBannerOffsetObjects = new List<GameObject>();
+    private GameObject tutorialCanvas;
+    private AdsManager adsManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +45,8 @@ public class VisualManager : MonoBehaviour
         totalScoreDisplay = GetComponentsInChildren<TotalScoreDisplay>();
         addTrailText.alpha = 0;
         scoreText.text = constants.SceneName;
+        tutorialCanvas = GameObject.FindGameObjectWithTag("TutorialCanvas");
+        adsManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<AdsManager>(); 
     }
 
     public void applyBannerOffset(){
@@ -62,10 +66,19 @@ public class VisualManager : MonoBehaviour
 
 
     public void displayDeathMessage(){
+        StartCoroutine("displayDeathMessageCorout");
+    }
+
+    private IEnumerator displayDeathMessageCorout()
+    {
         Camera.main.GetComponent<DamageCameraEffect>().clearEffect = true;
+        yield return StartCoroutine(adsManager.playerKilledCorout());
+        if(tutorialCanvas)
+            tutorialCanvas.SetActive(false);
         deathGroup.displayAll();
         if(!hscoreSet)
             hscoreText.SetText("One-run Record: " + PlayerPrefs.GetInt("Highscore"+constants.SceneName));
+        yield return null;
     }
     public void restartGame()
     {
@@ -101,7 +114,7 @@ public class VisualManager : MonoBehaviour
         //they should be done by now anyways
         LeanTween.cancel(alid);
         LeanTween.cancel(movid);
-        addTrailObj.transform.position = startAddTrailWorldpos;
+        //addTrailObj.transform.position = startAddTrailWorldpos;
         addTrailText.alpha = 0;
 
         

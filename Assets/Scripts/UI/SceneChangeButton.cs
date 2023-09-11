@@ -8,6 +8,8 @@ public class SceneChangeButton : MonoBehaviour
 {
     public int sceneToChangeTo = 4;
     private Clickable clickable;
+    public bool destroyAds = false;
+    private AdsManager adsManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +19,17 @@ public class SceneChangeButton : MonoBehaviour
             //indicates we want to change to this scene
             sceneToChangeTo = SceneManager.GetActiveScene().buildIndex;
         }
+        GameObject adsManagerGO = GameObject.FindGameObjectWithTag("GameManager");
+        if(adsManagerGO)
+            adsManager = adsManagerGO.GetComponent<AdsManager>();
 
     }
 
     // Update is called once per frame
     public void clicked()
     {
-        IronSource.Agent.destroyBanner();
+        if(destroyAds && adsManager)
+            adsManager.destroyAds();
         print("changed to scene " + sceneToChangeTo.ToString());
         if (clickable.clickable)
         {

@@ -6,9 +6,9 @@ public class ToggleAdsDisabledButton : MonoBehaviour
 {
     
     public void clicked(){
-        if(PlayerPrefs.GetInt("adsRemoved", 0) == 1)
-            PlayerPrefs.SetInt("adsRemoved", 0);
+        if(PlayerPrefs.GetInt(AdsManager.ADS_DISABLED_KEY, 0) == 1)
+            PlayerPrefs.SetInt(AdsManager.ADS_DISABLED_KEY, 0);
         else
-            PlayerPrefs.SetInt("adsRemoved", 1);
+            PlayerPrefs.SetInt(AdsManager.ADS_DISABLED_KEY, 1);
     }
 }

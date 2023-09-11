@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     private ParticleSystem deathPs;
     private ParticleSystem idlePs;
 
+    public bool dead;
     // Start is called before the first frame update
 
     private int ltidRegen;
@@ -50,6 +51,7 @@ public class PlayerManager : MonoBehaviour
         deathPs = transform.Find("PlayerDeathPS").GetComponentInChildren<ParticleSystem>();
         idlePs = transform.Find("PlayerIdlePS").GetComponentInChildren<ParticleSystem>();
         rend = GetComponentInChildren<SpriteRenderer>();
+        dead = false;
     }
 
     void Update(){
@@ -65,14 +67,13 @@ public class PlayerManager : MonoBehaviour
     }
 
     private void collision(Collider2D other){
-        bool dead = false;
         if(other.gameObject.layer == LayerMask.NameToLayer("3nemies")){
             FlitController flitController = other.gameObject.GetComponent<FlitController>();
             bool otherDead = flitController && flitController.toBePurged;
-            if(!invulnerable && !otherDead){
-                dead = takeDamage(1);
+            if(!invulnerable && !otherDead && !dead){
+                takeDamage(1);
+                print("hp after: " + health);
             }
-            print("hp after: " + health);
             if(!dead && !otherDead)
                 enemyCollision(dead, other.gameObject);
 
@@ -82,14 +83,14 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public bool takeDamage(float amnt)
+    public void takeDamage(float amnt)
     {
         if (ltidRegen != 0 && LeanTween.isTweening(ltidRegen) && constants.stopRegenOnDamage)
         {
             LeanTween.cancel(ltidRegen);
         }
         health -= amnt;
-        if(health <= 0){
+        if(health <= 0 && !dead){
             mover.stopPlayer();
             swiper.swipeEnabled = false;
             collapser.killAllTrails();
@@ -98,9 +99,8 @@ public class PlayerManager : MonoBehaviour
             deathPs.transform.parent = null;
             deathPs.Play();
             if(idlePs) idlePs.gameObject.SetActive(false);
-            return true;
+            dead = true;
         }
-        return false;
     }
     public void startRegen(int killCount)
     {
