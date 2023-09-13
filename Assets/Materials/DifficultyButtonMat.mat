@@ -86,12 +86,12 @@ Material:
     - _minAlpha: 0.2
     - _nucleusGradient: 213.7
     - _nucleusRadius: 0.4
-    - _publicAlpha: 0
+    - _publicAlpha: 28
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _cytoplasmColor: {r: 0, g: 0, b: 0, a: 0.5}
-    - _membraneColor: {r: 0.7921569, g: 0, b: 0, a: 0}
+    - _membraneColor: {r: 1, g: 1, b: 1, a: 0.65882355}
     - _nucleusColor: {r: 0, g: 0, b: 0, a: 1}
     - _nucleusLocation: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

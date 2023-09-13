@@ -1541,7 +1541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToChangeTo: 0
-  destroyAds: 0
+  destroyAds: 1
 --- !u!114 &964272869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2338,6 +2338,12 @@ MonoBehaviour:
   - {fileID: 506347472}
   - {fileID: 7951657891115793356}
   - {fileID: 371712749}
+  - {fileID: 9165020685174251745}
+  - {fileID: 2192949109027534050}
+  - {fileID: 1974832250809961182}
+  - {fileID: 3992170448972790268}
+  - {fileID: 1224235654186596148}
+  - {fileID: 1973274879529348911}
 --- !u!1 &6162645637473313529
 GameObject:
   m_ObjectHideFlags: 0

@@ -194,34 +194,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1862729352088496959, guid: d4c8f4851647d0948b6c7a92974b3e7b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 281991604}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4c8f4851647d0948b6c7a92974b3e7b, type: 3}
---- !u!1 &281991603 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1862729352088496959, guid: d4c8f4851647d0948b6c7a92974b3e7b,
-    type: 3}
-  m_PrefabInstance: {fileID: 281991601}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &281991604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281991603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a5d3d997965dc249b8eb8343a240020, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bloodLossMat: {fileID: 2100000, guid: a1bdf0da770694844bcc2d965ad83922, type: 2}
-  maxEffect: 3
-  effectVal: 0
-  clearEffect: 0
 --- !u!1001 &544009946
 PrefabInstance:
   m_ObjectHideFlags: 0

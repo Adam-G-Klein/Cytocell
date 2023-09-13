@@ -211,13 +211,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invulnerable: 0
   invulnerabilityTime: 1
+  invulnColor: {r: 1, g: 1, b: 1, a: 1}
+  toInvulnvulnColorTime: 0.2
+  fromInvulnvulnColorTime: 0.2
+  normalColor: {r: 0, g: 0.7607843, b: 0.7921569, a: 1}
   health: 0
   maxHealth: 5
   regenOnFlitKilled: 0
   disableSwipesOnKnock: 1
   disableSwipeTimeRatio: 0.5
+  dead: 0
   knockBackRotMaxVal: 900
   knockBackRotMinVal: 420
+  numWallCollisionsForDamage: 100
+  wallStuckTime: 1
 --- !u!114 &4769174998043119873
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,14 @@ public class TrailController : MonoBehaviour
     public ObjectRecycler recycler;
 
     public bool debugPrint = false;
+    [SerializeField]
+    public Color normalColor = Color.white;
+    [SerializeField]
+    private Color flitKillColor = Color.blue;
+    [SerializeField]
+    private float toFlitKillColorTime = 0.2f;
+    [SerializeField]
+    private float fromFlitKillColorTime = 1.5f;
     public Vector2[] endpoints
     {
         get {
@@ -120,8 +128,10 @@ public class TrailController : MonoBehaviour
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("3nemies"))
         {
-            if(trailPlaced && !this.dead)
+            if(trailPlaced && !this.dead) {
                 other.GetComponent<FlitController>().purgeNoScoreOrXP();
+                StartCoroutine("killFlitAnimation");
+            }
         }
     }
 
@@ -173,6 +183,13 @@ public class TrailController : MonoBehaviour
         LeanTween.alpha(gameObject,final,
             GetComponent<SpriteRenderer>().color.a);
         yield return new WaitForSeconds(1);
+    }
+
+    IEnumerator killFlitAnimation(){
+        int ltid = LeanTween.color(gameObject,flitKillColor,toFlitKillColorTime).id;
+        yield return new WaitWhile(()=>LeanTween.isTweening(ltid));
+        ltid = LeanTween.color(gameObject,normalColor,fromFlitKillColorTime).id;
+        yield return new WaitWhile(()=>LeanTween.isTweening(ltid));
     }
 
 

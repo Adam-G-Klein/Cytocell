@@ -6,6 +6,11 @@ public class PlayerManager : MonoBehaviour
 {
     public bool invulnerable = false;
     public float invulnerabilityTime = 3.0f;
+    public Color invulnColor = Color.white;
+    public Color normalColor = Color.blue;
+    public float toInvulnColorTime = 0.2f;
+    public float fromInvulnColorTime = 0.2f;
+    private int invulnLtid;
     public float health; 
     public float maxHealth; 
     public float regenOnFlitKilled; 
@@ -33,6 +38,14 @@ public class PlayerManager : MonoBehaviour
     private float knockBackRotMaxVal;
     [SerializeField]
     private float knockBackRotMinVal;
+
+    // make sure we kill the player if they're stuck in a wall
+    [SerializeField]
+    private int numWallCollisionsForDamage = 3;
+    [SerializeField]
+    private float wallStuckTime = 1f;
+    private List<float> wallCollisionTimes = new List<float>();
+
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -52,6 +65,7 @@ public class PlayerManager : MonoBehaviour
         idlePs = transform.Find("PlayerIdlePS").GetComponentInChildren<ParticleSystem>();
         rend = GetComponentInChildren<SpriteRenderer>();
         dead = false;
+        invulnLtid = -1;
     }
 
     void Update(){
@@ -78,7 +92,7 @@ public class PlayerManager : MonoBehaviour
                 enemyCollision(dead, other.gameObject);
 
         } 
-        if(other.gameObject.layer == LayerMask.NameToLayer("Walls")){
+        if(other.gameObject.layer == LayerMask.NameToLayer("Walls") && !dead){
             hitWall(other.gameObject);
         }
     }
@@ -114,8 +128,24 @@ public class PlayerManager : MonoBehaviour
     }
 
 
+    private bool stuckInWall(){
+        wallCollisionTimes.Add(Time.time);
+        int numCloseCollisions = 0; 
+        foreach(float time in wallCollisionTimes){
+            if(Time.time - time < wallStuckTime){
+                numCloseCollisions += 1;
+                print("Added a close collision, numCloseCollisions: " + numCloseCollisions);
+            }
+            if(numCloseCollisions >= numWallCollisionsForDamage){
+                wallCollisionTimes.Clear();
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void hitWall(GameObject wall){
+        
         WallController wallCont = wall.GetComponent<WallController>();
         Vector3 playerPos = gameObject.transform.position;
         Vector3 wallPos = wall.transform.position;
@@ -131,6 +161,7 @@ public class PlayerManager : MonoBehaviour
             StopCoroutine("swipeReenableCorout");
             StartCoroutine("swipeReenableCorout",Mathf.Max(wallCont.knockMovTime, wallCont.knockRotTime) * disableSwipeTimeRatio);
         }
+        if(stuckInWall()) takeDamage(1);
 
     }
     private float getKnockBackRot(float currRot){
@@ -171,7 +202,6 @@ public class PlayerManager : MonoBehaviour
             StartCoroutine("swipeReenableCorout",Mathf.Max(knockInfo[1], knockInfo[2]) * disableSwipeTimeRatio);
         }
 
-        invulnerable = true;
         if(!damageNotesCoroutRunning)
             StartCoroutine("damageNotesCorout");
         //make sure there's no runing instance of the corout
@@ -188,8 +218,21 @@ public class PlayerManager : MonoBehaviour
     }
 
     private IEnumerator invulnerableCorout(){
+        if(!invulnerable) {
+            if(invulnLtid != -1) LeanTween.cancel(invulnLtid);
+            invulnLtid = LeanTween.value(gameObject, (val) => {
+                rend.material.SetColor("_membraneColor", Color.Lerp(normalColor, invulnColor, val));
+            }, 0, 1, toInvulnColorTime).id;
+        }
+        
+        invulnerable = true;
+        idlePs.Pause();
         yield return new WaitForSeconds(invulnerabilityTime);
         invulnerable = false;
+        invulnLtid = LeanTween.value(gameObject, (val) => {
+            rend.material.SetColor("_membraneColor", Color.Lerp(normalColor, invulnColor, val));
+        }, 1, 0, fromInvulnColorTime).id;
+        idlePs.Play();
         print("invulnerability stopped");
         yield return null;
     }

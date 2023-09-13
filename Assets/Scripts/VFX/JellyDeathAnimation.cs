@@ -92,17 +92,16 @@ public class JellyDeathAnimation : MonoBehaviour
     }
 
 
-    public void playDeathAnimation(deathDelegate doneCallBack){
-        //BANDAID FIX: somehow we can  get here and the object is already
-        // disabled. that sucks.
+    public void playDeathAnimation(deathDelegate doneCallBack, bool particles = true, bool note = true){
+
         if (gameObject.activeSelf)
-            StartCoroutine("deathAnimation", doneCallBack);
+            StartCoroutine(deathAnimation(doneCallBack, particles, note));
         else
         {
             doneCallBack();
         }
     }
-    private IEnumerator deathAnimation(deathDelegate deathCallback){
+    private IEnumerator deathAnimation(deathDelegate deathCallback, bool particles = true, bool note = true){
         nucleusMovement.enabled = false;
         int ltidAlpha = LeanTween.value(gameObject, updateAlpha, shaderAlpha, deathAnimationPopAlpha, deathAnimationTime).id;
         int ltidScale = LeanTween.value(gameObject, updateScale, transform.localScale.x, deathAnimationPopScale, deathAnimationTime).id;
@@ -113,9 +112,9 @@ public class JellyDeathAnimation : MonoBehaviour
         int ltidG = LeanTween.value(gameObject, updateG, 1, deathAnimationFinalColor.g, deathAnimationTime).id;
         int ltidB = LeanTween.value(gameObject, updateB, 1, deathAnimationFinalColor.b, deathAnimationTime).id;
         yield return new WaitForSeconds(deathAnimationTime);
-        dnotes.playNote(dnotes.currNote);
+        if(note) dnotes.playNote(dnotes.currNote);
         //ps = recycler.RecyclePS(transform.position, transform.rotation);
-        Instantiate(ps, transform.position, transform.rotation);
+        if(particles) Instantiate(ps, transform.position, transform.rotation);
         deathCallback();
 
     }

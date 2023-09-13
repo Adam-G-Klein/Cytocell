@@ -28,8 +28,12 @@ public class SceneChangeButton : MonoBehaviour
     // Update is called once per frame
     public void clicked()
     {
-        if(destroyAds && adsManager)
+        print("adsManager null: " + (adsManager == null).ToString() + " destroyAds: " + destroyAds.ToString());
+        if(destroyAds && adsManager){
             adsManager.destroyAds();
+            print("Destroyed ads");
+
+        }
         print("changed to scene " + sceneToChangeTo.ToString());
         if (clickable.clickable)
         {

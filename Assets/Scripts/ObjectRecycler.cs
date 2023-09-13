@@ -68,6 +68,9 @@ public class ObjectRecycler : MonoBehaviour {
         tran.position = position;
         tran.rotation = rotation;
         tran.gameObject.SetActive(true);
+        SpriteRenderer rend = tran.GetComponent<SpriteRenderer>();
+        TrailController trailCont = tran.GetComponent<TrailController>();
+        rend.color = trailCont.normalColor;
         return tran.gameObject;
 
     }

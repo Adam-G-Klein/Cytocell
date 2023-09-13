@@ -107,6 +107,10 @@ MonoBehaviour:
   trailCrossed: 0
   recycler: {fileID: 0}
   debugPrint: 0
+  normalColor: {r: 0.6862745, g: 0.9803922, b: 1, a: 1}
+  flitKillColor: {r: 0, g: 0.5963936, b: 1, a: 1}
+  toFlitKillColorTime: 0.2
+  fromFlitKillColorTime: 1.5
 --- !u!70 &70134169926658718
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

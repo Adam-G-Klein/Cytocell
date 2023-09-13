@@ -379,7 +379,7 @@ public class FlitController : MonoBehaviour
         state = FlitState.dying;
         StopAllCoroutines();
         Debug.Log("Just called playDeathAnimation");
-        deathAnimation.playDeathAnimation(deathDelegate);
+        deathAnimation.playDeathAnimation(deathDelegate, false, false);
         noScoreOrXPonDeath = true;
     }
     private void deathCallback(){
