@@ -24,7 +24,6 @@ public class DamageCameraEffect : MonoBehaviour
     }
     void Update()
     {
-        print("clearEffect: " + clearEffect.ToString());
         effectVal = clearEffect ? 0 : (-maxEffect / maxHealth)*pManage.health + maxEffect;
         //print(string.Format("maxH: {0} maxEff: {1} effectVal: {2}", maxHealth, maxEffect, effectVal));
         _bloodLossMat.SetFloat("_LossAmnt", effectVal);

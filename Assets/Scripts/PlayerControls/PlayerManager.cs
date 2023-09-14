@@ -227,6 +227,8 @@ public class PlayerManager : MonoBehaviour
         
         invulnerable = true;
         idlePs.Pause();
+        idlePs.Clear();
+        leaver.destroyPS();
         yield return new WaitForSeconds(invulnerabilityTime);
         invulnerable = false;
         invulnLtid = LeanTween.value(gameObject, (val) => {

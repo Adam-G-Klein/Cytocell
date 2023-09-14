@@ -24,6 +24,7 @@ public class TrailLeaver : MonoBehaviour {
     public float psInstDelay;
     public GameObject swipePS;
     public Vector2 swipePSOffset;
+    private List<ParticleSystem> activePS = new List<ParticleSystem>();
 
 	// Use this for initialization
 	void Start () {
@@ -68,11 +69,23 @@ public class TrailLeaver : MonoBehaviour {
             StartCoroutine(corout);
 
         }
-
 	}
+
+    public void destroyPS() {
+        foreach (ParticleSystem ps in activePS)
+        {
+            if(ps) {
+                print("stopping particle system");
+                ps.Clear();
+                ps.Stop();
+            }
+        }
+        activePS.Clear();
+    }
     private void instantiatePS(){
         GameObject psgo = Instantiate(swipePS,transform, false);
         psgo.transform.localPosition = swipePSOffset;
+        activePS.Add(psgo.GetComponentInChildren<ParticleSystem>());
     }
     public void currentTrailPlaced(){
         if(newTrail != null)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.iOS;
 
 [RequireComponent(typeof(Clickable))]
 public class CreditsButton : MonoBehaviour
@@ -22,6 +23,9 @@ public class CreditsButton : MonoBehaviour
     public void onClick()
     {
         print("credits clicked");
+        #if UNITY_IOS
+        Device.RequestStoreReview();
+        #endif
         if (clickable.clickable)
         {
             creditsControls.displayAll();
