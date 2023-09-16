@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleMobileAds.Api;
+using System.Linq;
+using UnityEngine.iOS;
 
 public class AdsManager : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class AdsManager : MonoBehaviour
     public static string ADS_DISABLED_KEY = "adsDisabled";
     public static string INTERSTITIAL_FREE_PLAYS_KEY = "InterstitialFreePlays";
 
+    public static int[] REVIEW_REQUEST_THRESHOLDS = new int[] { 10, 25, 50, 100};
+    public static string ROUNDS_PLAYED_KEY = "roundsPlayed";
 
     // These ad units are configured to always serve test ads.
     #if UNITY_ANDROID
@@ -174,6 +178,12 @@ public class AdsManager : MonoBehaviour
 
   public IEnumerator playerKilledCorout()
   {
+    int roundsPlayed = PlayerPrefs.GetInt(ROUNDS_PLAYED_KEY, 0);
+    PlayerPrefs.SetInt(ROUNDS_PLAYED_KEY, roundsPlayed + 1);
+    if(REVIEW_REQUEST_THRESHOLDS.Contains(roundsPlayed)) {
+        Device.RequestStoreReview();
+        yield break;
+    }
     if(PlayerPrefs.GetInt(ADS_DISABLED_KEY, 0) == 1) yield break;
     if(PlayerPrefs.GetInt(INTERSTITIAL_FREE_PLAYS_KEY, STARTING_INTERSTITIAL_FREE_PLAYS) > 0) {
         PlayerPrefs.SetInt(INTERSTITIAL_FREE_PLAYS_KEY, PlayerPrefs.GetInt(INTERSTITIAL_FREE_PLAYS_KEY, STARTING_INTERSTITIAL_FREE_PLAYS) - 1); 
