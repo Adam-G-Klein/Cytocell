@@ -66,6 +66,7 @@ public class VisualManager : MonoBehaviour
 
 
     public void displayDeathMessage(){
+        pauseButton.SetActive(false);
         StartCoroutine("displayDeathMessageCorout");
     }
 
