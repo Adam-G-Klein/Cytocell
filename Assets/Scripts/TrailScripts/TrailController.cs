@@ -153,6 +153,7 @@ public class TrailController : MonoBehaviour
     private void OnDisable()
     {
         dead = true;
+        StopAllCoroutines();
         recycler.trails.Enqueue(gameObject);
         trailCrossed = false;
         trailNum = -1;
