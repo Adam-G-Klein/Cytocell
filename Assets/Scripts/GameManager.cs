@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public int currentPurgeKillCount = 0;
     public ResolutionSetter res; 
     private AdsManager adsManager;
+    public bool newHighScore = false;
 
     // Use this for initialization
     void Start()
@@ -102,9 +103,9 @@ public class GameManager : MonoBehaviour
             spawnFlits();
         }
         if(flitControl.noScoreOrXPonDeath) return;
-
         score += 1;
-        ui.updateScore(score);
+        updateHighScore();
+        ui.updateScore(score, newHighScore);
     }
     public void spawnFlits()
     {
@@ -155,14 +156,17 @@ public class GameManager : MonoBehaviour
 
     public void playerKilled()
     {
+        if(newHighScore) ui.newHighScore(score);
+        ui.displayDeathMessage();
+    }
+
+    private void updateHighScore(){
         int hScore = PlayerPrefs.GetInt("Highscore"+constants.SceneName, -1);
         if ((hScore == -1 || score > hScore) && score != 0)
         {
-            ui.newHighScore(score);
+            newHighScore = true;
             PlayerPrefs.SetInt("Highscore"+constants.SceneName, score);
         }
-
-        ui.displayDeathMessage();
     }
 
     public bool soundEnabled()

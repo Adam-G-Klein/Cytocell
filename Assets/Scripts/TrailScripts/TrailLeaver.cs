@@ -25,6 +25,7 @@ public class TrailLeaver : MonoBehaviour {
     public GameObject swipePS;
     public Vector2 swipePSOffset;
     private List<ParticleSystem> activePS = new List<ParticleSystem>();
+    private PlayerSwiper plSwiper;
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +38,7 @@ public class TrailLeaver : MonoBehaviour {
         managerObj = GameObject.FindGameObjectWithTag("GameManager");  
         recycler = managerObj.GetComponent<ObjectRecycler>();
         manager = managerObj.GetComponent<GameManager>();
+        plSwiper = GetComponent<PlayerSwiper>();
 
 	}
 	
@@ -63,6 +65,7 @@ public class TrailLeaver : MonoBehaviour {
             newTrailCont.recycler = recycler;
             newTrail.name = trailName 
                  + manager.nextTrailId;
+            newTrailCont.setFadeTime(plSwipe.swipeTime);
             manager.trailCreated();
             collapser.trailCreated(newTrail.gameObject);
             corout = TrailPlacer(newTrail);

@@ -12,9 +12,6 @@ public class CreditsToggleAdsDisabledButton : MonoBehaviour
         if(PlayerPrefs.GetInt(AdsManager.ADS_DISABLED_KEY, 0) == 1){
             PlayerPrefs.SetInt(DISCOUNT_DISABLE_ADS_KEY, 0);
             PlayerPrefs.SetInt(AdsManager.ADS_DISABLED_KEY, 0);
-            #if UNITY_IOS
-            Device.RequestStoreReview();
-            #endif
 
         }
         else {

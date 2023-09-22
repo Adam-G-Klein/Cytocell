@@ -22,6 +22,14 @@ public class TrailController : MonoBehaviour
     private float toFlitKillColorTime = 0.2f;
     [SerializeField]
     private float fromFlitKillColorTime = 1.5f;
+    private int killFlitLtid = -1;
+    private int deathFadeLtid = -1;
+    private int nextToDieLtid = -1;
+    [SerializeField]
+    private float fadeAlpha = 0.2f; 
+    [SerializeField]
+    private float fadeTime = 0.5f;
+    private SpriteRenderer rend;
     public Vector2[] endpoints
     {
         get {
@@ -78,6 +86,7 @@ public class TrailController : MonoBehaviour
     void Start()
     {
         coll = GetComponent<Collider2D>();
+        rend = GetComponent<SpriteRenderer>();
         
     }
 
@@ -154,6 +163,9 @@ public class TrailController : MonoBehaviour
     {
         dead = true;
         StopAllCoroutines();
+        if(deathFadeLtid != -1 && LeanTween.isTweening(deathFadeLtid)) LeanTween.cancel(deathFadeLtid);
+        if(nextToDieLtid != -1 && LeanTween.isTweening(nextToDieLtid)) LeanTween.cancel(nextToDieLtid);
+        if(killFlitLtid != -1 && LeanTween.isTweening(killFlitLtid)) LeanTween.cancel(killFlitLtid);
         recycler.trails.Enqueue(gameObject);
         trailCrossed = false;
         trailNum = -1;
@@ -161,7 +173,7 @@ public class TrailController : MonoBehaviour
     }
     public void nextToDie(){
 
-        StartCoroutine("fade",0.2);
+        StartCoroutine("nextToDieFade",0.2);
     }
 
     public void die(){
@@ -174,24 +186,42 @@ public class TrailController : MonoBehaviour
     }
 
     IEnumerator deathFade(){
-        LeanTween.alpha(gameObject,0,
-            GetComponent<SpriteRenderer>().color.a);
-        yield return new WaitForSeconds(1);
+        if(killFlitLtid != -1 && LeanTween.isTweening(killFlitLtid))
+            LeanTween.cancel(killFlitLtid);
+        if(nextToDieLtid != -1 && LeanTween.isTweening(nextToDieLtid))
+            LeanTween.cancel(nextToDieLtid);
+        deathFadeLtid = LeanTween.alpha(gameObject,0,Mathf.Lerp(0, fadeTime, rend.color.a)).id;
+        // can't wait while tweening because we use the same ltid
+        // for nexttodie and deathfade
+        yield return new WaitForSeconds(fadeTime);
         gameObject.SetActive(false);
     }
 
-    IEnumerator fade(float final){
-        LeanTween.alpha(gameObject,final,
-            GetComponent<SpriteRenderer>().color.a);
-        yield return new WaitForSeconds(1);
+    IEnumerator nextToDieFade(float final){
+        if(killFlitLtid != -1 && LeanTween.isTweening(killFlitLtid))
+            LeanTween.cancel(killFlitLtid);
+        nextToDieLtid = LeanTween.alpha(gameObject,final,
+            fadeTime).id;
+        yield return null;
     }
 
     IEnumerator killFlitAnimation(){
-        int ltid = LeanTween.color(gameObject,flitKillColor,toFlitKillColorTime).id;
-        yield return new WaitWhile(()=>LeanTween.isTweening(ltid));
-        ltid = LeanTween.color(gameObject,normalColor,fromFlitKillColorTime).id;
-        yield return new WaitWhile(()=>LeanTween.isTweening(ltid));
+        if(deathFadeLtid != -1 && LeanTween.isTweening(deathFadeLtid))
+            yield break;
+        if(nextToDieLtid != -1 && LeanTween.isTweening(nextToDieLtid)) {
+            Color toColor = Color.Lerp(new Color(normalColor.r, normalColor.g, normalColor.b, fadeAlpha),flitKillColor,0.5f);
+        } else {
+            Color toColor = flitKillColor;
+        }
+        killFlitLtid = LeanTween.color(gameObject,flitKillColor,toFlitKillColorTime).id;
+        yield return new WaitWhile(()=>LeanTween.isTweening(killFlitLtid));
+        killFlitLtid = LeanTween.color(gameObject,normalColor,fromFlitKillColorTime).id;
+        yield return new WaitWhile(()=>LeanTween.isTweening(killFlitLtid));
     }
+    public void setFadeTime(float newFadeTime){
+        fadeTime = newFadeTime;
+    }
+
 
 
 

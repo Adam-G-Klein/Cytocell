@@ -5,7 +5,8 @@ using UnityEngine;
 // Coordinates 
 public class PlayerSwiper : MonoBehaviour {
 
-    private float swipeTime = 0.5f, rotTime;
+    [SerializeField]
+    public float swipeTime = 0.5f, rotTime;
     // Now the ratio of the swipe magnitude to the distance the player will move
     public float swipeMultiplier = 0.001f;
     public float maxSwipeLength = 1f;

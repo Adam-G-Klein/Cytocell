@@ -21,6 +21,8 @@ public class VisualManager : MonoBehaviour
     private ButtonGroupAlphaControls deathGroup;
     private bool hscoreSet = false;
     private DifficultyConstants constants;
+    [SerializeField]
+    private TextMeshProUGUI newRecordText;
     // one in pause menu, one on death screen
     private TotalScoreDisplay[] totalScoreDisplay;
     [SerializeField]
@@ -62,6 +64,7 @@ public class VisualManager : MonoBehaviour
                 child.transform.localPosition += new Vector3(0, bannerVerticalOffset, 0);
             }
         }
+        newRecordText.gameObject.SetActive(false);
     }
 
 
@@ -87,20 +90,22 @@ public class VisualManager : MonoBehaviour
         Camera.main.GetComponent<DamageCameraEffect>().clearEffect = false;
 
     }
-    public void updateScore(int newScore)
+    public void updateScore(int newScore, bool newHighScore)
     {
         foreach(TotalScoreDisplay tsd in totalScoreDisplay){
             tsd.setThisRoundScore(newScore);
         }
         scoreText.SetText(newScore.ToString());
+        if(newHighScore)
+            newRecordText.gameObject.SetActive(true);
     }
 
     public void newHighScore(int newHighScore)
     {
+        newRecordText.gameObject.SetActive(true);
         hscoreText.SetText("New Record! Score: " + newHighScore.ToString());
         hscoreSet = true;
         //IF A CELEBRATION EFFECT ENDS UP HERE, CHECK SCORE != 0 
-
     }
     public void displayLevelText()
     {
