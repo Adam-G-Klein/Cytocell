@@ -79,7 +79,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.04, y: 0.04}
+  m_Size: {x: 0.015625, y: 0.015625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationCenterOffset: {x: 0, y: 0.2}
   distanceFromCenter: 1
-  minSideCircleRaidus: 1.5
+  minSideCircleRadius: 1.5
   maxSideCircleRadius: 1.65
   currPointDir: {x: 0, y: 0}
+  maxMagnitude: 0

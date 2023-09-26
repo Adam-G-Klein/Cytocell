@@ -144,7 +144,7 @@ Shader "Beset/UnderWaterEffect3"
                 float val = noise_sum(uv);
                 float invVal = saturate(1.0 - val);
                 float4 c = _Color * float4(val, val, val, 1.0) + _BackColor * float4(invVal, invVal, invVal, 1.0);
-                float4 dimmed = c * _colorDimmer;
+                float4 dimmed = float4(c.rgb * _colorDimmer, 1);
                 return dimmed;
             }
         ENDCG
