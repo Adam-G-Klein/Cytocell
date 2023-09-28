@@ -228,11 +228,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1983660924630456996, guid: 6b194244a1304da4ebea9ce93e6b42a1,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1983660924630456996, guid: 6b194244a1304da4ebea9ce93e6b42a1,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.976733
       objectReference: {fileID: 0}
@@ -244,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 1983660924630456996, guid: 6b194244a1304da4ebea9ce93e6b42a1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.765625
+      value: 5.94
       objectReference: {fileID: 0}
     - target: {fileID: 1983660924630456996, guid: 6b194244a1304da4ebea9ce93e6b42a1,
         type: 3}
@@ -286,25 +281,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
-    - target: {fileID: 1983660924630456997, guid: 6b194244a1304da4ebea9ce93e6b42a1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5796018944903600613, guid: 6b194244a1304da4ebea9ce93e6b42a1,
         type: 3}
       propertyPath: dimmness
-      value: 0.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 5796018944903600613, guid: 6b194244a1304da4ebea9ce93e6b42a1,
-        type: 3}
-      propertyPath: backgroundColor.a
-      value: 1
+      value: 0.59
       objectReference: {fileID: 0}
     - target: {fileID: 5796018944903600613, guid: 6b194244a1304da4ebea9ce93e6b42a1,
         type: 3}
       propertyPath: backgroundColor.b
-      value: 0.9731543
+      value: 0.9698796
       objectReference: {fileID: 0}
     - target: {fileID: 5796018944903600613, guid: 6b194244a1304da4ebea9ce93e6b42a1,
         type: 3}

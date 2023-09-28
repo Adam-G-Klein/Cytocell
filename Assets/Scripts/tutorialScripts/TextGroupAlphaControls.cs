@@ -12,6 +12,8 @@ public class TextGroupAlphaControls : MonoBehaviour
     private TextMeshProUGUI[] textComps;
     public float initAlpha = 0;
     private bool testDisplaying = false;
+    private int ltid = -1;
+    private bool displaying = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -42,17 +44,39 @@ public class TextGroupAlphaControls : MonoBehaviour
         }
     }
 
+    public void setVisibleQuickly(bool visible){
+        StopAllCoroutines();
+        if(ltid != -1 && LeanTween.isTweening(ltid)){
+            LeanTween.cancel(ltid);
+        }
+        foreach(TextMeshProUGUI tm in textComps){
+            tm.faceColor = new Color(tm.faceColor.r, tm.faceColor.g, tm.faceColor.b, visible ? 1 : 0);
+        }
+        if(visible && displaying) {
+            displayAll();
+        }
+
+    }
+
     public void displayAll()
     {
-        tweenAlphaTo(1, displayTime);
+        if(ltid != -1 && LeanTween.isTweening(ltid))
+            LeanTween.cancel(ltid);
+        StopAllCoroutines();
+        StartCoroutine(tweenAlphaTo(1, displayTime));
+        displaying = true;
     }
 
     public void hideAll()
     {
-        tweenAlphaTo(0, displayTime);
+        if(ltid != -1 && LeanTween.isTweening(ltid))
+            LeanTween.cancel(ltid);
+        StopAllCoroutines();
+        StartCoroutine(tweenAlphaTo(0, displayTime));
+        displaying = false;
     }
 
-    public void tweenAlphaTo(float to, float time)
+    private IEnumerator tweenAlphaTo(float to, float time)
     {
         foreach (TextMeshProUGUI tm in textComps)
         {
@@ -63,6 +87,8 @@ public class TextGroupAlphaControls : MonoBehaviour
                     tm.color = new Color(tm.faceColor.r, tm.faceColor.g, tm.faceColor.b, val);
                 });
         }
+        yield return new WaitForSeconds(time);
+        displaying = false;
 
     }
 

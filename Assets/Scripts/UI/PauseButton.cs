@@ -19,11 +19,14 @@ public class PauseButton : MonoBehaviour
 
     public GameObject pauseMenuContainer;
     private PlayerSwiper playerSwiper;
+    [SerializeField]
+    private TutorialManager tutorialMenu;
 
 
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        tutorialMenu = GameObject.FindGameObjectWithTag("TutorialCanvas").GetComponent<TutorialManager>();
         rend = GetComponent<Image>();
         pauseMenuContainer = GameObject.FindGameObjectWithTag("PauseGroup");
         pauseMenuControls = pauseMenuContainer.GetComponent<ButtonGroupAlphaControls>();
@@ -37,9 +40,10 @@ public class PauseButton : MonoBehaviour
             rend.color = playColor;
             Time.timeScale = 1;
             manager.gamePaused = false;
-            pauseMenuContainer.SetActive(false);
+            tutorialMenu.setAllVisible(true);
             pauseMenuControls.hideAll();
             playerSwiper.swipeEnabled = true;
+            pauseMenuContainer.SetActive(false);
         }
         else
         {
@@ -49,6 +53,7 @@ public class PauseButton : MonoBehaviour
             pauseMenuContainer.SetActive(true);
             pauseMenuControls.displayAll();
             playerSwiper.swipeEnabled = false;
+            tutorialMenu.setAllVisible(false);
         }
 
     }

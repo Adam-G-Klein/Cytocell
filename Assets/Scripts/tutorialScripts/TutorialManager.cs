@@ -39,11 +39,19 @@ public class TutorialManager : MonoBehaviour
     private string currentStep;
     public GameObject textPrefab;
     public GenericTextStep genericText;
+    private TextGroupAlphaControls[] alphaControls;
     void Start()
     {
         stepCounter = initStep;
         processStep(stepNames[stepCounter]);
         genericText = GetComponentInChildren<GenericTextStep>();
+        alphaControls = GetComponentsInChildren<TextGroupAlphaControls>();
+    }
+
+    public void setAllVisible(bool visible) {
+        foreach(TextGroupAlphaControls t in alphaControls) {
+            t.setVisibleQuickly(visible);
+        }
     }
 
     //last step in the chain won't send upwards for this function to be called
@@ -67,6 +75,7 @@ public class TutorialManager : MonoBehaviour
             StartCoroutine("executeTextCommand", cmd);
         } else {
             BroadcastMessage(stepSplit[0]);
+            print("executing step: " + stepSplit[0]);
         }
     }
 

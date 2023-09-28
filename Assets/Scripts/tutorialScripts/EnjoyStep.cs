@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelUpStep : MonoBehaviour
+public class EnjoyStep : MonoBehaviour
 {
     private TextGroupAlphaControls alphaControls;
-    private XPManager manager;
-    private bool hasLeveled = false;
+    private bool hasEnjoyed = false;
     [SerializeField]
     private float waitTime = 1f;
+    [SerializeField]
+    private float displayTime = 1f;
 
     void Awake() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
-        manager = GameObject.FindGameObjectWithTag("Player").GetComponent<XPManager>();
     }
 
-    public void LevelUp(){
-        print("level up step");
-        if(PlayerPrefs.GetInt("hasLeveled") == 1) {
+    public void Enjoy(){
+        if(PlayerPrefs.GetInt("hasEnjoyed") == 1) {
             SendMessageUpwards("StepDone");
             return;
         } 
@@ -25,14 +24,11 @@ public class LevelUpStep : MonoBehaviour
     }
 
     private IEnumerator corout(){
-        print("started level up corout");
-        int startingLevel = manager.level;
         yield return new WaitForSeconds(waitTime);
         alphaControls.displayAll();
-        yield return new WaitUntil(() => manager.level > startingLevel);
-        PlayerPrefs.SetInt("hasLeveled", 1);
-        hasLeveled = true;
-        yield return new WaitForSeconds(1f);
+        PlayerPrefs.SetInt("hasEnjoyed", 1);
+        hasEnjoyed = true;
+        yield return new WaitForSeconds(displayTime);
         alphaControls.hideAll();
         SendMessageUpwards("StepDone");
     }

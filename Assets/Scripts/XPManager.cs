@@ -8,7 +8,7 @@ public class XPManager : MonoBehaviour
     public float xp = 0; //public for tutorial manager
 
     [SerializeField]
-    private int level = 0;
+    public int level = 0; //public for tutorial manager
     [SerializeField]
     private int maxTrails;
     [SerializeField]
