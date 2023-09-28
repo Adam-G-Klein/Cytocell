@@ -36,11 +36,11 @@ Material:
     - _cellCenter: 0.5
     - _cellSolid: 0
     - _isButton: 0
-    - _membraneGradient: 2.13
+    - _membraneGradient: 2.5
     - _membraneGradientDropOff: 0
     - _membraneThickness: 0.8
     - _minAlpha: 0.2
-    - _nucleusGradient: 150
+    - _nucleusGradient: 89.65
     - _nucleusRadius: 0.1
     - _publicAlpha: 1
     m_Colors:

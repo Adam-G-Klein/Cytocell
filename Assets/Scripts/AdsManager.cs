@@ -35,9 +35,13 @@ public class AdsManager : MonoBehaviour
     };
 
     BannerView _bannerView;
+    public bool temporaryGlobalAdsDisabled = false;
     public void Start()
     {
-        if(PlayerPrefs.GetInt(AdsManager.ADS_DISABLED_KEY, 0) == 1){
+
+
+        temporaryGlobalAdsDisabled = true;
+        if(temporaryGlobalAdsDisabled || PlayerPrefs.GetInt(AdsManager.ADS_DISABLED_KEY, 0) == 1){
             Debug.Log("ads disabled");
         } else {
             RequestConfiguration requestConfiguration = new RequestConfiguration();
