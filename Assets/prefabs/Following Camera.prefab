@@ -143,5 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bloodLossMat: {fileID: 2100000, guid: a1bdf0da770694844bcc2d965ad83922, type: 2}
-  maxEffect: 3
+  maxEffect: 7.48
+  minEffect: 0
   effectVal: 0
+  clearEffect: 0

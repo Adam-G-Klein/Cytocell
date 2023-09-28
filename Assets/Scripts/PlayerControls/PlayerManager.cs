@@ -12,6 +12,9 @@ public class PlayerManager : MonoBehaviour
     public float fromInvulnColorTime = 0.2f;
     private int invulnLtid;
     public float health; 
+    public int ltidHealth;
+    public float tweenedHealth;
+    public float healthTweenTime = 0.5f;
     public float maxHealth; 
     public float regenOnFlitKilled; 
     public bool disableSwipesOnKnock = false;
@@ -66,6 +69,7 @@ public class PlayerManager : MonoBehaviour
         rend = GetComponentInChildren<SpriteRenderer>();
         dead = false;
         invulnLtid = -1;
+        tweenedHealth = health;
     }
 
     void Update(){
@@ -103,7 +107,13 @@ public class PlayerManager : MonoBehaviour
         {
             LeanTween.cancel(ltidRegen);
         }
+        if(ltidHealth != 0 && LeanTween.isTweening(ltidHealth)){
+            LeanTween.cancel(ltidHealth);
+        }
         health -= amnt;
+        ltidHealth = LeanTween.value(gameObject, (val) => {
+            tweenedHealth = val;
+        }, health + amnt, health, healthTweenTime).id;
         if(health <= 0 && !dead){
             mover.stopPlayer();
             swiper.swipeEnabled = false;
@@ -120,6 +130,9 @@ public class PlayerManager : MonoBehaviour
     {
         float targetHealth = Mathf.Clamp(health + (regenOnFlitKilled * killCount), 0, maxHealth);
         ltidRegen = LeanTween.value(health, targetHealth, constants.regenTime).setOnUpdate(regenUpdate).id;
+        ltidHealth = LeanTween.value(gameObject, (val) => {
+            tweenedHealth = val;
+        }, health, targetHealth, constants.regenTime).id;
     }
     private void regenUpdate(float newRegen)
     {

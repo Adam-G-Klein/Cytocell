@@ -78,6 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759534e4e681afd4687d4862518fc71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swipeTime: 0.5
+  rotTime: 0
   swipeMultiplier: 0.01
   maxSwipeLength: 5
   mouseDebug: 0
@@ -216,6 +218,9 @@ MonoBehaviour:
   toInvulnColorTime: 0.2
   fromInvulnColorTime: 0.2
   health: 0
+  ltidHealth: 0
+  tweenedHealth: 0
+  healthTweenTime: 0.2
   maxHealth: 5
   regenOnFlitKilled: 0
   disableSwipesOnKnock: 1

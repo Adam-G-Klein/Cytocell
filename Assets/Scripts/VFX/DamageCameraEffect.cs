@@ -9,6 +9,8 @@ public class DamageCameraEffect : MonoBehaviour
     [SerializeField]
     private float maxEffect;
     private float maxHealth;
+    [SerializeField]
+    private float minEffect;
 
     public float effectVal;
     public bool clearEffect = false;
@@ -24,8 +26,8 @@ public class DamageCameraEffect : MonoBehaviour
     }
     void Update()
     {
-        effectVal = clearEffect ? 0 : (-maxEffect / maxHealth)*pManage.health + maxEffect;
-        //print(string.Format("maxH: {0} maxEff: {1} effectVal: {2}", maxHealth, maxEffect, effectVal));
+        effectVal = clearEffect || pManage.tweenedHealth == maxHealth ? 0 : (minEffect-maxEffect / maxHealth)* pManage.tweenedHealth + maxEffect;
+        print(string.Format("maxH: {0} maxEff: {1} effectVal: {2}", maxHealth, maxEffect, effectVal));
         _bloodLossMat.SetFloat("_LossAmnt", effectVal);
 
     }

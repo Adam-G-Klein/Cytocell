@@ -189,6 +189,7 @@ public class AdsManager : MonoBehaviour
         yield break;
     }
     if(PlayerPrefs.GetInt(ADS_DISABLED_KEY, 0) == 1) yield break;
+    if(temporaryGlobalAdsDisabled) yield break;
     if(PlayerPrefs.GetInt(INTERSTITIAL_FREE_PLAYS_KEY, STARTING_INTERSTITIAL_FREE_PLAYS) > 0) {
         PlayerPrefs.SetInt(INTERSTITIAL_FREE_PLAYS_KEY, PlayerPrefs.GetInt(INTERSTITIAL_FREE_PLAYS_KEY, STARTING_INTERSTITIAL_FREE_PLAYS) - 1); 
         yield break;
