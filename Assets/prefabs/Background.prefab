@@ -130,6 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e88f41d4a637546a2f921596252601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dimmness: 0.45
+  dimmness: 0.36
   size: -11.68
-  backgroundColor: {r: 0.09411766, g: 0.6784314, b: 0.6627451, a: 1}
+  backgroundColor: {r: 0, g: 1, b: 0.9731543, a: 1}

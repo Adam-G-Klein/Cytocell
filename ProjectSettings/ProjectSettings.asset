@@ -236,7 +236,7 @@ PlayerSettings:
   iOSManualSigningProvisioningProfileID: 1ce90ee3-3660-488a-a980-5954aee8f49d
   tvOSManualSigningProvisioningProfileID: 
   VisionOSManualSigningProvisioningProfileID: 
-  iOSManualSigningProvisioningProfileType: 2
+  iOSManualSigningProvisioningProfileType: 1
   tvOSManualSigningProvisioningProfileType: 0
   VisionOSManualSigningProvisioningProfileType: 0
   appleEnableAutomaticSigning: 2

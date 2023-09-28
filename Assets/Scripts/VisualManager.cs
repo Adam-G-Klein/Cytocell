@@ -49,11 +49,13 @@ public class VisualManager : MonoBehaviour
         scoreText.text = constants.SceneName;
         tutorialCanvas = GameObject.FindGameObjectWithTag("TutorialCanvas");
         adsManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<AdsManager>(); 
+        newRecordText.gameObject.SetActive(false);
     }
 
     public void applyBannerOffset(){
         List<Transform> objs = new List<Transform>();
         objs.AddRange(transform.GetComponentsInChildren<Transform>());
+        objs.Add(newRecordText.transform);
         Transform tutorialCanvas = GameObject.FindGameObjectWithTag("TutorialCanvas").transform;
         if(tutorialCanvas)
             objs.AddRange(tutorialCanvas.GetComponentsInChildren<Transform>());
@@ -64,7 +66,6 @@ public class VisualManager : MonoBehaviour
                 child.transform.localPosition += new Vector3(0, bannerVerticalOffset, 0);
             }
         }
-        newRecordText.gameObject.SetActive(false);
     }
 
 
