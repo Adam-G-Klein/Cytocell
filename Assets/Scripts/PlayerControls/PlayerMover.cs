@@ -31,6 +31,12 @@ public class PlayerMover : MonoBehaviour
         motScale = GetComponent<JellyMotionScaler>();
 
     }
+
+    public void stopPlayer() {
+        LeanTween.cancel(ltidMov);
+        LeanTween.cancel(ltidRot);
+        LeanTween.cancel(ltidCam);
+    }
     //uses mov dir to find angle
     public int[] movePlayer(Vector2 movDir, float movDist,
       float movTime, float rotTime){
@@ -44,9 +50,7 @@ public class PlayerMover : MonoBehaviour
         sNotes.swipeSound();
 
 
-        LeanTween.cancel(ltidMov);
-        LeanTween.cancel(ltidRot);
-        LeanTween.cancel(ltidCam);
+        stopPlayer();
         //set the public ltids
         ltidMov = LeanTween.move(player.gameObject, movTarg, movTime)
                     .setEaseOutSine().id;
@@ -57,11 +61,6 @@ public class PlayerMover : MonoBehaviour
         return new int[] {ltidMov,ltidRot,ltidCam};
     }
 
-    public void stopPlayer() {
-        LeanTween.cancel(ltidMov);
-        LeanTween.cancel(ltidRot);
-        LeanTween.cancel(ltidCam);
-    }
     //takes explicit angle, used for movement after collisions
     public int[] movePlayer(Vector2 movDir, float movDist, 
       float movTime, float rotTime, float targAngle){
@@ -71,9 +70,7 @@ public class PlayerMover : MonoBehaviour
             2: ltidCam */
         Vector2 movTarg = (movDir.normalized * movDist) + (Vector2)player.transform.position;
 
-        LeanTween.cancel(ltidMov);
-        LeanTween.cancel(ltidRot);
-        LeanTween.cancel(ltidCam);
+        stopPlayer();
         //set the public ltids
         ltidMov = LeanTween.move(player.gameObject, movTarg, movTime)
                     .setEaseInOutSine().setEaseInOutSine().id;
@@ -109,13 +106,10 @@ public class PlayerMover : MonoBehaviour
         float inQuadAngle = Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg;
         float simpleAngle = quadrant == 0 || quadrant == 3 ? inQuadAngle + 270 : inQuadAngle + 90;
         return simpleAngle;
-
-
     }
 
 
     public bool isPlayerMoving(){
-
         return LeanTween.isTweening(ltidMov);
     }
 

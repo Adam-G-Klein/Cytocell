@@ -108,7 +108,7 @@ Material:
     - _minAlpha: 0.2
     - _nucleusGradient: 213.7
     - _nucleusRadius: 0.4
-    - _publicAlpha: 0
+    - _publicAlpha: 1
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

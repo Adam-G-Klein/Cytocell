@@ -1,6 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
+using UnityEngine.UI;
 
 /*
 If player has not swiped, and the playerPref isn't set, display text.
@@ -13,12 +15,12 @@ public class SwipeToMoveStep : MonoBehaviour
     private bool hasSwiped = false;
     [SerializeField]
     private float waitTime = 1f;
-    
 
     void Awake() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
         swiper = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSwiper>();
         hasSwiped = false;
+
     }
 
     void Update(){
