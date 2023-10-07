@@ -571,6 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f4dc1808aad484dae91c772e9fa6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameObjects: []
   buttons:
   - {fileID: 3167271177077400941}
   - {fileID: 7211156324577583654}
@@ -581,7 +582,7 @@ MonoBehaviour:
   maxButtonMatAlpha: 28
   displayTime: 0.7
   initAlpha: 0
-  imageEndAlpha: 0.4
+  spriteEndAlpha: 0.4
   initActive: 0
 --- !u!114 &191329197
 MonoBehaviour:
@@ -1110,6 +1111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f4dc1808aad484dae91c772e9fa6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameObjects: []
   buttons:
   - {fileID: 7565067082053528029}
   - {fileID: 2951269035190446889}
@@ -1118,7 +1120,7 @@ MonoBehaviour:
   maxButtonMatAlpha: 28
   displayTime: 0.7
   initAlpha: 28
-  imageEndAlpha: 0.4
+  spriteEndAlpha: 0.4
   initActive: 1
 --- !u!114 &2043048966
 MonoBehaviour:
@@ -2826,6 +2828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f4dc1808aad484dae91c772e9fa6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameObjects: []
   buttons:
   - {fileID: 2184261851246990143}
   - {fileID: 679896605277876484}
@@ -2835,7 +2838,7 @@ MonoBehaviour:
   maxButtonMatAlpha: 28
   displayTime: 0.7
   initAlpha: 0
-  imageEndAlpha: 0.4
+  spriteEndAlpha: 0.4
   initActive: 0
 --- !u!114 &3204104146196394313
 MonoBehaviour:
@@ -4325,7 +4328,7 @@ PrefabInstance:
     - target: {fileID: 1841675081753060374, guid: 6717a84de962dbb48b3839940ec7dbe4,
         type: 3}
       propertyPath: m_text
-      value: Love and Support, beta testing
+      value: Love and Support, pre-alpha testing
       objectReference: {fileID: 0}
     - target: {fileID: 1841675081753060374, guid: 6717a84de962dbb48b3839940ec7dbe4,
         type: 3}

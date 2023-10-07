@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 // A resuable interface that manipulates the game's custom gradient buttons
 // along with the text and interactable elements in order to create
@@ -10,92 +11,88 @@ using TMPro;
 // for ui manipulation in others.
 public class ButtonGroupAlphaControls : MonoBehaviour
 {
+    // Should use this for all new menu items
+    public List<GameObject> gameObjects;
+    // Continuing to support separating items by images and buttons
+    // because I don't want to recreate all of my current menus
+    // by changing the serialization 
     public List<GameObject> buttons;
     private List<Clickable> clickables = new List<Clickable>();
     public List<GameObject> images;
-    private List<Material> buttonMats = new List<Material>();
+    private List<Image> buttonImgs = new List<Image>();
+    private List<Material> imageMats = new List<Material>();
     private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
+    private List<GameObject> all = new List<GameObject>();
 
-    [SerializeField]
-    private float buttonToTextAlphaRatio2 = 1 / 28;
-    private float buttonToImageAlphaRatio = 1 / 60;
     [SerializeField]
     private float maxButtonMatAlpha = 28;
     public float displayTime = 0.7f;
     public float initAlpha = 0;
-    public float imageEndAlpha = 0.4f;
+    public float spriteEndAlpha = 0.4f;
     public bool initActive = false;
     private TextGroupAlphaControls textGroup;
+    [SerializeField]
+    private bool textGroupBehavesTheSame = true;
+
+    private string[] buttonShaders = new string[] { "Beset/UIButtons" };
 
     // Start is called before the first frame update
     void Start()
     {
         textGroup = GetComponent<TextGroupAlphaControls>();
 
-        foreach (GameObject obj in buttons)
-        {
-            Image btnMat = obj.GetComponent<Image>();
-            if(btnMat) buttonMats.Add(btnMat.materialForRendering);
-            Clickable clickable = obj.GetComponent<Clickable>();
-            clickables.Add(clickable);
-            if(clickable) clickable.clickable = initActive;
-            obj.SetActive(initActive);
-            SpriteRenderer renderer = obj.GetComponentInChildren<SpriteRenderer>();
-            if (renderer) sprites.Add(renderer);
-            
-        }
+        addAllItemsToLists(buttons);
+        addAllItemsToLists(images);
+        addAllItemsToLists(gameObjects);
 
-        foreach (GameObject obj in images)
+        foreach (Image img in buttonImgs)
         {
-            SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
-            renderer.color = new Color(renderer.color.r, renderer.color.b, renderer.color.g, initAlpha);
-            sprites.Add(renderer);
-            obj.SetActive(initActive);
-        }
-
-        foreach (Material mat in buttonMats)
-        {
-            mat.SetFloat("_publicAlpha", initAlpha);
+            img.material.SetFloat("_publicAlpha", initAlpha);
         }
         SendMessageUpwards("initDone", null, SendMessageOptions.DontRequireReceiver);
     }
 
-    void OnEnable(){
-        buttonToTextAlphaRatio2 = 1 / 28;
-    }
-
-    void Update()
+    private void addAllItemsToLists(List<GameObject> gos)
     {
-        buttonToTextAlphaRatio2 = 1 / 28;
-
-        if (Input.GetKeyDown(KeyCode.T))
+        foreach (GameObject obj in gos)
         {
-            if (buttonMats[0].GetFloat("_publicAlpha") == initAlpha)
-            {
-                displayAll();
+            Image img = obj.GetComponent<Image>();
+            if(!img) img = obj.GetComponentInChildren<Image>();
+            if(img) {
+                print("found image " + img.gameObject.name + " with shader " + img.material.shader.name);
+                if(!buttonImgs.Contains(img) && buttonShaders.Contains(img.material.shader.name)) {
+                    print("adding img with shader: " + img.material.shader + " to list");
+                    buttonImgs.Add(img);
+                }
+                else {
+                    print("adding img " + img.gameObject.name + " to list");
+                    imageMats.Add(img.material);
+                }
+
+            } 
+            Clickable clickable = obj.GetComponent<Clickable>();
+            if(clickable) {
+                clickable.clickable = initActive;
+                if(!clickables.Contains(clickable)) clickables.Add(clickable);
             }
-            else
-            {
-                hideAll();
-            }
+            SpriteRenderer renderer = obj.GetComponentInChildren<SpriteRenderer>();
+            if (renderer && !sprites.Contains(renderer)) sprites.Add(renderer);
+            all.Add(obj);
+            obj.SetActive(initActive);
         }
     }
 
     public void displayAll()
     {
-        print("displaying all for gameobject " + gameObject.name);
-        foreach (GameObject obj in buttons)
+        foreach (GameObject obj in all)
         {
+            print("btn group set active: " + obj.name);
             obj.SetActive(true);
         }
-
-        foreach (GameObject img in images)
-        {
-            img.SetActive(true);
-        }
-        if(textGroup) textGroup.displayAll();
+        if(textGroup && textGroupBehavesTheSame) textGroup.displayAll();
         tweenButtonsAlphaTo(maxButtonMatAlpha, displayTime);
-        tweenImageAlphaTo(imageEndAlpha, displayTime);
+        tweenSpriteAlphaTo(spriteEndAlpha, displayTime);
+        tweenImageAlphaTo(spriteEndAlpha, displayTime);
         Invoke("setAllClickable", displayTime);
     }
 
@@ -119,26 +116,27 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     public void hideAll()
     {
         tweenButtonsAlphaTo(0, displayTime);
+        tweenSpriteAlphaTo(0, displayTime);
         tweenImageAlphaTo(0, displayTime);
-        if(textGroup) textGroup.hideAll();
+        if(textGroup && textGroupBehavesTheSame) textGroup.hideAll();
         setAllUnClickable(); //don't need to be clickable as they're fading out
-        Invoke("deactivateAllButtons", displayTime);
+        Invoke("deactivateAll", displayTime);
     }
 
     public void tweenButtonsAlphaTo(float to, float time)
     {
-        foreach (Material mat in buttonMats)
+        foreach (Image img in buttonImgs)
         {
             LeanTween.value(
-            gameObject, mat.GetFloat("_publicAlpha"), to, time)
+            gameObject, img.material.GetFloat("_publicAlpha"), to, time)
             .setOnUpdate((float val) =>
             {
-                mat.SetFloat("_publicAlpha", val);
+                img.material.SetFloat("_publicAlpha", val);
             });
         }
     }
 
-    public void tweenImageAlphaTo(float to, float time){
+    public void tweenSpriteAlphaTo(float to, float time){
         foreach (SpriteRenderer renderer in sprites)
         {
             LeanTween.value(
@@ -151,10 +149,23 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         }
     }
 
-    private void deactivateAllButtons()
+    public void tweenImageAlphaTo(float to, float time)
+    {
+        foreach (Material mat in imageMats)
+        {
+
+            LeanTween.value(
+            gameObject, mat.color.a, to, time)
+            .setOnUpdate((float val) =>
+            {
+                mat.color = new Color(mat.color.r, mat.color.b, mat.color.g, val);
+            });
+        }
+    }
+    private void deactivateAll()
     {
 
-        foreach (GameObject obj in buttons)
+        foreach (GameObject obj in all)
         {
             obj.SetActive(false);
         }

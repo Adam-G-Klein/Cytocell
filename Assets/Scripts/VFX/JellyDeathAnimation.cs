@@ -78,6 +78,8 @@ public class JellyDeathAnimation : MonoBehaviour
         mat = transform.GetChild(SPRITE_CHILD_INDEX).GetComponent<SpriteRenderer>().material;
         nucleusMovement = GetComponent<NucleusMovement>();
         recycler = manager.GetComponent<ObjectRecycler>();
+        defaultMembraneColor = mat.GetColor("_membraneColor");
+        defaultShaderAlpha = mat.GetFloat("_publicAlpha");
         if(!manager.menuMode)
             dnotes = GameObject.Find("Audio").GetComponentInChildren<DeathNotes>();
         

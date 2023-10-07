@@ -1,52 +1,33 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
+using UnityEngine.UI;
+using UnityEngine.Analytics;
 
 /*
 If player has not swiped, and the playerPref isn't set, display text.
 
 */
-public class SwipeToMoveStep : MonoBehaviour
+public class SwipeToMoveStep : TutorialStep 
 {
-    private TextGroupAlphaControls alphaControls;
     private PlayerSwiper swiper;
     private bool hasSwiped = false;
     [SerializeField]
     private float waitTime = 1f;
-    
+    private GameManager gameManager;
 
-    void Awake() {
-        alphaControls = GetComponent<TextGroupAlphaControls>();
+    protected override void Start() {
+        base.Start();
+        stepName = "SwipeToMove";
         swiper = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSwiper>();
-        hasSwiped = false;
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
-    void Update(){
-        if(swiper.plSwiped && !hasSwiped) hasSwiped = true;
-    }
-
-    public void SwipeToMove(){
-        if(PlayerPrefs.GetInt("hasSwiped") == 1) {
-            SendMessageUpwards("StepDone");
-            return;
-        } 
-        StartCoroutine("corout");
-    }
-
-    private IEnumerator corout(){
+    public override IEnumerator executeStep(){
         yield return new WaitForSeconds(waitTime);
-        if(!hasSwiped) {
-            alphaControls.displayAll();
-        } else {
-            PlayerPrefs.SetInt("hasSwiped", 1);
-            SendMessageUpwards("StepDone");
-            yield break;
-        }
+        alphaControls.displayAll();
         yield return new WaitUntil(() => swiper.plSwiped);
-        PlayerPrefs.SetInt("hasSwiped", 1);
-        hasSwiped = true;
-        yield return new WaitForSeconds(1f);
-        alphaControls.hideAll();
-        SendMessageUpwards("StepDone");
+        yield return endExecution();
     }
 }

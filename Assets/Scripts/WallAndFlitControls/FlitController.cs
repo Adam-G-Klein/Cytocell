@@ -56,6 +56,7 @@ public class FlitController : MonoBehaviour
     
     private JellyDeathAnimation.deathDelegate deathDelegate;
     private DifficultyConstants constants;
+    private bool inWall = false;
 
     //states occur inside coroutines
     //but states have priority that overrides others
@@ -237,6 +238,7 @@ public class FlitController : MonoBehaviour
     private Vector2 getMoveVector(Collider2D[] hits, int hitNum)
     {
         Vector2 res = new Vector2();
+        Transform wallToEscape = null;
         
         //TODO: combine this logic with the parent function
         for(int i = 0; i < hitNum; i ++)
@@ -250,6 +252,7 @@ public class FlitController : MonoBehaviour
             }else if(hits[i].tag == "Wall"){
 
                 res += getAvoidanceVector(hits[i].transform.position, hitNum, constants.WallAvoidanceWeight);
+                purgeIfStillInWall(hits[i].transform);
             }
             else
             {
@@ -257,8 +260,30 @@ public class FlitController : MonoBehaviour
             }
         }
         Array.Clear(hits, 0, hitNum);
+        if(wallToEscape != null) wallEscape(wallToEscape);
         return res * pSpaceMovDistMax;
 
+    }
+    
+    private void purgeIfStillInWall(Transform wall){
+        bool nowInWall = Vector2.Distance(wall.position, transform.position) < wall.localScale.x/2;
+        if (!nowInWall) {
+            inWall = false;
+            return;
+        }
+        else if (nowInWall && inWall) {
+            purgeNoScoreOrXP();
+        } 
+        inWall = nowInWall;
+
+
+    }
+
+    private void wallEscape(Transform wall) {
+        Vector2 escapeDir = (transform.position - wall.position).normalized;
+        Vector2 escapeVector = escapeDir * (wall.localScale.x/2 + transform.localScale.x/2);
+        transform.position = (Vector2)wall.position + escapeVector;
+        print("escaped wall, new pos: " + transform.position + " escapeVector: " + escapeVector + " wallPos: " + wall.position + " wallScale: " + wall.localScale.x/2 + " flitScale: " + transform.localScale.x/2);
     }
 
 
@@ -369,7 +394,6 @@ public class FlitController : MonoBehaviour
         toBePurged = true;
         state = FlitState.dying;
         StopAllCoroutines();
-        Debug.Log("Just called playDeathAnimation");
         deathAnimation.playDeathAnimation(deathDelegate);
         manager.giveFlitXP();
     }
@@ -378,7 +402,6 @@ public class FlitController : MonoBehaviour
         toBePurged = true;
         state = FlitState.dying;
         StopAllCoroutines();
-        Debug.Log("Just called playDeathAnimation");
         deathAnimation.playDeathAnimation(deathDelegate, false, false);
         noScoreOrXPonDeath = true;
     }

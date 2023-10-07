@@ -111,6 +111,11 @@ MonoBehaviour:
   flitKillColor: {r: 0, g: 0.5058824, b: 0.5176471, a: 1}
   toFlitKillColorTime: 0.2
   fromFlitKillColorTime: 1.5
+  fadeAlpha: 0.4
+  nextToDieFadeTime: 0.5
+  trailDeathTime: 0.05
+  trailDeathPS: {fileID: 9072473505103226727, guid: 3e44d2a5058f4584ba9b24d3b0f5bc5a,
+    type: 3}
 --- !u!70 &70134169926658718
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

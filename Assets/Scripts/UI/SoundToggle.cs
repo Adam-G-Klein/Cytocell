@@ -2,15 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 
 public class SoundToggle : MonoBehaviour
 {
+    [SerializeField]
+    private Sprite enabledImage;
+    [SerializeField]
+    private Sprite disabledImage;
     private TextMeshProUGUI text;
+    [SerializeField]
+    private GameObject soundImage;
+    private Image img;
 
     // Start is called before the first frame update
     void Awake()
     {
-        text = GetComponentInChildren<TextMeshProUGUI>();
+        
+        img = soundImage.GetComponent<Image>();
         setTextForSoundState();
         AudioListener.volume = soundEnabled() ? 1 : 0;
     }
@@ -23,11 +33,10 @@ public class SoundToggle : MonoBehaviour
 
     private void setTextForSoundState(){
         if(soundEnabled()){
-            text.text = "Disable Sound";
+            img.sprite = enabledImage;
         } else {
-            text.text = "Enable Sound";
+            img.sprite = disabledImage;
         }
-        print("Sound enabled: " + soundEnabled() + " text: " + text.text);
     }
 
     public bool soundEnabled()

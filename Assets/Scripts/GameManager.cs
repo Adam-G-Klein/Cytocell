@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public ResolutionSetter res; 
     private AdsManager adsManager;
     public bool newHighScore = false;
+    private PlayerSwiper playerSwiper;
 
     // Use this for initialization
     void Start()
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
 
             spawnFlits();
             adsManager = GetComponent<AdsManager>();
+            playerSwiper = player.GetComponent<PlayerSwiper>();
 
         }
     }
@@ -177,6 +179,22 @@ public class GameManager : MonoBehaviour
     public void setSoundEnabled(bool enabled)
     {
         PlayerPrefs.SetInt("SoundEnabled", enabled ? 1 : 0);
+    }
+
+    public void setGamePaused(bool paused, float deltaTime = -1)
+    {
+        if(deltaTime == -1) deltaTime = paused ? 0 : 1;
+        gamePaused = paused;
+        if (paused)
+        {
+            Time.timeScale = deltaTime;
+            playerSwiper.swipeEnabled = false;
+        }
+        else
+        {
+            Time.timeScale = deltaTime;
+            playerSwiper.swipeEnabled = true;
+        }
     }
 
 }

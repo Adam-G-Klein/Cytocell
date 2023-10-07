@@ -28,7 +28,11 @@ public class TrailController : MonoBehaviour
     [SerializeField]
     private float fadeAlpha = 0.2f; 
     [SerializeField]
-    private float fadeTime = 0.5f;
+    private float nextToDieFadeTime = 0.5f;
+    [SerializeField]
+    private float trailDeathTime = 0.05f;
+    [SerializeField]
+    private GameObject trailDeathPS;
     private SpriteRenderer rend;
     public Vector2[] endpoints
     {
@@ -87,6 +91,7 @@ public class TrailController : MonoBehaviour
     {
         coll = GetComponent<Collider2D>();
         rend = GetComponent<SpriteRenderer>();
+        nextToDieFadeTime = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSwiper>().swipeTime;
         
     }
 
@@ -173,7 +178,7 @@ public class TrailController : MonoBehaviour
     }
     public void nextToDie(){
 
-        StartCoroutine("nextToDieFade",0.2);
+        StartCoroutine("nextToDieFade",fadeAlpha);
     }
 
     public void die(){
@@ -190,10 +195,11 @@ public class TrailController : MonoBehaviour
             LeanTween.cancel(killFlitLtid);
         if(nextToDieLtid != -1 && LeanTween.isTweening(nextToDieLtid))
             LeanTween.cancel(nextToDieLtid);
-        deathFadeLtid = LeanTween.alpha(gameObject,0,Mathf.Lerp(0, fadeTime, rend.color.a)).id;
+        deathFadeLtid = LeanTween.alpha(gameObject,0,Mathf.Lerp(0, trailDeathTime, rend.color.a)).id;
         // can't wait while tweening because we use the same ltid
         // for nexttodie and deathfade
-        yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(trailDeathTime);
+        Instantiate(trailDeathPS,transform.position,transform.rotation);
         gameObject.SetActive(false);
     }
 
@@ -201,7 +207,7 @@ public class TrailController : MonoBehaviour
         if(killFlitLtid != -1 && LeanTween.isTweening(killFlitLtid))
             LeanTween.cancel(killFlitLtid);
         nextToDieLtid = LeanTween.alpha(gameObject,final,
-            fadeTime).id;
+            nextToDieFadeTime).id;
         yield return null;
     }
 
@@ -219,7 +225,7 @@ public class TrailController : MonoBehaviour
         yield return new WaitWhile(()=>LeanTween.isTweening(killFlitLtid));
     }
     public void setFadeTime(float newFadeTime){
-        fadeTime = newFadeTime;
+        nextToDieFadeTime = newFadeTime;
     }
 
 

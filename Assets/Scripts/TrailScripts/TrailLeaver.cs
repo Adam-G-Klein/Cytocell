@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -103,7 +103,6 @@ public class TrailLeaver : MonoBehaviour {
         Vector2 startPos = player.position;
         Vector3 newAngs, newScale;
         Vector2 newPos;
-        // + 90 due to experiment based implementation
         newAngs = new Vector3(0, 0,mover.FindAngle(swiper.lastDir) + 90);
         //this should be interruptable by another trail being formed
         while (LeanTween.isTweening(mover.ltidMov) && !trailCont.isTrailPlaced())
@@ -111,9 +110,9 @@ public class TrailLeaver : MonoBehaviour {
             newPos = (((Vector2)player.position - startPos) / 2) + startPos;
             newScale = new Vector3(Vector2.Distance(startPos, player.position),
                                     trail.localScale.y, trail.localScale.z);
+
             trail.eulerAngles = newAngs;
             trail.localScale = newScale;
-
             trail.position = newPos;
             yield return new WaitForEndOfFrame();
         }

@@ -5,107 +5,83 @@ using System.Text;
 using UnityEngine;
 using TMPro;
 
-public class TextCommand
-{
-    // command: ~ xCoord yCoord beforeDelay duringDelay afterDelay text
-    public float beforeDelay;
-    public float duringDelay;
-    public float afterDelay;
-
-    public string text;
-    public float xCoord;
-    public float yCoord;
-
-
-    public TextCommand()
-    {
-        beforeDelay = 0;
-        duringDelay = 1;
-        afterDelay = 1;
-        text = "boooo unset text!";
-        xCoord = 0;
-        yCoord = 0;
-    }
-}
 
 public class TutorialManager : MonoBehaviour
 {
-    // command: ~ xCoord yCoord beforeDelay duringDelay afterDelay text
+
+    // Step 1: list of TutorialStep objects that all have an executeStep iEnumerable. Compiles.
+    // Step 2: implement one tutorial step, execute it from tutorialManager
+    // Step 3: TutorialManager tracks the current TutorialStep and the coroutine we're currently yielding on. Calling reset:
+    //              - cancels the current coroutine
+    //              - calls reset on all TutorialSteps
+    //              - Restarts the first coroutine
+    public static string SWIPE_TO_MOVE_COMPLETION = "hasSwiped";
+    public static string MOVE_ACROSS_TRAIL_COMPLETION = "hasCollapsed";
+    public static string CONSUME_CELLS_COMPLETION = "hasConsumed";
+    public static string LEVEL_UP_COMPLETION = "hasLeveled";
+    public static string HAS_ENJOYED_COMPLETION = "hasEnjoyed";
+    public static string[] STEP_COMPLETION_KEYS = {SWIPE_TO_MOVE_COMPLETION, MOVE_ACROSS_TRAIL_COMPLETION, CONSUME_CELLS_COMPLETION, LEVEL_UP_COMPLETION, HAS_ENJOYED_COMPLETION};
+
+    public List<TutorialStep> tutorialSteps;
+
+    private IEnumerator currentTutorialCoroutine;
+    private IEnumerator currentStepCoroutine;
+    private TutorialStep currentStep;
+    private GameManager gameManager;
     [SerializeField]
-    private int initStep = 0;
-    public string[] stepNames;
-    public int stepCounter = 0;
-    private int stepsInitialized = 0;
-    private string currentStep;
-    public GameObject textPrefab;
-    public GenericTextStep genericText;
-    private TextGroupAlphaControls[] alphaControls;
-    void Start()
-    {
-        stepCounter = initStep;
-        processStep(stepNames[stepCounter]);
-        genericText = GetComponentInChildren<GenericTextStep>();
-        alphaControls = GetComponentsInChildren<TextGroupAlphaControls>();
+    private string initStepName;
+    private IEnumerator resetCoroutine;
+
+    void Start() {
+        tutorialSteps = new List<TutorialStep>(GetComponentsInChildren<TutorialStep>());
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        print("tutorialSteps: " + tutorialSteps.Count);
+        startTutorial();
     }
 
-    public void setAllVisible(bool visible) {
-        foreach(TextGroupAlphaControls t in alphaControls) {
-            t.setVisibleQuickly(visible);
+    public void resetTutorial(){
+        if (resetCoroutine != null) {
+            StopCoroutine(resetCoroutine);
         }
+        resetCoroutine = resetTutorialAfterUnpause();
+        StartCoroutine(resetCoroutine);
     }
 
-    //last step in the chain won't send upwards for this function to be called
-    public void StepDone()
-    {
-        stepCounter += 1;
-        if (stepCounter < stepNames.Length)
-        {
-            currentStep = stepNames[stepCounter];
-            processStep(currentStep);
+    private IEnumerator resetTutorialAfterUnpause() {
+        yield return new WaitUntil(() => !gameManager.gamePaused);
+        if(currentTutorialCoroutine != null) {
+            StopCoroutine(currentTutorialCoroutine);
         }
-    }
-
-    private void processStep(string step)
-    {
-        string[] stepSplit = step.Split();
-        print("step: " + step);
-        if (step.Split()[0] == "~")
-        {
-            TextCommand cmd = parseTextCommand(step);
-            StartCoroutine("executeTextCommand", cmd);
-        } else {
-            BroadcastMessage(stepSplit[0]);
-            print("executing step: " + stepSplit[0]);
+        if(currentStepCoroutine != null) {
+            StopCoroutine(currentStepCoroutine);
         }
-    }
-
-    private TextCommand parseTextCommand(string currentStep)
-    {
-        string[] tokens = currentStep.Split();
-        TextCommand cmd = new TextCommand();
-        cmd.xCoord = float.Parse(tokens[1]);
-        cmd.yCoord = float.Parse(tokens[2]);
-        cmd.beforeDelay = float.Parse(tokens[3]);
-        cmd.duringDelay = float.Parse(tokens[4]);
-        cmd.afterDelay = float.Parse(tokens[5]);
-        StringBuilder sb = new StringBuilder(tokens[6], 500);
-        int cnt = 7;
-        while (cnt < tokens.Length)
-        {
-            sb.Append(" " + tokens[cnt]);
-            cnt += 1;
+        foreach(TutorialStep step in tutorialSteps) {
+            step.reset();
         }
-        cmd.text = sb.ToString();
-        return cmd;
+        startTutorial();
     }
 
+    public void startTutorial(){
+        currentTutorialCoroutine = tutorialCoroutine();
+        StartCoroutine(currentTutorialCoroutine);
+    }
 
-    IEnumerator executeTextCommand(TextCommand cmd)
-    {
-        yield return new WaitForSeconds(cmd.beforeDelay);
-        genericText.displayText(cmd.duringDelay, cmd.text);
-        yield return new WaitForSeconds(cmd.duringDelay + cmd.afterDelay);
-        StepDone();
+    public void setVisible(bool visible) {
+        if(currentStep != null)
+            currentStep.setVisible(visible);
+    }
+
+    private IEnumerator tutorialCoroutine() {
+        bool startingStepFound = false;
+        foreach(TutorialStep step in tutorialSteps) {
+            startingStepFound = startingStepFound || step.stepName == initStepName;
+            if(startingStepFound && PlayerPrefs.GetInt(step.completionKey(), 0) == 0) {
+                print("Starting step " + step.stepName);
+                currentStepCoroutine = step.executeStep();
+                currentStep = step;
+                yield return StartCoroutine(currentStepCoroutine);
+            }
+        }
     }
 
 }
