@@ -80,7 +80,6 @@ public class TextGroupAlphaControls : MonoBehaviour
                 gameObject, tm.alpha, to, time)
                 .setOnUpdate((float val) =>
                 {
-                    print("setting alpha to: " + val);
                     tm.color = new Color(tm.faceColor.r, tm.faceColor.g, tm.faceColor.b, val);
                 }).id;
         }

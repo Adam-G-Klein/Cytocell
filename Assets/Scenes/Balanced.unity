@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 775279042, guid: d4c8f4851647d0948b6c7a92974b3e7b, type: 3}
+      propertyPath: maxEffect
+      value: 8.29
+      objectReference: {fileID: 0}
     - target: {fileID: 1862729352088496959, guid: d4c8f4851647d0948b6c7a92974b3e7b,
         type: 3}
       propertyPath: m_Name
@@ -335,7 +339,7 @@ PrefabInstance:
     - target: {fileID: 7346240284360117121, guid: efcb38418afcfcc46845994d3607bfb3,
         type: 3}
       propertyPath: regenTime
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7346240284360117121, guid: efcb38418afcfcc46845994d3607bfb3,
         type: 3}
@@ -1013,7 +1017,7 @@ PrefabInstance:
     - target: {fileID: 7603533279477860390, guid: 5e3e657c1e4dc7a4ab0a9040f56719ea,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -29.00003
+      value: -29
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

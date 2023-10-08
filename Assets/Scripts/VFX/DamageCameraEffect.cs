@@ -21,12 +21,15 @@ public class DamageCameraEffect : MonoBehaviour
     {
         pManage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
         maxHealth = pManage.maxHealth;
-
-        
     }
     void Update()
     {
-        effectVal = clearEffect || pManage.tweenedHealth == maxHealth ? 0 : (minEffect-maxEffect / maxHealth)* pManage.tweenedHealth + maxEffect;
+
+        print("maxEffect: " + maxEffect + " minEffect: " + minEffect + " maxHealth: " + maxHealth + " pManage.tweenedHealth: " + pManage.tweenedHealth);
+        print("maxEffect - minEffect: " + (maxEffect - minEffect));
+        print("maxEffect - minEffect / maxHealth: " + ((maxEffect - minEffect) / maxHealth));
+        print("maxEffect - (maxEffect - minEffect / maxHealth) * pManage.tweenedHealth: " + (maxEffect - ((maxEffect - minEffect) / maxHealth) * pManage.tweenedHealth));
+        effectVal = clearEffect || pManage.tweenedHealth == maxHealth ? 0 : maxEffect - ((maxEffect - minEffect) / maxHealth) * pManage.tweenedHealth;
         _bloodLossMat.SetFloat("_LossAmnt", effectVal);
 
     }

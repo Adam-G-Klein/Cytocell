@@ -21,7 +21,6 @@ public class DifficultyConstants : MonoBehaviour
     public float maxXpPerLevel = 16;
 
     [Header("Knockback Settings")]
-    public bool enemyCollisionsEnabled = true;
     public float enemyKnockbackDist = 3f;
     public float enemyKnockbackMovTime = 0.5f;
     public float enemyKnockbackRotTime = 0.5f;

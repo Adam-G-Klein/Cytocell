@@ -49,11 +49,14 @@ public class PlayerManager : MonoBehaviour
     private float wallStuckTime = 1f;
     private List<float> wallCollisionTimes = new List<float>();
 
-    void Start()
-    {
+    void Awake() {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         constants = gameManager.GetComponent<DifficultyConstants>();
         maxHealth = constants.InitialHealth;
+    }
+
+    void Start()
+    {
         regenOnFlitKilled = constants.RegenPerFlit;
         knockBackRotMaxVal = constants.enemyKnockbackRotDistMax;
         
@@ -192,7 +195,6 @@ public class PlayerManager : MonoBehaviour
 
 
     public void enemyCollision(bool dead, GameObject enemy){
-        if(!constants.enemyCollisionsEnabled) return;
         FlitController enemyCont = enemy.GetComponent<FlitController>();
         Vector3 playerPos = gameObject.transform.position;
         Vector3 enemyPos = enemy.transform.position;
