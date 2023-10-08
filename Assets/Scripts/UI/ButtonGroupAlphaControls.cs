@@ -22,10 +22,8 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     private List<Image> buttonImgs = new List<Image>();
     private List<Material> imageMats = new List<Material>();
     private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
+    private List<GameObject> all = new List<GameObject>();
 
-    [SerializeField]
-    private float buttonToTextAlphaRatio2 = 1 / 28;
-    private float buttonToImageAlphaRatio = 1 / 60;
     [SerializeField]
     private float maxButtonMatAlpha = 28;
     public float displayTime = 0.7f;
@@ -59,11 +57,13 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             Image img = obj.GetComponent<Image>();
             if(!img) img = obj.GetComponentInChildren<Image>();
             if(img) {
+                print("found image " + img.gameObject.name + " with shader " + img.material.shader.name);
                 if(!buttonImgs.Contains(img) && buttonShaders.Contains(img.material.shader.name)) {
                     print("adding img with shader: " + img.material.shader + " to list");
                     buttonImgs.Add(img);
                 }
                 else {
+                    print("adding img " + img.gameObject.name + " to list");
                     imageMats.Add(img.material);
                 }
 
@@ -75,21 +75,16 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             }
             SpriteRenderer renderer = obj.GetComponentInChildren<SpriteRenderer>();
             if (renderer && !sprites.Contains(renderer)) sprites.Add(renderer);
+            all.Add(obj);
             obj.SetActive(initActive);
         }
     }
 
     public void displayAll()
     {
-        print("displaying all for gameobject " + gameObject.name);
-        foreach (GameObject obj in buttons)
+        foreach (GameObject obj in all)
         {
             obj.SetActive(true);
-        }
-
-        foreach (GameObject img in images)
-        {
-            img.SetActive(true);
         }
         if(textGroup) textGroup.displayAll();
         tweenButtonsAlphaTo(maxButtonMatAlpha, displayTime);
@@ -122,7 +117,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         tweenImageAlphaTo(0, displayTime);
         if(textGroup) textGroup.hideAll();
         setAllUnClickable(); //don't need to be clickable as they're fading out
-        Invoke("deactivateAllButtons", displayTime);
+        Invoke("deactivateAll", displayTime);
     }
 
     public void tweenButtonsAlphaTo(float to, float time)
@@ -164,10 +159,10 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             });
         }
     }
-    private void deactivateAllButtons()
+    private void deactivateAll()
     {
 
-        foreach (GameObject obj in buttons)
+        foreach (GameObject obj in all)
         {
             obj.SetActive(false);
         }

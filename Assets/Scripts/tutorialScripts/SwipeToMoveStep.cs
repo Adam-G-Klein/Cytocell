@@ -15,20 +15,25 @@ public class SwipeToMoveStep : MonoBehaviour
     private bool hasSwiped = false;
     [SerializeField]
     private float waitTime = 1f;
+    private GameManager gameManager;
 
     void Awake() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
         swiper = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSwiper>();
-        hasSwiped = false;
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
     }
 
-    void Update(){
-        if(swiper.plSwiped && !hasSwiped) hasSwiped = true;
+    public void resetTutorial(){
+        PlayerPrefs.SetInt(TutorialManager.SWIPE_TO_MOVE_COMPLETION, 0);
+        StopAllCoroutines();
+        alphaControls.setVisibleQuickly(false);
+        hasSwiped = false;
     }
 
     public void SwipeToMove(){
-        if(PlayerPrefs.GetInt("hasSwiped") == 1) {
+        if(PlayerPrefs.GetInt(TutorialManager.SWIPE_TO_MOVE_COMPLETION) == 1) {
+            print("swipe to move already done");
             SendMessageUpwards("StepDone");
             return;
         } 
@@ -36,11 +41,12 @@ public class SwipeToMoveStep : MonoBehaviour
     }
 
     private IEnumerator corout(){
+        yield return new WaitUntil(() => !gameManager.gamePaused);
         yield return new WaitForSeconds(waitTime);
         if(!hasSwiped) {
             alphaControls.displayAll();
         } else {
-            PlayerPrefs.SetInt("hasSwiped", 1);
+            PlayerPrefs.SetInt(TutorialManager.SWIPE_TO_MOVE_COMPLETION, 1);
             SendMessageUpwards("StepDone");
             yield break;
         }

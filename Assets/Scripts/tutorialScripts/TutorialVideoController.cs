@@ -20,9 +20,6 @@ public class TutorialVideoController : MonoBehaviour
         outputTexture = transform.GetChild(0).gameObject;
         outputTexture.SetActive(true);
         videoFadeInTime = GetComponentInParent<MoveAcrossTrailStep>().videoFadeInTime;
-        print("invokign play video in " + videoFadeInTime + " seconds");
-        print("go is active: " + gameObject.activeSelf);
-        //videoPlayer.Play();
 
         StartCoroutine("corout");
     }
@@ -34,8 +31,6 @@ public class TutorialVideoController : MonoBehaviour
 
     private IEnumerator corout() {
         yield return new WaitForSeconds(videoFadeInTime);
-        print("playing video");
         videoPlayer.Play();
-        print("video is playing: " + videoPlayer.isPlaying);
     }
 }

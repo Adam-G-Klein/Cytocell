@@ -15,8 +15,15 @@ public class EnjoyStep : MonoBehaviour
         alphaControls = GetComponent<TextGroupAlphaControls>();
     }
 
+    public void resetTutorial(){
+        PlayerPrefs.SetInt(TutorialManager.HAS_ENJOYED_COMPLETION, 0);
+        hasEnjoyed = false;
+        StopAllCoroutines();
+        alphaControls.setVisibleQuickly(false);
+    }
+
     public void Enjoy(){
-        if(PlayerPrefs.GetInt("hasEnjoyed") == 1) {
+        if(PlayerPrefs.GetInt(TutorialManager.HAS_ENJOYED_COMPLETION) == 1) {
             SendMessageUpwards("StepDone");
             return;
         } 
@@ -26,7 +33,7 @@ public class EnjoyStep : MonoBehaviour
     private IEnumerator corout(){
         yield return new WaitForSeconds(waitTime);
         alphaControls.displayAll();
-        PlayerPrefs.SetInt("hasEnjoyed", 1);
+        PlayerPrefs.SetInt(TutorialManager.HAS_ENJOYED_COMPLETION, 1);
         hasEnjoyed = true;
         yield return new WaitForSeconds(displayTime);
         alphaControls.hideAll();

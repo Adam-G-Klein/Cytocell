@@ -15,9 +15,15 @@ public class LevelUpStep : MonoBehaviour
         manager = GameObject.FindGameObjectWithTag("Player").GetComponent<XPManager>();
     }
 
+    public void resetTutorial(){
+        PlayerPrefs.SetInt(TutorialManager.LEVEL_UP_COMPLETION, 0);
+        hasLeveled = false;
+        StopAllCoroutines();
+        alphaControls.setVisibleQuickly(false);
+    }
+
     public void LevelUp(){
-        print("level up step");
-        if(PlayerPrefs.GetInt("hasLeveled") == 1) {
+        if(PlayerPrefs.GetInt(TutorialManager.LEVEL_UP_COMPLETION) == 1) {
             SendMessageUpwards("StepDone");
             return;
         } 
@@ -30,7 +36,7 @@ public class LevelUpStep : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         alphaControls.displayAll();
         yield return new WaitUntil(() => manager.level > startingLevel);
-        PlayerPrefs.SetInt("hasLeveled", 1);
+        PlayerPrefs.SetInt(TutorialManager.LEVEL_UP_COMPLETION, 1);
         hasLeveled = true;
         yield return new WaitForSeconds(1f);
         alphaControls.hideAll();

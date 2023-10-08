@@ -40,12 +40,32 @@ public class TutorialManager : MonoBehaviour
     public GameObject textPrefab;
     public GenericTextStep genericText;
     private TextGroupAlphaControls[] alphaControls;
+    public static string SWIPE_TO_MOVE_COMPLETION = "hasSwiped";
+    public static string MOVE_ACROSS_TRAIL_COMPLETION = "hasCollapsed";
+    public static string CONSUME_CELLS_COMPLETION = "hasConsumed";
+    public static string LEVEL_UP_COMPLETION = "hasLeveled";
+    public static string HAS_ENJOYED_COMPLETION = "hasEnjoyed";
+    public static string[] STEP_COMPLETION_KEYS = {SWIPE_TO_MOVE_COMPLETION, MOVE_ACROSS_TRAIL_COMPLETION, CONSUME_CELLS_COMPLETION, LEVEL_UP_COMPLETION, HAS_ENJOYED_COMPLETION};
+
     void Start()
     {
-        stepCounter = initStep;
-        processStep(stepNames[stepCounter]);
+        startTutorial();
         genericText = GetComponentInChildren<GenericTextStep>();
         alphaControls = GetComponentsInChildren<TextGroupAlphaControls>();
+    }
+
+    public void startTutorial()
+    {
+        stepCounter = initStep;
+        print("step counter: " + stepCounter);
+        processStep(stepNames[stepCounter]);
+    }
+
+    public void resetAllSteps() {
+        stepCounter = initStep;
+        foreach(Transform child in transform) {
+            child.gameObject.SendMessage("resetTutorial");
+        }
     }
 
     public void setAllVisible(bool visible) {

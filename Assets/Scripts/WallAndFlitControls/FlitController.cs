@@ -394,7 +394,6 @@ public class FlitController : MonoBehaviour
         toBePurged = true;
         state = FlitState.dying;
         StopAllCoroutines();
-        Debug.Log("Just called playDeathAnimation");
         deathAnimation.playDeathAnimation(deathDelegate);
         manager.giveFlitXP();
     }
@@ -403,7 +402,6 @@ public class FlitController : MonoBehaviour
         toBePurged = true;
         state = FlitState.dying;
         StopAllCoroutines();
-        Debug.Log("Just called playDeathAnimation");
         deathAnimation.playDeathAnimation(deathDelegate, false, false);
         noScoreOrXPonDeath = true;
     }

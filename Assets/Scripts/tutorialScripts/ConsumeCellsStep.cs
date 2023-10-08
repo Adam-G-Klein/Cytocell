@@ -14,14 +14,23 @@ public class ConsumeCellsStep : MonoBehaviour
     void Awake() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
         manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        hasConsumed = false;
     }
 
     public void ConsumeCells(){
-        if(PlayerPrefs.GetInt("hasConsumed") == 1) {
+        if(PlayerPrefs.GetInt(TutorialManager.CONSUME_CELLS_COMPLETION) == 1) {
             SendMessageUpwards("StepDone");
             return;
         } 
         StartCoroutine("corout");
+    }
+
+    public void resetTutorial(){
+        print("resetting consume cells step");
+        PlayerPrefs.SetInt(TutorialManager.CONSUME_CELLS_COMPLETION, 0);
+        StopAllCoroutines();
+        alphaControls.setVisibleQuickly(false);
+        hasConsumed = false;
     }
 
     private IEnumerator corout(){
@@ -30,12 +39,12 @@ public class ConsumeCellsStep : MonoBehaviour
         if(!hasConsumed) {
             alphaControls.displayAll();
         } else {
-            PlayerPrefs.SetInt("hasConsumed", 1);
+            PlayerPrefs.SetInt(TutorialManager.CONSUME_CELLS_COMPLETION, 1);
             SendMessageUpwards("StepDone");
             yield break;
         }
         yield return new WaitUntil(() => manager.currentPurgeKillCount> 0);
-        PlayerPrefs.SetInt("hasConsumed", 1);
+        PlayerPrefs.SetInt(TutorialManager.CONSUME_CELLS_COMPLETION, 1);
         hasConsumed = true;
         yield return new WaitForSeconds(1f);
         alphaControls.hideAll();

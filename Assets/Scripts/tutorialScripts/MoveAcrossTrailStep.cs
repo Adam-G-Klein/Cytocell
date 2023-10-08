@@ -14,17 +14,12 @@ public class MoveAcrossTrailStep : MonoBehaviour
 
     [SerializeField]
     private GameObject videoPlayer;
-    [SerializeField]
-    private GameObject videoBackground;
-    private Material videoBackgroundMat;
-    [SerializeField]
-    private float videoBackgroundAlpha = 28f;
-    [SerializeField]
-    private GameObject pauseTint;
     private GameManager gameManager;
     private ButtonGroupAlphaControls buttonGroupAlphaControls;
     [SerializeField]
     public float videoFadeInTime = 0.05f; 
+    [SerializeField]
+    public float gameTimeScaleWhilePlaying = 0.01f; 
 
     void Awake() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
@@ -33,26 +28,35 @@ public class MoveAcrossTrailStep : MonoBehaviour
         buttonGroupAlphaControls = GetComponent<ButtonGroupAlphaControls>();
         buttonGroupAlphaControls.displayTime = videoFadeInTime;
         alphaControls.displayTime = videoFadeInTime;
+        hasCollapsed = false;
     }
 
     void Update() {
-        if(collapser.collapseTriggered && !hasCollapsed) hasCollapsed = true;
+    }
+
+    public void resetTutorial(){
+        print("resetting move across trail step");
+        PlayerPrefs.SetInt(TutorialManager.MOVE_ACROSS_TRAIL_COMPLETION, 0);
+        StopAllCoroutines();
+        alphaControls.setVisibleQuickly(false);
+        hasCollapsed = false;
     }
 
     public void MoveAcrossTrail(){
-        /*
-        if(PlayerPrefs.GetInt("hasCollapsed") == 1) {
+        if(PlayerPrefs.GetInt(TutorialManager.MOVE_ACROSS_TRAIL_COMPLETION) == 1) {
             SendMessageUpwards("StepDone");
             return;
         } 
-        */
         StartCoroutine("corout");
     }
 
     private IEnumerator corout(){
+        print("started move across trail corout");
         yield return new WaitForSeconds(waitTime);
+        yield return new WaitUntil(() => !gameManager.gamePaused);
+        print("done waiting");
         alphaControls.displayAll();
-        gameManager.setGamePaused(true, 0.1f);
+        gameManager.setGamePaused(true, gameTimeScaleWhilePlaying);
         buttonGroupAlphaControls.displayAll();
         videoPlayer.SetActive(true);
         yield return new WaitUntil(() => Input.touchCount > 0);
@@ -60,7 +64,7 @@ public class MoveAcrossTrailStep : MonoBehaviour
         gameManager.setGamePaused(false);
         videoPlayer.SetActive(false);
         yield return new WaitUntil(() => collapser.collapseTriggered);
-        PlayerPrefs.SetInt("hasCollapsed", 1);
+        PlayerPrefs.SetInt(TutorialManager.MOVE_ACROSS_TRAIL_COMPLETION, 1);
         hasCollapsed = true;
         yield return new WaitForSeconds(1f);
         alphaControls.hideAll();
