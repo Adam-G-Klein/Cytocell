@@ -215,7 +215,9 @@ public class TrailController : MonoBehaviour
         if(deathFadeLtid != -1 && LeanTween.isTweening(deathFadeLtid))
             yield break;
         if(nextToDieLtid != -1 && LeanTween.isTweening(nextToDieLtid)) {
-            Color toColor = Color.Lerp(new Color(normalColor.r, normalColor.g, normalColor.b, fadeAlpha),flitKillColor,0.5f);
+            yield break;
+            //bring this back if we want the last trail to also animate
+            //Color toColor = Color.Lerp(new Color(normalColor.r, normalColor.g, normalColor.b, fadeAlpha),flitKillColor,0.5f);
         } else {
             Color toColor = flitKillColor;
         }
