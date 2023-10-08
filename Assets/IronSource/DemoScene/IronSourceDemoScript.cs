@@ -209,9 +209,6 @@ public class IronSourceDemoScript : MonoBehaviour
             IronSource.Agent.destroyBanner();
         }
 
-
-
-
     }
     
     #region Init callback handlers

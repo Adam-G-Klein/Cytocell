@@ -816,7 +816,7 @@ PrefabInstance:
     - target: {fileID: 7346240284360117121, guid: efcb38418afcfcc46845994d3607bfb3,
         type: 3}
       propertyPath: regenTime
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7346240284360117121, guid: efcb38418afcfcc46845994d3607bfb3,
         type: 3}

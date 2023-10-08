@@ -62,6 +62,7 @@ MonoBehaviour:
   gamePaused: 0
   currentPurgeKillCount: 0
   res: {fileID: 0}
+  newHighScore: 0
 --- !u!114 &4936252383295538485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97114e79e03f4584d882cf560d6dbb5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temporaryGlobalAdsDisabled: 0
 --- !u!114 &6941138159100807639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,4 +142,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389161b3149584d5ba7eb64b7d98bb2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseFakeStore: 0

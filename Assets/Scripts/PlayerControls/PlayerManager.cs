@@ -113,7 +113,7 @@ public class PlayerManager : MonoBehaviour
         health -= amnt;
         ltidHealth = LeanTween.value(gameObject, (val) => {
             tweenedHealth = val;
-        }, health + amnt, health, healthTweenTime).id;
+        }, tweenedHealth, health, healthTweenTime).id;
         if(health <= 0 && !dead){
             mover.stopPlayer();
             swiper.swipeEnabled = false;
@@ -129,10 +129,10 @@ public class PlayerManager : MonoBehaviour
     public void startRegen(int killCount)
     {
         float targetHealth = Mathf.Clamp(health + (regenOnFlitKilled * killCount), 0, maxHealth);
-        ltidRegen = LeanTween.value(health, targetHealth, constants.regenTime).setOnUpdate(regenUpdate).id;
         ltidHealth = LeanTween.value(gameObject, (val) => {
             tweenedHealth = val;
         }, health, targetHealth, constants.regenTime).id;
+        health = targetHealth;
     }
     private void regenUpdate(float newRegen)
     {
