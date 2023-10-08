@@ -33,7 +33,8 @@ public class TrailCollapser : MonoBehaviour {
 	}
 	
     public void triggerCollapse(){
-        collapseTriggered = true; //only for the tutorial at this point, don't need to reset
+        collapseTriggered = true; // signal the tutorial manager. TODO: Event bus
+        StartCoroutine(resetCollapseTriggered()); //for when the tutorial is reset
         bool firstTrailFound = false;
         foreach(GameObject trail in activeTrails)
         {
@@ -52,6 +53,11 @@ public class TrailCollapser : MonoBehaviour {
         disableTrails(edgeTrails);
         gameManager.nextTrailId = 0;
         xpManager.trailCollapsed();
+    }
+
+    private IEnumerator resetCollapseTriggered(){
+        yield return new WaitForSeconds(0.1f);
+        collapseTriggered = false;
     }
 
     public int getMaxTrails(){

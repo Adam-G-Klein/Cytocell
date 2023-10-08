@@ -37,19 +37,19 @@ public class PauseButton : MonoBehaviour
     {
         if (manager.gamePaused)
         {
+            tutorialMenu.setVisible(true);
             manager.setGamePaused(false);
             rend.color = playColor;
-            tutorialMenu.setAllVisible(true);
             pauseMenuControls.hideAll();
             pauseMenuContainer.SetActive(false);
         }
         else
         {
+            tutorialMenu.setVisible(false);
             manager.setGamePaused(true);
             rend.color = pauseColor;
             pauseMenuContainer.SetActive(true);
             pauseMenuControls.displayAll();
-            tutorialMenu.setAllVisible(false);
         }
 
     }

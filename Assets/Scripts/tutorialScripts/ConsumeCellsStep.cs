@@ -1,54 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 
-public class ConsumeCellsStep : MonoBehaviour
+public class ConsumeCellsStep : TutorialStep
 {
-    private TextGroupAlphaControls alphaControls;
     private GameManager manager;
     private bool hasConsumed = false;
     [SerializeField]
     private float waitTime = 1f;
-    
 
-    void Awake() {
-        alphaControls = GetComponent<TextGroupAlphaControls>();
+    protected override void Start()
+    {
+        base.Start();
+        stepName = "ConsumeCells";
         manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         hasConsumed = false;
     }
 
-    public void ConsumeCells(){
-        if(PlayerPrefs.GetInt(TutorialManager.CONSUME_CELLS_COMPLETION) == 1) {
-            SendMessageUpwards("StepDone");
-            return;
-        } 
-        StartCoroutine("corout");
-    }
-
-    public void resetTutorial(){
-        print("resetting consume cells step");
-        PlayerPrefs.SetInt(TutorialManager.CONSUME_CELLS_COMPLETION, 0);
-        StopAllCoroutines();
-        alphaControls.setVisibleQuickly(false);
-        hasConsumed = false;
-    }
-
-    private IEnumerator corout(){
+    public override IEnumerator executeStep(){
         yield return new WaitForSeconds(waitTime);
-        hasConsumed = manager.currentPurgeKillCount > 0;
-        if(!hasConsumed) {
-            alphaControls.displayAll();
-        } else {
-            PlayerPrefs.SetInt(TutorialManager.CONSUME_CELLS_COMPLETION, 1);
-            SendMessageUpwards("StepDone");
-            yield break;
-        }
-        yield return new WaitUntil(() => manager.currentPurgeKillCount> 0);
-        PlayerPrefs.SetInt(TutorialManager.CONSUME_CELLS_COMPLETION, 1);
-        hasConsumed = true;
-        yield return new WaitForSeconds(1f);
-        alphaControls.hideAll();
-        SendMessageUpwards("StepDone");
+        alphaControls.displayAll();
+        int startingKillCount = manager.score;
+        yield return new WaitUntil(() => manager.score > startingKillCount);
+        yield return endExecution();
     }
 }
 

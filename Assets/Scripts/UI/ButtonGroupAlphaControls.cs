@@ -31,6 +31,8 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     public float spriteEndAlpha = 0.4f;
     public bool initActive = false;
     private TextGroupAlphaControls textGroup;
+    [SerializeField]
+    private bool textGroupBehavesTheSame = true;
 
     private string[] buttonShaders = new string[] { "Beset/UIButtons" };
 
@@ -84,9 +86,10 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     {
         foreach (GameObject obj in all)
         {
+            print("btn group set active: " + obj.name);
             obj.SetActive(true);
         }
-        if(textGroup) textGroup.displayAll();
+        if(textGroup && textGroupBehavesTheSame) textGroup.displayAll();
         tweenButtonsAlphaTo(maxButtonMatAlpha, displayTime);
         tweenSpriteAlphaTo(spriteEndAlpha, displayTime);
         tweenImageAlphaTo(spriteEndAlpha, displayTime);
@@ -115,7 +118,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         tweenButtonsAlphaTo(0, displayTime);
         tweenSpriteAlphaTo(0, displayTime);
         tweenImageAlphaTo(0, displayTime);
-        if(textGroup) textGroup.hideAll();
+        if(textGroup && textGroupBehavesTheSame) textGroup.hideAll();
         setAllUnClickable(); //don't need to be clickable as they're fading out
         Invoke("deactivateAll", displayTime);
     }

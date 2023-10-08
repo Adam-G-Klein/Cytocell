@@ -14,8 +14,7 @@ public class ReplayTutorial : MonoBehaviour
 
     }
     public void click(){
-        tutorialManager.resetAllSteps();
-        tutorialManager.startTutorial();
+        tutorialManager.resetTutorial();
     }
 
 }

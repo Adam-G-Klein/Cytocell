@@ -45,21 +45,17 @@ public class TextGroupAlphaControls : MonoBehaviour
     }
 
     public void setVisibleQuickly(bool visible){
+        print("setting visible quickly: " + transform.name);
         StopAllCoroutines();
         if(ltid != -1 && LeanTween.isTweening(ltid)){
             LeanTween.cancel(ltid);
         }
-        foreach(TextMeshProUGUI tm in textComps){
-            tm.faceColor = new Color(tm.faceColor.r, tm.faceColor.g, tm.faceColor.b, visible ? 1 : 0);
-        }
-        if(visible && displaying) {
-            displayAll();
-        }
-
+        StartCoroutine(tweenAlphaTo(visible ? 1 : 0, 0));
     }
 
     public void displayAll()
     {
+        print("displaying all: " + transform.name);
         if(ltid != -1 && LeanTween.isTweening(ltid))
             LeanTween.cancel(ltid);
         StopAllCoroutines();
@@ -80,12 +76,13 @@ public class TextGroupAlphaControls : MonoBehaviour
     {
         foreach (TextMeshProUGUI tm in textComps)
         {
-            LeanTween.value(
+            ltid = LeanTween.value(
                 gameObject, tm.alpha, to, time)
                 .setOnUpdate((float val) =>
                 {
+                    print("setting alpha to: " + val);
                     tm.color = new Color(tm.faceColor.r, tm.faceColor.g, tm.faceColor.b, val);
-                });
+                }).id;
         }
         yield return new WaitForSeconds(time);
         displaying = false;
