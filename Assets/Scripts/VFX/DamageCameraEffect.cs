@@ -25,10 +25,6 @@ public class DamageCameraEffect : MonoBehaviour
     void Update()
     {
 
-        print("maxEffect: " + maxEffect + " minEffect: " + minEffect + " maxHealth: " + maxHealth + " pManage.tweenedHealth: " + pManage.tweenedHealth);
-        print("maxEffect - minEffect: " + (maxEffect - minEffect));
-        print("maxEffect - minEffect / maxHealth: " + ((maxEffect - minEffect) / maxHealth));
-        print("maxEffect - (maxEffect - minEffect / maxHealth) * pManage.tweenedHealth: " + (maxEffect - ((maxEffect - minEffect) / maxHealth) * pManage.tweenedHealth));
         effectVal = clearEffect || pManage.tweenedHealth == maxHealth ? 0 : maxEffect - ((maxEffect - minEffect) / maxHealth) * pManage.tweenedHealth;
         _bloodLossMat.SetFloat("_LossAmnt", effectVal);
 

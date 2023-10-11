@@ -195,6 +195,7 @@ public class PlayerManager : MonoBehaviour
 
 
     public void enemyCollision(bool dead, GameObject enemy){
+        if(!constants.enemyKnockbackEnabled) return;
         FlitController enemyCont = enemy.GetComponent<FlitController>();
         Vector3 playerPos = gameObject.transform.position;
         Vector3 enemyPos = enemy.transform.position;
