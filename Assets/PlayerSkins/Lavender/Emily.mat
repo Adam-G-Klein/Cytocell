@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerMat
+  m_Name: Emily
   m_Shader: {fileID: 4800000, guid: 5818ae2289cf2534faf65b8c7bdfa44a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -90,8 +90,8 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _cytoplasmColor: {r: 0, g: 0.5056416, b: 0.5176471, a: 0.8509804}
-    - _membraneColor: {r: 0, g: 0.76078624, b: 0.7921569, a: 1}
-    - _nucleusColor: {r: 1, g: 1, b: 1, a: 1}
+    - _cytoplasmColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0.8509804}
+    - _membraneColor: {r: 0.7468553, g: 0.64779866, b: 1, a: 1}
+    - _nucleusColor: {r: 0.7490196, g: 0.9450981, b: 0.81568635, a: 1}
     - _nucleusLocation: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

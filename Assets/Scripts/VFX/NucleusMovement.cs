@@ -22,6 +22,8 @@ public class NucleusMovement : MonoBehaviour
         if(_mat == null)
             //for the case that this is on a wall, where the spriterenderer will be a component of this object
             _mat = GetComponent<SpriteRenderer>().material;
+        if(_mat == null)
+            _mat = GetComponentInChildren<PlayerSkinController>().playerSkinSO.playerMaterial;
 
         if (trackingObj == null)
             trackingObj = transform;

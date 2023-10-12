@@ -51,6 +51,10 @@ public class SwipeIndicatorController : MonoBehaviour
         
     }
 
+    public void setMaterialColor(Color color) {
+        arrowMat.SetColor("_mainColor", color);
+    }
+
     void rotateToPointDir(){
         float angle = Quaternion.FromToRotation(Vector3.up, currPointDir).eulerAngles.z;
         transform.rotation = Quaternion.Euler(0, 0, angle);

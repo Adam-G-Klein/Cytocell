@@ -67,8 +67,6 @@ public class PlayerManager : MonoBehaviour
         swiper = GetComponent<PlayerSwiper>();
         health = maxHealth;
         invulnerable = false;
-        deathPs = transform.Find("PlayerDeathPS").GetComponentInChildren<ParticleSystem>();
-        idlePs = transform.Find("PlayerIdlePS").GetComponentInChildren<ParticleSystem>();
         rend = GetComponentInChildren<SpriteRenderer>();
         dead = false;
         invulnLtid = -1;
@@ -123,11 +121,16 @@ public class PlayerManager : MonoBehaviour
             collapser.killAllTrails();
             gameManager.playerKilled();
             rend.enabled = false;
-            deathPs.transform.parent = null;
-            deathPs.Play();
+            playDeathPS();
             if(idlePs) idlePs.gameObject.SetActive(false);
             dead = true;
         }
+    }
+
+    private void playDeathPS() {
+        deathPs.gameObject.SetActive(true);
+        deathPs.Play();
+
     }
     public void startRegen(int killCount)
     {
@@ -260,4 +263,13 @@ public class PlayerManager : MonoBehaviour
         swiper.swipeEnabled = true;
         yield return null;
     }
+
+    public void setDeathPS(ParticleSystem ps){
+        deathPs = ps;
+    }
+
+    public void setIdlePS(ParticleSystem ps){
+        idlePs = ps;
+    }
+
 }

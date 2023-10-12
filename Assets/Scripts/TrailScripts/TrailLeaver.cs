@@ -22,7 +22,7 @@ public class TrailLeaver : MonoBehaviour {
     [SerializeField]
     private string trailName;
     public float psInstDelay;
-    public GameObject swipePS;
+    private GameObject swipePS;
     public Vector2 swipePSOffset;
     private List<ParticleSystem> activePS = new List<ParticleSystem>();
     private PlayerSwiper plSwiper;
@@ -118,5 +118,9 @@ public class TrailLeaver : MonoBehaviour {
         }
         trail.GetComponent<TrailController>().trailPlaced = true;
         trailPlacing = false;
+    }
+
+    public void setSwipePS(GameObject ps){
+        swipePS = ps;
     }
 }

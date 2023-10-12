@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f95d4c07014e2b4792808ae47b88fa1, type: 3}
+  m_Name: DefaultSkin
+  m_EditorClassIdentifier: 
+  playerMaterial: {fileID: 2100000, guid: 133a0e32928bb524db9c8dafa82c4677, type: 2}
+  colors: []
+  idlePS: {fileID: 8053063614138304523, guid: eff3d9ba6bfe0b54e9ab60bbf788d81c, type: 3}
+  swipePS: {fileID: 7444790190889081653, guid: 08a7a35028502f142b13b5d072a5f171, type: 3}
+  deathPS: {fileID: 9072473505103226727, guid: e17b9bd6b8ae0ed4ea34bd4419c2a9fa, type: 3}

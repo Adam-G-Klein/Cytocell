@@ -18,6 +18,7 @@ public class JellyShaderController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _mat = GetComponent<PlayerSkinController>().playerSkinSO.playerMaterial;
         _mat.SetInt("_numNuclei", _numNuclei);
         initNuclei();
 
