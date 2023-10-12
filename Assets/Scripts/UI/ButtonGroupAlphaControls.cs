@@ -20,6 +20,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     private List<Clickable> clickables = new List<Clickable>();
     public List<GameObject> images;
     private List<Image> buttonImgs = new List<Image>();
+    private List<Image> playerImgs = new List<Image>();
     private List<Material> imageMats = new List<Material>();
     private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
     private List<GameObject> all = new List<GameObject>();
@@ -29,12 +30,14 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     public float displayTime = 0.7f;
     public float initAlpha = 0;
     public float spriteEndAlpha = 0.4f;
+    public float playerEndAlpha = 1f;
     public bool initActive = false;
     private TextGroupAlphaControls textGroup;
     [SerializeField]
     private bool textGroupBehavesTheSame = true;
 
-    private string[] buttonShaders = new string[] { "Beset/UIButtons" };
+    private string[] buttonShaders = new string[] { "Beset/UIButtons"};
+    private string playerSkinShader = "Beset/CellAlphaUI";
 
     // Start is called before the first frame update
     void Start()
@@ -56,13 +59,18 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     {
         foreach (GameObject obj in gos)
         {
+            print("checking go: " + obj.name);
             Image img = obj.GetComponent<Image>();
             if(!img) img = obj.GetComponentInChildren<Image>();
             if(img) {
                 print("found image " + img.gameObject.name + " with shader " + img.material.shader.name);
                 if(!buttonImgs.Contains(img) && buttonShaders.Contains(img.material.shader.name)) {
-                    print("adding img with shader: " + img.material.shader + " to list");
+                    print("adding img with shader: " + img.material.shader + " to button list");
                     buttonImgs.Add(img);
+                }
+                if(!playerImgs.Contains(img) && playerSkinShader == img.material.shader.name) {
+                    print("adding img with shader: " + img.material.shader + " to skin list");
+                    playerImgs.Add(img);
                 }
                 else {
                     print("adding img " + img.gameObject.name + " to list");
@@ -90,7 +98,8 @@ public class ButtonGroupAlphaControls : MonoBehaviour
             obj.SetActive(true);
         }
         if(textGroup && textGroupBehavesTheSame) textGroup.displayAll();
-        tweenButtonsAlphaTo(maxButtonMatAlpha, displayTime);
+        tweenCellAlphasTo(buttonImgs, maxButtonMatAlpha, displayTime);
+        tweenCellAlphasTo(playerImgs, playerEndAlpha, displayTime);
         tweenSpriteAlphaTo(spriteEndAlpha, displayTime);
         tweenImageAlphaTo(spriteEndAlpha, displayTime);
         Invoke("setAllClickable", displayTime);
@@ -115,7 +124,8 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     }
     public void hideAll()
     {
-        tweenButtonsAlphaTo(0, displayTime);
+        tweenCellAlphasTo(buttonImgs, 0, displayTime);
+        tweenCellAlphasTo(playerImgs, 0, displayTime);
         tweenSpriteAlphaTo(0, displayTime);
         tweenImageAlphaTo(0, displayTime);
         if(textGroup && textGroupBehavesTheSame) textGroup.hideAll();
@@ -123,9 +133,9 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         Invoke("deactivateAll", displayTime);
     }
 
-    public void tweenButtonsAlphaTo(float to, float time)
+    public void tweenCellAlphasTo(List<Image> imgs, float to, float time)
     {
-        foreach (Image img in buttonImgs)
+        foreach (Image img in imgs)
         {
             LeanTween.value(
             gameObject, img.material.GetFloat("_publicAlpha"), to, time)

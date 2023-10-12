@@ -15,14 +15,18 @@ public class PlayerSkinController : MonoBehaviour
     private GameObject playerDeathPSPos;
 
     void Awake() {
-        pManage = GetComponentInParent<PlayerManager>();
         ParticleSystem idlePS = Instantiate(playerSkinSO.idlePS, playerIdlePSPos.transform).GetComponentInChildren<ParticleSystem>();
         ParticleSystem deathPS = Instantiate(playerSkinSO.deathPS, playerDeathPSPos.transform).GetComponentInChildren<ParticleSystem>();
-        pManage.setDeathPS(deathPS);
-        pManage.setIdlePS(idlePS);
-        pManage.normalColor = playerSkinSO.playerMaterial.GetColor("_membraneColor");
+        pManage = GetComponentInParent<PlayerManager>();
+        if(pManage) {
+            pManage.setDeathPS(deathPS);
+            pManage.setIdlePS(idlePS);
+            pManage.normalColor = playerSkinSO.playerMaterial.GetColor("_membraneColor");
+        }
+
         trailLeaver = GetComponentInParent<TrailLeaver>();
-        trailLeaver.setSwipePS(playerSkinSO.swipePS);
+        if(trailLeaver)
+            trailLeaver.setSwipePS(playerSkinSO.swipePS);
 
 
 
