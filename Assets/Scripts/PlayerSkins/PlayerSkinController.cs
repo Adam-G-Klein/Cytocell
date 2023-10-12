@@ -20,6 +20,7 @@ public class PlayerSkinController : MonoBehaviour
         ParticleSystem deathPS = Instantiate(playerSkinSO.deathPS, playerDeathPSPos.transform).GetComponentInChildren<ParticleSystem>();
         pManage.setDeathPS(deathPS);
         pManage.setIdlePS(idlePS);
+        pManage.normalColor = playerSkinSO.playerMaterial.GetColor("_membraneColor");
         trailLeaver = GetComponentInParent<TrailLeaver>();
         trailLeaver.setSwipePS(playerSkinSO.swipePS);
 
