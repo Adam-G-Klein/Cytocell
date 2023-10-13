@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f95d4c07014e2b4792808ae47b88fa1, type: 3}
-  m_Name: Lavender
+  m_Name: Lilac
   m_EditorClassIdentifier: 
   playerMaterial: {fileID: 2100000, guid: a1c429fb41a048c4db4856b39163d3b9, type: 2}
+  shopMaterial: {fileID: 2100000, guid: df9493a8f5d477f42999eca83c4bb3ae, type: 2}
   colors: []
   idlePS: {fileID: 8053063614138304523, guid: aa5bdb8e55799564c81e3e590da12b52, type: 3}
   swipePS: {fileID: 7444790190889081653, guid: 9eec252118aa3544b960db4e3ceb06f4, type: 3}
   deathPS: {fileID: 9072473505103226727, guid: 75d5ac99335ce034386688c4c4c3efc8, type: 3}
+  price: 100

@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Emily
-  m_Shader: {fileID: 4800000, guid: 5818ae2289cf2534faf65b8c7bdfa44a, type: 3}
+  m_Name: DefaultShopMat
+  m_Shader: {fileID: 4800000, guid: d3dbcf0c59a78954ea390a85cd6a9968, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -81,17 +81,18 @@ Material:
     - _ZWrite: 1
     - _cellSolid: 0
     - _isButton: 0
+    - _isShopDisplay: 1
     - _membraneGradient: 2.09
     - _membraneThickness: 0.8
-    - _minAlpha: 0.2
+    - _minAlpha: 0
     - _nucleusGradient: 56.11
-    - _nucleusRadius: 0.1
+    - _nucleusRadius: 0.2
     - _publicAlpha: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 0.0013202857}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _cytoplasmColor: {r: 0.5756297, g: 0, b: 1, a: 0.8509804}
-    - _membraneColor: {r: 0.7468553, g: 0.64779866, b: 1, a: 1}
-    - _nucleusColor: {r: 0, g: 1, b: 0.3399999, a: 1}
+    - _cytoplasmColor: {r: 0.5764706, g: 0, b: 1, a: 0.8509804}
+    - _membraneColor: {r: 0.74509805, g: 0.64705884, b: 1, a: 1}
+    - _nucleusColor: {r: 0, g: 1, b: 0.34117648, a: 1}
     - _nucleusLocation: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

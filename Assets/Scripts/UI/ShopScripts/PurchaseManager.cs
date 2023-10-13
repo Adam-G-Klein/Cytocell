@@ -12,6 +12,7 @@ public class PurchaseManager : MonoBehaviour
     private PlayerSkinSO equippedSkin;
     public static string UNLOCKED_SKINS = "unlockedSkins";
     public static string CURRENCY = "currency";
+    public static string DEFAUKT_SKIN = "Alpha";
     public static PurchaseManager instance;
 
     void Awake() {
@@ -28,7 +29,7 @@ public class PurchaseManager : MonoBehaviour
 
     public List<string> getUnlockedSkins()
     {
-        return new List<string>(PlayerPrefs.GetString(UNLOCKED_SKINS).Split(','));
+        return new List<string>(PlayerPrefs.GetString(UNLOCKED_SKINS, DEFAUKT_SKIN).Split(','));
     }
 
     public void unlockSkin(PlayerSkinSO skin)

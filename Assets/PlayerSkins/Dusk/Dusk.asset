@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Dusk
   m_EditorClassIdentifier: 
   playerMaterial: {fileID: 2100000, guid: 37ae80ed0377e494885f057b00530a44, type: 2}
+  shopMaterial: {fileID: 2100000, guid: bfb590d859a434d489942a95888f6544, type: 2}
   colors: []
   idlePS: {fileID: 8053063614138304523, guid: 68985bb68512d9a4988dac77e909ea60, type: 3}
   swipePS: {fileID: 7444790190889081653, guid: 00c61742fe489194aa5bd60e2ee7531b, type: 3}
   deathPS: {fileID: 9072473505103226727, guid: d2ae9224c1a9b814db549f94e046ea21, type: 3}
+  price: 1000
