@@ -15,6 +15,7 @@ public class PlayerSkinController : MonoBehaviour
     private GameObject playerDeathPSPos;
 
     void Awake() {
+        playerSkinSO = PurchaseManager.instance.getEquippedSkin();
         ParticleSystem idlePS = Instantiate(playerSkinSO.idlePS, playerIdlePSPos.transform).GetComponentInChildren<ParticleSystem>();
         ParticleSystem deathPS = Instantiate(playerSkinSO.deathPS, playerDeathPSPos.transform).GetComponentInChildren<ParticleSystem>();
         pManage = GetComponentInParent<PlayerManager>();
