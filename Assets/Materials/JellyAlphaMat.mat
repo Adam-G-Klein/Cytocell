@@ -35,7 +35,7 @@ Material:
     - _bottomMembraneGradient: 40
     - _cellSolid: 2.42
     - _epicenterSize: 0.1
-    - _jellyBottom: 0.05
+    - _jellyBottom: 0.04
     - _maxNucleiAngle: 160
     - _membraneGradient: 15.88
     - _membraneThickness: 0.42

@@ -37,7 +37,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     private bool textGroupBehavesTheSame = true;
 
     private string[] buttonShaders = new string[] { "Beset/UIButtons"};
-    private string[] playerSkinShaders = new string[] {"Beset/CellAlphaUI"};
+    private string[] playerSkinShaders = new string[] {"Beset/CellAlphaUI", "Beset/JellyAlphaUI"};
 
     // Start is called before the first frame update
     void Start()
@@ -59,27 +59,17 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     {
         foreach (GameObject obj in gos)
         {
-            print("checking go: " + obj.name);
             Image img = obj.GetComponent<Image>();
             if(!img) img = obj.GetComponentInChildren<Image>();
             if(img) {
-                print("found image " + img.gameObject.name + " with shader " + img.material.shader.name);
                 if(!buttonImgs.Contains(img) && buttonShaders.Contains(img.material.shader.name)) {
-                    print("adding img with shader: " + img.material.shader + " to button list");
                     buttonImgs.Add(img);
                 }
-                print("player skin shaders: " + playerSkinShaders + " contains: " + img.material.shader.name + " ? " + playerSkinShaders.Contains(img.material.shader.name) + " player imgs contains: " + playerImgs.Contains(img));
                 if(!playerImgs.Contains(img) && playerSkinShaders.Contains(img.material.shader.name)) {
-                    print("adding img with shader: " + img.material.shader + " to skin list");
                     playerImgs.Add(img);
-                    print("player images:");
-                    foreach(Image i in playerImgs) {
-                        print("img: " + i.gameObject.name + " shader: " + i.material.shader.name);
-                    }
 
                 }
                 else {
-                    print("adding img " + img.gameObject.name + " to list");
                     imageMats.Add(img.material);
                 }
 
@@ -100,7 +90,6 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     {
         foreach (GameObject obj in all)
         {
-            print("btn group set active: " + obj.name);
             obj.SetActive(true);
         }
         if(textGroup && textGroupBehavesTheSame) textGroup.displayAll();

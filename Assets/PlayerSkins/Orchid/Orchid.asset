@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f95d4c07014e2b4792808ae47b88fa1, type: 3}
+  m_Name: Orchid
+  m_EditorClassIdentifier: 
+  playerMaterial: {fileID: 2100000, guid: 7e9bc4cb84107fc4cb36ca17cdf070e4, type: 2}
+  shopMaterial: {fileID: 2100000, guid: 76efdb2f5ab8a9e40beff50783a79638, type: 2}
+  colors: []
+  idlePS: {fileID: 8053063614138304523, guid: ec5c81c4fa8b5864f9029a77de2ba914, type: 3}
+  swipePS: {fileID: 7444790190889081653, guid: 7571bfbab2cd1e44bbbfcfc695774721, type: 3}
+  deathPS: {fileID: 9072473505103226727, guid: 2fa3c1d7bda01d9469bc74257695cd56, type: 3}
+  nucleusMovement: 0
+  particleYOffset: 0.12
+  price: 2000

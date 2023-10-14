@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
         }
         if(flitControl.noScoreOrXPonDeath) return;
         score += 1;
+        PurchaseManager.instance.incrementCurrency(1);
         updateHighScore();
         ui.updateScore(score, newHighScore);
     }

@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Assertions.Must;
 
 public class JellyShaderController : MonoBehaviour
 {
-    public Material _mat;
+    public bool inUse = true;
+    public bool shopDisplay = false;
+    private Material _mat;
     private List<Vector4> nucPos = new List<Vector4>();
     private List<float> nucAngles = new List<float>();
     public int _numNuclei = 5;
@@ -16,22 +20,19 @@ public class JellyShaderController : MonoBehaviour
     public float yFlange = 1f;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        _mat = GetComponent<PlayerSkinController>().playerSkinSO.playerMaterial;
-        _mat.SetInt("_numNuclei", _numNuclei);
-        initNuclei();
-
+        StartCoroutine(LateStart());
+        
        
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        initNuclei();
-        _mat.SetVectorArray("_nucleiPos",nucPos);
-        _mat.SetFloatArray("_nucleiAngles",nucAngles);
-        _mat.SetVector("_nucleiEpicenterLocation", _nucleiEpicenterLocation);
+        if(_mat != null)
+            initNuclei();
         
     }
     //find the nucleiPos's
@@ -71,8 +72,23 @@ public class JellyShaderController : MonoBehaviour
            nucPos.Add(new Vector4(xPos,yPos,0,0));
 
         }
+        _mat.SetVectorArray("_nucleiPos",nucPos);
+        _mat.SetFloatArray("_nucleiAngles",nucAngles);
+        _mat.SetVector("_nucleiEpicenterLocation", _nucleiEpicenterLocation);
     }
     IEnumerator LateStart(){
         yield return new WaitForEndOfFrame();
+        if(!inUse){
+            yield break;
+        }
+        SpriteRenderer rend = GetComponent<SpriteRenderer>();
+        if(rend == null){
+            _mat = GetComponent<Image>().material;
+        } else {
+            _mat = rend.material;
+        }
+        print("jelly mat: " + _mat.name);
+        _mat.SetInt("_numNuclei", _numNuclei);
+        initNuclei();
     }
 }

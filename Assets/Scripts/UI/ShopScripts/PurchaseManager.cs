@@ -11,9 +11,11 @@ public class PurchaseManager : MonoBehaviour
     [SerializeField]
     private PlayerSkinSO equippedSkin;
     public static string UNLOCKED_SKINS = "unlockedSkins";
+    public static string ALL_SKINS_UNLOCKED = "ALL_SKINS_UNLOCKED";
     public static string CURRENCY = "currency";
     public static string DEFAUKT_SKIN = "Alpha";
     public static PurchaseManager instance;
+    private InAppPurchases inAppPurchases;
 
     void Awake() {
         if(instance == null) {
@@ -23,7 +25,7 @@ public class PurchaseManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        currency = PlayerPrefs.GetInt(CURRENCY, 0);
+        inAppPurchases = GetComponent<InAppPurchases>();
 
     }
 
@@ -39,12 +41,26 @@ public class PurchaseManager : MonoBehaviour
         PlayerPrefs.SetString(UNLOCKED_SKINS, string.Join(",", unlockedSkins.ToArray()));
     }
 
+    public bool allSkinsUnlocked() {
+        return PlayerPrefs.GetInt(ALL_SKINS_UNLOCKED, 0) == 1;
+    }
+
+    public bool isSkinUnlocked(PlayerSkinSO skin)
+    {
+        List<string> unlockedSkins = getUnlockedSkins();
+        return unlockedSkins.Contains(skin.name) || allSkinsUnlocked();
+    }
+
     public int getCurrency() {
-        return currency;
+        return PlayerPrefs.GetInt(CURRENCY, 0);
     }
 
     public void setCurrency(int newCurrency) {
-        currency = newCurrency;
+        PlayerPrefs.SetInt(CURRENCY, newCurrency);
+    }
+
+    public void incrementCurrency(int amount) {
+        PlayerPrefs.SetInt(CURRENCY, getCurrency() + amount);
     }
 
     public PlayerSkinSO getEquippedSkin() {
@@ -53,6 +69,15 @@ public class PurchaseManager : MonoBehaviour
 
     public void setEquippedSkin(PlayerSkinSO newSkin) {
         equippedSkin = newSkin;
+    }
+
+    public void iapUnlockAllSkins() {
+        inAppPurchases.PurchaseAllSkinsUnlock();
+        
+    }
+
+    public void unlockAllSkins() {
+        PlayerPrefs.SetInt(ALL_SKINS_UNLOCKED, 1);
     }
 
 

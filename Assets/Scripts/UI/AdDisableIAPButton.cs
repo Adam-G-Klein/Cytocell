@@ -11,6 +11,6 @@ public class AdDisableIAPButton : MonoBehaviour
     }
     
     public void clicked(){
-        iap.PurchaseDisableAds();
+        //iap.PurchaseDisableAds();
     }
 }

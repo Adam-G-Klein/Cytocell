@@ -14,9 +14,12 @@ public class PlayerSkinController : MonoBehaviour
     [SerializeField]
     private GameObject playerDeathPSPos;
 
-    void Awake() {
+
+    void Start() {
         playerSkinSO = PurchaseManager.instance.getEquippedSkin();
-        ParticleSystem idlePS = Instantiate(playerSkinSO.idlePS, playerIdlePSPos.transform).GetComponentInChildren<ParticleSystem>();
+        Vector3 idlePSGO = playerIdlePSPos.transform.position;
+        Vector3 idlePSPos = new Vector3(idlePSGO.x, idlePSGO.y + playerSkinSO.particleYOffset, idlePSGO.z);
+        ParticleSystem idlePS = Instantiate(playerSkinSO.idlePS, idlePSPos, playerIdlePSPos.transform.rotation, playerIdlePSPos.transform).GetComponentInChildren<ParticleSystem>();
         ParticleSystem deathPS = Instantiate(playerSkinSO.deathPS, playerDeathPSPos.transform).GetComponentInChildren<ParticleSystem>();
         pManage = GetComponentInParent<PlayerManager>();
         if(pManage) {
@@ -28,15 +31,7 @@ public class PlayerSkinController : MonoBehaviour
         trailLeaver = GetComponentInParent<TrailLeaver>();
         if(trailLeaver)
             trailLeaver.setSwipePS(playerSkinSO.swipePS);
-
-
-
-    }
-
-    public void Start()
-    {
         GetComponent<SpriteRenderer>().material = playerSkinSO.playerMaterial;
-
     }
 
 

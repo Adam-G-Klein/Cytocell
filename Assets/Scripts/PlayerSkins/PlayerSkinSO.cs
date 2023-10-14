@@ -14,6 +14,8 @@ public class PlayerSkinSO : ScriptableObject
     public GameObject idlePS;
     public GameObject swipePS;
     public GameObject deathPS;
+    public float nucleusMovement;
+    public float particleYOffset;
 
     public int price;
 

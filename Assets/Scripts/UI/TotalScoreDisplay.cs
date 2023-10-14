@@ -12,10 +12,15 @@ public class TotalScoreDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text = GetComponentInChildren<TextMeshProUGUI>();
+        text = GetComponent<TextMeshProUGUI>();
+        Invoke("LateStart", 0.1f);
+    }
+
+    void LateStart(){
         constants = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DifficultyConstants>();
         scoreAtStartRound = PlayerPrefs.GetInt("TotalScore" + constants.SceneName, 0);
         setTextForScore();
+
     }
 
     public void setThisRoundScore(int thisRoundScore){
@@ -24,20 +29,10 @@ public class TotalScoreDisplay : MonoBehaviour
     }
 
     private void setTextForScore(){
-        text.text = constants.SceneName + " Mode\nTotal Score:\n" + intWithCommas(PlayerPrefs.GetInt("TotalScore" + constants.SceneName, 0));
+        text.text =  TextUtils.intWithCommas(PlayerPrefs.GetInt("TotalScore" + constants.SceneName, 0));
     }
 
-    private string intWithCommas(int num){
-        string numStr = num.ToString();
-        string newStr = "";
-        for(int i = 0; i < numStr.Length; i++){
-            if(i % 3 == 0 && i != 0){
-                newStr = "," + newStr;
-            }
-            newStr = numStr[numStr.Length - 1 - i] + newStr;
-        }
-        return newStr;
-    }
+    
 
 
 }

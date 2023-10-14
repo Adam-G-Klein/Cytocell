@@ -21,6 +21,7 @@ public class MenuBackButton : MonoBehaviour
 
     public void onClick()
     {
+        print("menu back onclick");
         if (clickable.clickable)
         {
             difficultyButtons.hideAll();

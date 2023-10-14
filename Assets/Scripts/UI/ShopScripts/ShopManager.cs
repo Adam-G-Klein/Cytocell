@@ -17,10 +17,7 @@ public class ShopManager : MonoBehaviour
     }
 
     void Update() {
-        if(testCurrency != -1) {
-            PurchaseManager.instance.setCurrency(testCurrency);
-            setCurrencyText(PurchaseManager.instance.getCurrency());
-        }
+        setCurrencyText(PurchaseManager.instance.getCurrency());
     }
 
     public void setEquippedSkin(PlayerSkinSO skin)
@@ -33,7 +30,7 @@ public class ShopManager : MonoBehaviour
     }
 
     private void setCurrencyText(int val) {
-        currencyText.text = "Current ¤:\n" + val.ToString();
+        currencyText.text = "¤" + val.ToString();
     }
 
     public void purchaseSkin(PlayerSkinSO skin)
@@ -41,5 +38,6 @@ public class ShopManager : MonoBehaviour
         PurchaseManager.instance.unlockSkin(skin);
         PurchaseManager.instance.setCurrency(PurchaseManager.instance.getCurrency() - skin.price);
         setCurrencyText(PurchaseManager.instance.getCurrency());
+        setEquippedSkin(skin);
     }
 }

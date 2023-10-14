@@ -1016,6 +1016,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvasTheThird
       objectReference: {fileID: 0}
+    - target: {fileID: 5811841263440564270, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
+        type: 3}
+      propertyPath: playerSkinSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 0569bf02fb6d90646a3f85c22f18212c,
+        type: 2}
+    - target: {fileID: 6799562659791439480, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8499931063951913699, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1034,6 +1050,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: PurchaseManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3037886720839834863, guid: 9a9fccfb308ed6c479ae5aa4077586bf,
+        type: 3}
+      propertyPath: equippedSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ea588b66018ac5408d91fd989807235,
+        type: 2}
     - target: {fileID: 6759514839073031262, guid: 9a9fccfb308ed6c479ae5aa4077586bf,
         type: 3}
       propertyPath: m_LocalPosition.x

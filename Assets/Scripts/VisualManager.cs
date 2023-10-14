@@ -25,6 +25,9 @@ public class VisualManager : MonoBehaviour
     private TextMeshProUGUI newRecordText;
     // one in pause menu, one on death screen
     private TotalScoreDisplay[] totalScoreDisplay;
+    // one in pause menu, one on death screen
+    private TotalCurrencyDisplay[] totalCurrencyDisplay;
+
     [SerializeField]
     private GameObject pauseButton;
     [SerializeField]
@@ -45,11 +48,13 @@ public class VisualManager : MonoBehaviour
         xpBar = GameObject.FindGameObjectWithTag("Canvas").GetComponentInChildren<XPBarController>();
         startAddTrailWorldpos = addTrailObj.transform.position;
         totalScoreDisplay = GetComponentsInChildren<TotalScoreDisplay>();
+        totalCurrencyDisplay = GetComponentsInChildren<TotalCurrencyDisplay>();
         addTrailText.alpha = 0;
         scoreText.text = constants.SceneName;
         tutorialCanvas = GameObject.FindGameObjectWithTag("TutorialCanvas");
         adsManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<AdsManager>(); 
         newRecordText.gameObject.SetActive(false);
+        updateScore(0, false);
     }
 
     public void applyBannerOffset(){
@@ -93,10 +98,12 @@ public class VisualManager : MonoBehaviour
     }
     public void updateScore(int newScore, bool newHighScore)
     {
-        foreach(TotalScoreDisplay tsd in totalScoreDisplay){
-            tsd.setThisRoundScore(newScore);
+        print("update score: " + newScore );
+        foreach(TotalCurrencyDisplay csd in totalCurrencyDisplay){
+            print("updating currency for object: " + csd.gameObject.name);
+            csd.updateStat();
         }
-        scoreText.SetText(newScore.ToString());
+        scoreText.SetText("¤" + newScore.ToString());
         if(newHighScore)
             newRecordText.gameObject.SetActive(true);
     }

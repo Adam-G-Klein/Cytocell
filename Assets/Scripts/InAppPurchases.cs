@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
 {
 
-    public static string ADS_DISABLED_PRODUCT_KEY = "DisableAds";
+    public static string ALL_SKINS_KEY = "UnlockAllSkins";
     private IStoreController StoreController;
     private IExtensionProvider ExtensionProvider;
 
@@ -85,9 +85,9 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
         Debug.Log($"Failed to purchase {product.definition.id} because {failureReason}");
     }
 
-    public void PurchaseDisableAds(){
-        Product product = StoreController.products.all.FirstOrDefault(p => p.definition.id == ADS_DISABLED_PRODUCT_KEY);
-        Debug.Log("disable ads product: " + product.ToString());
+    public void PurchaseAllSkinsUnlock(){
+        Product product = StoreController.products.all.FirstOrDefault(p => p.definition.id == ALL_SKINS_KEY);
+        Debug.Log("All skins product: " + product.ToString());
         StoreController.InitiatePurchase(product);
     }
 

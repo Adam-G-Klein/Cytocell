@@ -26,7 +26,6 @@ public class ShopItem : MonoBehaviour
     public TextMeshProUGUI priceText;
     public TextMeshProUGUI nameText;
     private ShopManager shopManager;
-    public bool unlocked = false;
     public float NotEnoughCurrencyFontSize = 0.9f;
     // Start is called before the first frame update
     void Awake() {
@@ -40,48 +39,32 @@ public class ShopItem : MonoBehaviour
 
     }
 
-    void Start()
+    void OnEnable()
     {
+        StartCoroutine(lateOnEnable());
+    }
+
+    IEnumerator lateOnEnable() {
+        yield return new WaitForEndOfFrame();
 
         nameText.text = playerSkinSO.name;
 
-        if(PurchaseManager.instance.getUnlockedSkins().Contains(playerSkinSO.name)) {
-            buyText.text = "Use";
-            unlocked = true;
-        }
-        if (PurchaseManager.instance.getEquippedSkin() == playerSkinSO) {
-            buyText.text = "In Use";
-        }
-
-        if(!unlocked) {
-            priceText.text = "¤" + playerSkinSO.price.ToString();
-            if(canAfford())
-                buyText.text = "Buy";
-            else {
-                buyText.text = "Need more ¤";
-                buyText.fontSize = NotEnoughCurrencyFontSize;
-            }
-
-        }
+        equippedUpdate();
         
-        if(unlocked || PurchaseManager.instance.getEquippedSkin() == playerSkinSO) {
-            priceText.text = "";
-        }
-
     }
+
+    void Update() {
+        equippedUpdate();
+    }
+
 
     public void buyClick(){
         print("buy click " + playerSkinSO.name);
-        if(unlocked) {
+        if(PurchaseManager.instance.isSkinUnlocked(playerSkinSO)) {
             shopManager.setEquippedSkin(playerSkinSO);
         }
         else if(canAfford()) {
             shopManager.purchaseSkin(playerSkinSO);
-            PurchaseManager.instance.setCurrency(PurchaseManager.instance.getCurrency() - playerSkinSO.price);
-            PurchaseManager.instance.unlockSkin(playerSkinSO);
-            buyText.text = "Use";
-            priceText.text = "";
-            unlocked = true;
         }
     }
 
@@ -92,10 +75,22 @@ public class ShopItem : MonoBehaviour
     public void equippedUpdate() {
         if(PurchaseManager.instance.getEquippedSkin() == playerSkinSO) {
             buyText.text = "In Use";
+            priceText.text = "";
         }
-        else if(unlocked) {
+        else if(PurchaseManager.instance.isSkinUnlocked(playerSkinSO)) {
             buyText.text = "Use";
+            priceText.text = "";
+        } else if(canAfford()) {
+            priceText.text = "¤" + playerSkinSO.price.ToString();
+            buyText.text = "Buy";
+        } else {
+            priceText.text = "¤" + playerSkinSO.price.ToString();
+            buyText.text = "Need more ¤";
+            buyText.fontSize = NotEnoughCurrencyFontSize;
         }
+
+
+        
     }
 
 }

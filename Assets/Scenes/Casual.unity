@@ -131,6 +131,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2330777566233094639, guid: 3f16f18b3bcdced41ae7fa9ba8a7bb56,
+        type: 3}
+      propertyPath: nucleusMovRatio
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4767608338057128901, guid: 3f16f18b3bcdced41ae7fa9ba8a7bb56,
         type: 3}
       propertyPath: m_Name
@@ -186,12 +191,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8096241639249222354, guid: 3f16f18b3bcdced41ae7fa9ba8a7bb56,
-        type: 3}
-      propertyPath: playerSkinSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 97c12b5ad9646954e926de2aef1ff1be,
-        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -956,6 +955,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: PurchaseManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3037886720839834863, guid: 9a9fccfb308ed6c479ae5aa4077586bf,
+        type: 3}
+      propertyPath: equippedSkin
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ea588b66018ac5408d91fd989807235,
+        type: 2}
     - target: {fileID: 6759514839073031262, guid: 9a9fccfb308ed6c479ae5aa4077586bf,
         type: 3}
       propertyPath: m_LocalPosition.x

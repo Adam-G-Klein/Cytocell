@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 4769174997755540640}
   - component: {fileID: 4767608338057128907}
   - component: {fileID: 7095961163662193262}
-  - component: {fileID: 2330777566233094639}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: Player
@@ -308,24 +307,6 @@ MonoBehaviour:
   animatedTrailPrefab: {fileID: 1929538040657352, guid: 89dd1ce3b1add8b4bb5a5a00aef5ef9c,
     type: 3}
   trailCollapseAnimTime: 0.25
---- !u!114 &2330777566233094639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767608338057128901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c360565d8e5dc014c8d46bf8c91352bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nucleusMovRatio: 0
-  initialNucleusPos: {x: 0.5, y: 0.5, z: 0.5, w: 0}
-  initialScale: {x: 1, y: 1, z: 1, w: 0}
-  _mat: {fileID: 0}
-  trackingObj: {fileID: 4769174997201676792}
-  enemyCoordSystem: 0
 --- !u!1 &4769174996430328523
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +403,7 @@ GameObject:
   - component: {fileID: 4769174997201676798}
   - component: {fileID: 4769174997201676799}
   - component: {fileID: 8096241639249222354}
+  - component: {fileID: 277376805555873725}
   m_Layer: 8
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -510,7 +492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f5149fafae83342ad67ec4eb32ef9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mat: {fileID: 2100000, guid: 4c6d3ff090bec1648b9c7643614892b8, type: 2}
+  inUse: 1
+  shopDisplay: 0
   _numNuclei: 5
   _maxNucleiAngle: 160
   _minNucleiAngle: 20
@@ -530,9 +513,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dadc3eba07af9b499bd9f64df276f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSkinSO: {fileID: 11400000, guid: 0569bf02fb6d90646a3f85c22f18212c, type: 2}
+  playerSkinSO: {fileID: 11400000, guid: 97c12b5ad9646954e926de2aef1ff1be, type: 2}
   playerIdlePSPos: {fileID: 6813257981428033074}
   playerDeathPSPos: {fileID: 5192129160150415799}
+--- !u!114 &277376805555873725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769174997201676793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085324d8b3dac5041a822a7f420c589a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nucleusMovRatio: 1
+  xFlangeRatio: -1.43
+  yFlangeRatio: 0.69
 --- !u!1 &4769174997831216328
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +671,7 @@ Transform:
   m_GameObject: {fileID: 6813257981428033074}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.211, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

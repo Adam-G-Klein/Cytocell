@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6759514839073031262}
   - component: {fileID: 3037886720839834863}
+  - component: {fileID: 7907940033589366080}
   m_Layer: 0
   m_Name: PurchaseManager
   m_TagString: Untagged
@@ -46,3 +47,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currency: 0
   equippedSkin: {fileID: 11400000, guid: 0569bf02fb6d90646a3f85c22f18212c, type: 2}
+--- !u!114 &7907940033589366080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678651195015005240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389161b3149584d5ba7eb64b7d98bb2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

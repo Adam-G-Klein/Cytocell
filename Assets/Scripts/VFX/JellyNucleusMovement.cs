@@ -12,7 +12,7 @@ public class JellyNucleusMovement : MonoBehaviour
     private JellyMotionScaler motionScaler;
     public float xFlangeRatio = 1;
     public float yFlangeRatio = 1;
-    public float epDistRatio = 1;
+    private float epDistRatio = 1;
 
     private float initXFlange = 1;
     private float initYFlange = 1;
@@ -25,12 +25,13 @@ public class JellyNucleusMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shade = GetComponentInChildren<JellyShaderController>();
-        motionScaler = GetComponentInChildren<JellyMotionScaler>();
+        shade = GetComponent<JellyShaderController>();
+        motionScaler = GetComponentInParent<JellyMotionScaler>();
         spriteTrans = GetComponentInChildren<SpriteRenderer>().transform;
         initYFlange = shade.yFlange;
         initXFlange = shade.xFlange;
         initEpDist = shade._nucleiEpicenterDistance;
+        epDistRatio = PurchaseManager.instance.getEquippedSkin().nucleusMovement;
     }
 
     // Update is called once per frame
