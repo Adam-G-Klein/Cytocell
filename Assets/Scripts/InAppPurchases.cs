@@ -99,8 +99,7 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
     {
         Debug.Log($"Successfully purchased {purchaseEvent.purchasedProduct.definition.id}");
-
-        PlayerPrefs.SetInt(AdsManager.ADS_DISABLED_KEY, 1);
+        PurchaseManager.instance.unlockAllSkins();
         return PurchaseProcessingResult.Complete;
     }
 
