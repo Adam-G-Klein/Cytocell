@@ -82,7 +82,6 @@ public class VisualManager : MonoBehaviour
     private IEnumerator displayDeathMessageCorout()
     {
         Camera.main.GetComponent<DamageCameraEffect>().clearEffect = true;
-        yield return StartCoroutine(adsManager.playerKilledCorout());
         if(tutorialCanvas)
             tutorialCanvas.SetActive(false);
         deathGroup.displayAll();

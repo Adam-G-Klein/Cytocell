@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package version="software5.7" xmlns="http://apple.com/itunes/importer">
+  <provider>5RSR3H58RZ</provider>
+  <team_id>5RSR3H58RZ</team_id>
+  <software>
+    <vendor_id>cytocell</vendor_id>
+    <software_metadata>
+      <in_app_purchases>
+        <in_app_purchase>
+          <product_id>UnlockAllSkins</product_id>
+          <reference_name>UnlockAllSkins</reference_name>
+          <type>non-consumable</type>
+          <products>
+            <product>
+              <cleared_for_sale>true</cleared_for_sale>
+              <wholesale_price_tier>2</wholesale_price_tier>
+            </product>
+          </products>
+          <locales>
+            <locale name="en-US">
+              <title>Unlock All Skins</title>
+              <description>Unlocks all player skins</description>
+            </locale>
+          </locales>
+          <review_screenshot>
+            <file_name>iapScrn.png</file_name>
+            <size>277801</size>
+            <checksum>5122d4c5554b274e7e92bf26bb1aa14f</checksum>
+          </review_screenshot>
+        </in_app_purchase>
+      </in_app_purchases>
+    </software_metadata>
+  </software>
+</package>
