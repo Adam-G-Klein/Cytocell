@@ -497,7 +497,8 @@ GameObject:
   - component: {fileID: 3343770707423746313}
   - component: {fileID: 389564548984311284}
   - component: {fileID: 4575396578309180612}
-  - component: {fileID: 6248227725522612113}
+  - component: {fileID: 6988494402788777377}
+  - component: {fileID: 3985210125145852054}
   m_Layer: 5
   m_Name: IAPButton
   m_TagString: Untagged
@@ -606,19 +607,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3343770707423746313}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6248227725522612113}
-        m_TargetAssemblyTypeName: UnlockAllSkinsIAPButton, Assembly-CSharp
-        m_MethodName: onClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &4575396578309180612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,7 +621,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickable: 0
---- !u!114 &6248227725522612113
+--- !u!114 &6988494402788777377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6868693919817613117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79b5624d944058bd39aad2b90fb275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productId: UnlockAllSkins
+  buttonType: 0
+  consumePurchase: 1
+  onTransactionsRestored:
+    m_PersistentCalls:
+      m_Calls: []
+  onPurchaseComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3985210125145852054}
+        m_TargetAssemblyTypeName: UnlockAllSkinsIAPButton, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPurchaseFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  onProductFetched:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3985210125145852054}
+        m_TargetAssemblyTypeName: UnlockAllSkinsIAPButton, Assembly-CSharp
+        m_MethodName: onFetch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  button: {fileID: 389564548984311284}
+--- !u!114 &3985210125145852054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

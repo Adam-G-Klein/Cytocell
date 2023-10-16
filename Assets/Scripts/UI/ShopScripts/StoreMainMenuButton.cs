@@ -21,12 +21,10 @@ public class StoreMainMenuButton : MonoBehaviour
 
     public void onClick()
     {
-        print("store onclick");
         if (clickable.clickable)
         {
             storeMenuButtons.displayAll();
             mainMenuButtons.hideAll();
-            print("displaying store menu");
         }
     }
 

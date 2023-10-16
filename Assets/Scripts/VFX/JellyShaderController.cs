@@ -87,7 +87,6 @@ public class JellyShaderController : MonoBehaviour
         } else {
             _mat = rend.material;
         }
-        print("jelly mat: " + _mat.name);
         _mat.SetInt("_numNuclei", _numNuclei);
         initNuclei();
     }

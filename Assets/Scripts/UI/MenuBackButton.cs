@@ -13,15 +13,12 @@ public class MenuBackButton : MonoBehaviour
     void Start()
     {
         clickable = GetComponent<Clickable>();
-        if(difficultyButtons == null)
-            print("difficulty buttons null in " + gameObject.name);
         difficultyButtons = difficultyMenuWrapper.GetComponent<ButtonGroupAlphaControls>();
         mainMenuButtons = mainMenuWrapper.GetComponent<ButtonGroupAlphaControls>();
     }
 
     public void onClick()
     {
-        print("menu back onclick");
         if (clickable.clickable)
         {
             difficultyButtons.hideAll();

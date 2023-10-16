@@ -10,4 +10,8 @@ public class UnlockAllSkinsIAPButton : MonoBehaviour
         PurchaseManager.instance.iapUnlockAllSkins();
     }
 
+    public void onFetch() {
+        print("Fetch unlock all skins");
+    }
+
 }
