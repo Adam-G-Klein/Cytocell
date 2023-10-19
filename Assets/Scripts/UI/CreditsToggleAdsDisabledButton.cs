@@ -9,7 +9,6 @@ public class CreditsToggleAdsDisabledButton : MonoBehaviour
     
     public void clicked(){
         print("Secret button clicked");
-        PurchaseManager.instance.incrementCurrency(1000);
-        PlayerPrefs.SetInt(DISCOUNT_DISABLE_ADS_KEY, 1);
+        PlayerPrefs.DeleteAll();
     }
 }

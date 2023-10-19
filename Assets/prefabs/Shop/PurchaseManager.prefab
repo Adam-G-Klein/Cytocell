@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6759514839073031262}
   - component: {fileID: 3037886720839834863}
-  - component: {fileID: 7907940033589366080}
+  - component: {fileID: 5511279076785434068}
   m_Layer: 0
   m_Name: PurchaseManager
   m_TagString: Untagged
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currency: 0
   equippedSkin: {fileID: 11400000, guid: 0569bf02fb6d90646a3f85c22f18212c, type: 2}
---- !u!114 &7907940033589366080
+--- !u!114 &5511279076785434068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

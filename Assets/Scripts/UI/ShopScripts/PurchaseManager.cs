@@ -73,7 +73,10 @@ public class PurchaseManager : MonoBehaviour
 
     public void iapUnlockAllSkins() {
         inAppPurchases.PurchaseAllSkinsUnlock();
-        
+    }
+
+    public void iapRestorePurchases() {
+        inAppPurchases.RestorePurchase();
     }
 
     public void unlockAllSkins() {

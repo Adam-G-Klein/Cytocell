@@ -18,15 +18,20 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
 
     private async void Awake()
     {
-        InitializationOptions options = new InitializationOptions()
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-            .SetEnvironmentName("test");
-#else
-            .SetEnvironmentName("production");
-#endif
-        await UnityServices.InitializeAsync(options);
-        ResourceRequest operation = Resources.LoadAsync<TextAsset>("IAPProductCatalog");
-        operation.completed += HandleIAPCatalogLoaded;
+        try {
+            InitializationOptions options = new InitializationOptions()
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                        .SetEnvironmentName("test");
+            #else
+                        .SetEnvironmentName("production");
+            #endif
+            await UnityServices.InitializeAsync(options);
+            ResourceRequest operation = Resources.LoadAsync<TextAsset>("IAPProductCatalog");
+            operation.completed += HandleIAPCatalogLoaded;
+        } catch (Exception e) {
+            Debug.LogError("Error initializing Unity Services: " + e.ToString());
+        }
+        
     }
 
     private void HandleIAPCatalogLoaded(AsyncOperation Operation)
