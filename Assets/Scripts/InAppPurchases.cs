@@ -15,6 +15,7 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
     public static string ALL_SKINS_KEY = "UnlockAllSkins";
     private IStoreController StoreController;
     private IExtensionProvider ExtensionProvider;
+    private Action currentPurchaseCallback;
 
     private async void Awake()
     {
@@ -67,6 +68,7 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
         StoreController = controller;
+        ExtensionProvider = extensions;
         Debug.Log($"Successfully Initialized Unity IAP. Store Controller has {controller.products.all.Length} products");
     }
 
@@ -74,6 +76,8 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
     public void RestorePurchase() // Use a button to restore purchase only in iOS device.
     {
 #if UNITY_IOS
+        print("ExtensionProvider null? " + (ExtensionProvider == null));
+        print("AppleExtensions null? " + (ExtensionProvider.GetExtension<IAppleExtensions>() == null));
         ExtensionProvider.GetExtension<IAppleExtensions>().RestoreTransactions((result, str) => {
             Debug.Log($"Restore purchase result: {result}, string: {str}");
         });
@@ -85,26 +89,32 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
         Debug.LogError($"Error initializing IAP because of {error}." +
             $"\r\nShow a message to the player depending on the error.");
     }
-    public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
-    {
-        Debug.Log($"Failed to purchase {product.definition.id} because {failureReason}");
-    }
 
-    public void PurchaseAllSkinsUnlock(){
-        Product product = StoreController.products.all.FirstOrDefault(p => p.definition.id == ALL_SKINS_KEY);
-        Debug.Log("All skins product: " + product.ToString());
+    public void PurchaseProduct(string key, Action callback = null){
+        Product product = StoreController.products.all.FirstOrDefault(p => p.definition.id == key);
+        Debug.Log("purchasing product: " + product.ToString());
+        currentPurchaseCallback = callback;
         StoreController.InitiatePurchase(product);
     }
 
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription desc)
     {
+        processCallback();
         Debug.Log($"Failed to purchase {product.definition.id} because {desc}");
+    }
+
+    //need both for interface implementation 
+    public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
+    {
+        processCallback();
+        Debug.Log($"Failed to purchase {product.definition.id} because {failureReason}");
     }
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
     {
         Debug.Log($"Successfully purchased {purchaseEvent.purchasedProduct.definition.id}");
         PurchaseManager.instance.unlockAllSkins();
+        processCallback();
         return PurchaseProcessingResult.Complete;
     }
 
@@ -112,5 +122,13 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
     {
         Debug.LogError($"Error initializing IAP because of {error}." +
             " message: " + message);
+    }
+
+    private void processCallback(){
+        print("attempting to process callback, currentPurchaseCallback null? " + (currentPurchaseCallback == null) + "");
+        if(currentPurchaseCallback != null) {
+            currentPurchaseCallback();
+            currentPurchaseCallback = null;
+        }
     }
 }

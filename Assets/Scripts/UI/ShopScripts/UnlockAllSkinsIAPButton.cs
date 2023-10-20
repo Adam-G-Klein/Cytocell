@@ -14,9 +14,7 @@ public class UnlockAllSkinsIAPButton : MonoBehaviour
         if(processingMenuGO != null){
             processingMenu = processingMenuGO.GetComponent<ButtonGroupAlphaControls>();
         }
-
         storePage = GetComponentInParent<ButtonGroupAlphaControls>();
-
     }
 
     public void onButtonClick(){
@@ -41,7 +39,10 @@ public class UnlockAllSkinsIAPButton : MonoBehaviour
     public void onSuccess() {
         print("Unlock all skins");
         //hideProcessingMenu();
-        PurchaseManager.instance.iapUnlockAllSkins();
+        PurchaseManager.instance.purchaseProduct(InAppPurchases.ALL_SKINS_KEY, () => {
+            print("callback!");
+            hideProcessingMenu();
+        });
     }
 
     public void onFetch() {

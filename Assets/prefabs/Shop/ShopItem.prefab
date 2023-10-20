@@ -647,7 +647,6 @@ MonoBehaviour:
   buyText: {fileID: 1597526777918904822}
   priceText: {fileID: 6626456881334211814}
   nameText: {fileID: 715021364856952584}
-  unlocked: 0
   NotEnoughCurrencyFontSize: 0.9
 --- !u!1 &8952298566358806568
 GameObject:
@@ -742,8 +741,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.2
-  m_fontSizeBase: 1.2
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

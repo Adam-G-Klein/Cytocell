@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -71,8 +72,9 @@ public class PurchaseManager : MonoBehaviour
         equippedSkin = newSkin;
     }
 
-    public void iapUnlockAllSkins() {
-        inAppPurchases.PurchaseAllSkinsUnlock();
+    public void purchaseProduct(string productId, Action callback) {
+        print("purchase product: " + productId + " callback null? " + (callback == null));
+        inAppPurchases.PurchaseProduct(productId, callback);
     }
 
     public void iapRestorePurchases() {
