@@ -1,48 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UnlockAllSkinsIAPButton : MonoBehaviour
 {
 
     public GameObject processingMenuGO;
-    private ButtonGroupAlphaControls processingMenu;
+    private ProcessingPopupController processingMenu;
     private ButtonGroupAlphaControls storePage;
+    private TextMeshProUGUI buttonText;
+
 
     private void Start(){
         
         if(processingMenuGO != null){
-            processingMenu = processingMenuGO.GetComponent<ButtonGroupAlphaControls>();
+            processingMenu = processingMenuGO.GetComponent<ProcessingPopupController>();
         }
         storePage = GetComponentInParent<ButtonGroupAlphaControls>();
+        buttonText = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
+    private void Update() {
+        if(PurchaseManager.instance.allSkinsUnlocked())
+            buttonText.text = "Enjoy";
     }
 
     public void onButtonClick(){
-        //showProcessingMenu();
-    }
-
-    private void showProcessingMenu(){
-        storePage.hideAll();
-        processingMenu.displayAll();
-    }
-
-    private void hideProcessingMenu(){
-        StartCoroutine(hideProcessingMenuCoroutine());
-    }
-
-    private IEnumerator hideProcessingMenuCoroutine(){
-        yield return new WaitForEndOfFrame();
-        processingMenu.hideAll();
-        storePage.displayAll();
+        processingMenu.showProcessingMenu();
     }
 
     public void onSuccess() {
-        print("Unlock all skins");
-        //hideProcessingMenu();
-        PurchaseManager.instance.purchaseProduct(InAppPurchases.ALL_SKINS_KEY, () => {
-            print("callback!");
-            hideProcessingMenu();
-        });
+        //isn't getting called
     }
 
     public void onFetch() {

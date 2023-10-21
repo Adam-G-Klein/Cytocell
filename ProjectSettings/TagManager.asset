@@ -20,6 +20,8 @@ TagManager:
   - ResolutionControls
   - TotalScore
   - TutorialCanvas
+  - IAPButton
+  - ProcessingMenu
   layers:
   - Default
   - TransparentFX

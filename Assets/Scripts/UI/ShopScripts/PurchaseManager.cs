@@ -18,6 +18,8 @@ public class PurchaseManager : MonoBehaviour
     public static PurchaseManager instance;
     private InAppPurchases inAppPurchases;
 
+    private GameObject processingMenuGO;
+    private ProcessingPopupController processingMenuController;
     void Awake() {
         if(instance == null) {
             instance = this;
@@ -27,7 +29,41 @@ public class PurchaseManager : MonoBehaviour
         }
 
         inAppPurchases = GetComponent<InAppPurchases>();
+        processingMenuGO = GameObject.FindGameObjectWithTag("ProcessingMenu");
+        if(processingMenuGO != null)
+            processingMenuController = processingMenuGO.GetComponent<ProcessingPopupController>();
+    }
 
+    // TODO, put it on an event bus
+    public void purchaseSucceeded(string productId){
+        print("purchase of product " + productId + " succeeded, unlockSkinController null? " + processingMenuController == null);
+        switch (productId)
+        {
+            case InAppPurchases.ALL_SKINS_KEY:
+                unlockAllSkins();
+                hideProcessingMenu();
+                break;
+            default:
+                Debug.LogError("product key not found: " + productId);
+                break;
+        }
+
+    }
+    
+    private void hideProcessingMenu() {
+        if(processingMenuController != null) {
+            print("hiding processing menu");
+            processingMenuController.hideProcessingMenu();
+        }
+
+    }
+
+    public void purchaseFailed() {
+        hideProcessingMenu();
+    }
+
+    public void purchasesRestored() {
+        hideProcessingMenu();
     }
 
     public List<string> getUnlockedSkins()
@@ -81,7 +117,7 @@ public class PurchaseManager : MonoBehaviour
         inAppPurchases.RestorePurchase();
     }
 
-    public void unlockAllSkins() {
+    private void unlockAllSkins() {
         PlayerPrefs.SetInt(ALL_SKINS_UNLOCKED, 1);
     }
 

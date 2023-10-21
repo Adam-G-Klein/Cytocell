@@ -1016,13 +1016,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvasTheThird
       objectReference: {fileID: 0}
-    - target: {fileID: 7051868056204728146, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
-        type: 3}
-      propertyPath: consumePurchase
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 7051868056204728146, guid: bdfd0d02c9c2c764e9d89019d59e6d5c, type: 3}
+    - {fileID: 5604608844740608364, guid: bdfd0d02c9c2c764e9d89019d59e6d5c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

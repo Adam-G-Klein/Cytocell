@@ -39,6 +39,8 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     private string[] buttonShaders = new string[] { "Beset/UIButtons"};
     private string[] playerSkinShaders = new string[] {"Beset/CellAlphaUI", "Beset/JellyAlphaUI"};
 
+    private List<int> currentLtids = new List<int>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +94,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         {
             obj.SetActive(true);
         }
+        clearCurrentTweens();
         if(textGroup && textGroupBehavesTheSame) textGroup.displayAll();
         tweenCellAlphasTo(buttonImgs, maxButtonMatAlpha, displayTime);
         tweenCellAlphasTo(playerImgs, playerEndAlpha, displayTime);
@@ -119,6 +122,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     }
     public void hideAll()
     {
+        clearCurrentTweens();
         tweenCellAlphasTo(buttonImgs, 0, displayTime);
         tweenCellAlphasTo(playerImgs, 0, displayTime);
         tweenSpriteAlphaTo(0, displayTime);
@@ -128,28 +132,38 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         Invoke("deactivateAll", displayTime);
     }
 
+    private void clearCurrentTweens() {
+        CancelInvoke("deactivateAll");
+        CancelInvoke("setAllClickable");
+        foreach (int ltId in currentLtids)
+        {
+            LeanTween.cancel(ltId);
+        }
+        currentLtids.Clear();
+    }
+
     public void tweenCellAlphasTo(List<Image> imgs, float to, float time)
     {
         foreach (Image img in imgs)
         {
-            LeanTween.value(
+            currentLtids.Add(LeanTween.value(
             gameObject, img.material.GetFloat("_publicAlpha"), to, time)
             .setOnUpdate((float val) =>
             {
                 img.material.SetFloat("_publicAlpha", val);
-            });
+            }).id);
         }
     }
 
     public void tweenSpriteAlphaTo(float to, float time){
         foreach (SpriteRenderer renderer in sprites)
         {
-            LeanTween.value(
+            currentLtids.Add(LeanTween.value(
             gameObject, renderer.color.a, to, time)
             .setOnUpdate((float val) =>
             {
                 renderer.color = new Color(renderer.color.r, renderer.color.b, renderer.color.g, val);
-            });
+            }).id);
 
         }
     }
@@ -159,12 +173,12 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         foreach (Material mat in imageMats)
         {
 
-            LeanTween.value(
+            currentLtids.Add(LeanTween.value(
             gameObject, mat.color.a, to, time)
             .setOnUpdate((float val) =>
             {
                 mat.color = new Color(mat.color.r, mat.color.b, mat.color.g, val);
-            });
+            }).id);
         }
     }
     private void deactivateAll()

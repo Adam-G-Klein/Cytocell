@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
 {
 
-    public static string ALL_SKINS_KEY = "UnlockAllSkins";
+    public const string ALL_SKINS_KEY = "UnlockAllSkins";
     private IStoreController StoreController;
     private IExtensionProvider ExtensionProvider;
     private Action currentPurchaseCallback;
@@ -80,6 +80,7 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
         print("AppleExtensions null? " + (ExtensionProvider.GetExtension<IAppleExtensions>() == null));
         ExtensionProvider.GetExtension<IAppleExtensions>().RestoreTransactions((result, str) => {
             Debug.Log($"Restore purchase result: {result}, string: {str}");
+            PurchaseManager.instance.purchasesRestored();
         });
 #endif
     }
@@ -99,21 +100,22 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
 
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription desc)
     {
-        processCallback();
+        PurchaseManager.instance.purchaseFailed();
         Debug.Log($"Failed to purchase {product.definition.id} because {desc}");
     }
 
     //need both for interface implementation 
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
-        processCallback();
+        PurchaseManager.instance.purchaseFailed();
         Debug.Log($"Failed to purchase {product.definition.id} because {failureReason}");
     }
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
     {
         Debug.Log($"Successfully purchased {purchaseEvent.purchasedProduct.definition.id}");
-        PurchaseManager.instance.unlockAllSkins();
+        PurchaseManager.instance.purchaseSucceeded(purchaseEvent.purchasedProduct.definition.id);
+        // TODO: convert to an event
         processCallback();
         return PurchaseProcessingResult.Complete;
     }
