@@ -35,6 +35,7 @@ public class PurchaseManager : MonoBehaviour
     }
 
     // TODO, put it on an event bus
+    // Currently called by BOTH our custom InAppPurchases implementation AND the Unity IAP system
     public void purchaseSucceeded(string productId){
         print("purchase of product " + productId + " succeeded, unlockSkinController null? " + processingMenuController == null);
         switch (productId)

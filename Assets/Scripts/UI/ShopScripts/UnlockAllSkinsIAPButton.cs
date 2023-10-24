@@ -10,6 +10,7 @@ public class UnlockAllSkinsIAPButton : MonoBehaviour
     private ProcessingPopupController processingMenu;
     private ButtonGroupAlphaControls storePage;
     private TextMeshProUGUI buttonText;
+    private string initialText;
 
 
     private void Start(){
@@ -19,11 +20,15 @@ public class UnlockAllSkinsIAPButton : MonoBehaviour
         }
         storePage = GetComponentInParent<ButtonGroupAlphaControls>();
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
+        initialText = buttonText.text;
     }
 
     private void Update() {
+        print("PurchaseManager.instance.allSkinsUnlocked() " + PurchaseManager.instance.allSkinsUnlocked());
         if(PurchaseManager.instance.allSkinsUnlocked())
             buttonText.text = "Enjoy";
+        else 
+            buttonText.text = initialText;
     }
 
     public void onButtonClick(){
@@ -31,17 +36,21 @@ public class UnlockAllSkinsIAPButton : MonoBehaviour
     }
 
     public void onSuccess() {
+        print("onsuccess called");
+        PurchaseManager.instance.purchaseSucceeded(InAppPurchases.ALL_SKINS_KEY);
         //isn't getting called
     }
 
     public void onFetch() {
         //hideProcessingMenu();
         print("Fetch unlock all skins");
+        PurchaseManager.instance.purchasesRestored();
     }
 
     public void onFail() {
         //hideProcessingMenu();
         print("Fail unlock all skins");
+        PurchaseManager.instance.purchaseFailed();
     }
 
 }

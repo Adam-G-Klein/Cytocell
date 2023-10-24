@@ -8,7 +8,7 @@ public class ProcessingPopupController : MonoBehaviour
     private ButtonGroupAlphaControls storePage;
     private ButtonGroupAlphaControls processingMenu;
 
-    void Start() {
+    void Awake() {
         processingMenu = GetComponent<ButtonGroupAlphaControls>();
         if(storePageWrapper != null){
             storePage = storePageWrapper.GetComponent<ButtonGroupAlphaControls>();
