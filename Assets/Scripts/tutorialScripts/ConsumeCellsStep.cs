@@ -12,7 +12,6 @@ public class ConsumeCellsStep : TutorialStep
     protected override void Start()
     {
         base.Start();
-        stepName = "ConsumeCells";
         manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         hasConsumed = false;
     }
@@ -24,5 +23,11 @@ public class ConsumeCellsStep : TutorialStep
         yield return new WaitUntil(() => manager.score > startingKillCount);
         yield return endExecution();
     }
+
+
+    public override string getStepName(){
+        return "ConsumeCells";
+    }
+
 }
 

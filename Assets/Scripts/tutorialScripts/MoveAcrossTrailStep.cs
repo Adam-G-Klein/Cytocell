@@ -24,7 +24,6 @@ public class MoveAcrossTrailStep : TutorialStep
     protected override void Start()
     {
         base.Start();
-        stepName = "MoveAcrossTrail";
         collapser = GameObject.FindGameObjectWithTag("Player").GetComponent<TrailCollapser>();
         textPromptGroupAlphaControls = textPromptGroupGO.GetComponent<TextGroupAlphaControls>();
         alphaControls.displayTime = stepTextFadeOutTime;
@@ -35,5 +34,10 @@ public class MoveAcrossTrailStep : TutorialStep
         alphaControls.displayAll();
         yield return new WaitUntil(() => collapser.collapseTriggered);
         yield return endExecution();
+    }
+
+
+    public override string getStepName(){
+        return "MoveAcrossTrail";
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Purchasing;
+using UnityEngine.Purchasing.Extension;
 
 
 public class PurchaseManager : MonoBehaviour
@@ -36,7 +38,8 @@ public class PurchaseManager : MonoBehaviour
 
     // TODO, put it on an event bus
     // Currently called by BOTH our custom InAppPurchases implementation AND the Unity IAP system
-    public void purchaseSucceeded(string productId){
+    public void purchaseSucceeded(Product product){
+        string productId = product.definition.id;
         print("purchase of product " + productId + " succeeded, unlockSkinController null? " + processingMenuController == null);
         switch (productId)
         {
@@ -52,18 +55,18 @@ public class PurchaseManager : MonoBehaviour
     }
     
     private void hideProcessingMenu() {
-        if(processingMenuController != null) {
+        if(processingMenuController != null && processingMenuController.processingMenu.isActive) {
             print("hiding processing menu");
             processingMenuController.hideProcessingMenu();
         }
 
     }
 
-    public void purchaseFailed() {
+    public void purchaseFailed(Product product, PurchaseFailureReason failureReason) {
         hideProcessingMenu();
     }
 
-    public void purchasesRestored() {
+    public void purchasesRestored(ProductCollection products) {
         hideProcessingMenu();
     }
 

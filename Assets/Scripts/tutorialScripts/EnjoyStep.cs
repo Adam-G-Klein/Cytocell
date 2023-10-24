@@ -11,7 +11,6 @@ public class EnjoyStep : TutorialStep
 
     protected override void Start() {
         base.Start();
-        stepName = "Enjoy";
     }
 
     public override IEnumerator executeStep(){
@@ -19,6 +18,10 @@ public class EnjoyStep : TutorialStep
         alphaControls.displayAll();
         yield return new WaitForSeconds(displayTime);
         yield return endExecution();
+    }
+
+    public override string getStepName(){
+        return "Enjoy";
     }
 }
 

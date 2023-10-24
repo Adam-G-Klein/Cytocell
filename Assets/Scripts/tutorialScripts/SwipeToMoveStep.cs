@@ -30,4 +30,8 @@ public class SwipeToMoveStep : TutorialStep
         yield return new WaitUntil(() => swiper.plSwiped);
         yield return endExecution();
     }
+
+    public override string getStepName(){
+        return "SwipeToMove";
+    }
 }

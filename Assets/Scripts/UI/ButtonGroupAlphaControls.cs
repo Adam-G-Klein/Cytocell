@@ -40,6 +40,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     private string[] playerSkinShaders = new string[] {"Beset/CellAlphaUI", "Beset/JellyAlphaUI"};
 
     private List<int> currentLtids = new List<int>();
+    public bool isActive;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +55,11 @@ public class ButtonGroupAlphaControls : MonoBehaviour
         {
             img.material.SetFloat("_publicAlpha", initAlpha);
         }
+        foreach (Image img in playerImgs) {
+            img.material.SetFloat("_publicAlpha", initAlpha);
+        }
         SendMessageUpwards("initDone", null, SendMessageOptions.DontRequireReceiver);
+        isActive = initActive;
     }
 
     private void addAllItemsToLists(List<GameObject> gos)
@@ -90,6 +95,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
 
     public void displayAll()
     {
+        isActive = true;
         foreach (GameObject obj in all)
         {
             obj.SetActive(true);
@@ -122,6 +128,7 @@ public class ButtonGroupAlphaControls : MonoBehaviour
     }
     public void hideAll()
     {
+        isActive = false;
         clearCurrentTweens();
         tweenCellAlphasTo(buttonImgs, 0, displayTime);
         tweenCellAlphasTo(playerImgs, 0, displayTime);

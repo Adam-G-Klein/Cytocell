@@ -49,7 +49,7 @@ Material:
     - _numNuclei: 5
     - _organGradient: 1.94
     - _organNucDist: 0
-    - _publicAlpha: 1
+    - _publicAlpha: 0
     - _testAdd: 3.14
     - _testDiv: 0.02
     m_Colors:

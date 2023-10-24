@@ -24,7 +24,6 @@ public class UnlockAllSkinsIAPButton : MonoBehaviour
     }
 
     private void Update() {
-        print("PurchaseManager.instance.allSkinsUnlocked() " + PurchaseManager.instance.allSkinsUnlocked());
         if(PurchaseManager.instance.allSkinsUnlocked())
             buttonText.text = "Enjoy";
         else 
@@ -36,21 +35,18 @@ public class UnlockAllSkinsIAPButton : MonoBehaviour
     }
 
     public void onSuccess() {
-        print("onsuccess called");
-        PurchaseManager.instance.purchaseSucceeded(InAppPurchases.ALL_SKINS_KEY);
-        //isn't getting called
+        //PurchaseManager.instance.purchaseSucceeded(InAppPurchases.ALL_SKINS_KEY);
+        // handled by the iapListener on PurchaseManager
     }
 
     public void onFetch() {
-        //hideProcessingMenu();
-        print("Fetch unlock all skins");
-        PurchaseManager.instance.purchasesRestored();
+        //PurchaseManager.instance.purchasesRestored();
+        // handled by the iapListener on PurchaseManager
     }
 
     public void onFail() {
-        //hideProcessingMenu();
-        print("Fail unlock all skins");
-        PurchaseManager.instance.purchaseFailed();
+        // handled by the iapListener on PurchaseManager
+        //PurchaseManager.instance.purchaseFailed();
     }
 
 }

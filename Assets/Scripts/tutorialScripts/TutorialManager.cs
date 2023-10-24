@@ -36,6 +36,9 @@ public class TutorialManager : MonoBehaviour
         tutorialSteps = new List<TutorialStep>(GetComponentsInChildren<TutorialStep>());
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         print("tutorialSteps: " + tutorialSteps.Count);
+        foreach(TutorialStep step in tutorialSteps) {
+            print("step: " + step.stepName);
+        }
         startTutorial();
     }
 
@@ -67,7 +70,10 @@ public class TutorialManager : MonoBehaviour
     }
 
     public void setVisible(bool visible) {
-        if(currentStep != null)
+        if(currentStep == null) return;
+        if(visible && PlayerPrefs.GetInt(currentStep.completionKey(), 0) == 0)
+            currentStep.setVisible(visible);
+        else if (!visible)
             currentStep.setVisible(visible);
     }
 
@@ -75,6 +81,7 @@ public class TutorialManager : MonoBehaviour
         bool startingStepFound = false;
         foreach(TutorialStep step in tutorialSteps) {
             startingStepFound = startingStepFound || step.stepName == initStepName;
+            print("checking step " + step.stepName + " startingStepFound: " + startingStepFound + " completion: " + PlayerPrefs.GetInt(step.completionKey(), 0));
             if(startingStepFound && PlayerPrefs.GetInt(step.completionKey(), 0) == 0) {
                 print("Starting step " + step.stepName);
                 currentStepCoroutine = step.executeStep();

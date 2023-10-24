@@ -24,6 +24,8 @@ public class VisualManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI newRecordText;
     // one in pause menu, one on death screen
+    private HighScoreDisplay[] highScoreDisplays;
+    // one in pause menu, one on death screen
     private TotalScoreDisplay[] totalScoreDisplay;
     // one in pause menu, one on death screen
     private TotalCurrencyDisplay[] totalCurrencyDisplay;
@@ -49,6 +51,7 @@ public class VisualManager : MonoBehaviour
         startAddTrailWorldpos = addTrailObj.transform.position;
         totalScoreDisplay = GetComponentsInChildren<TotalScoreDisplay>();
         totalCurrencyDisplay = GetComponentsInChildren<TotalCurrencyDisplay>();
+        highScoreDisplays = GetComponentsInChildren<HighScoreDisplay>();
         addTrailText.alpha = 0;
         scoreText.text = constants.SceneName;
         tutorialCanvas = GameObject.FindGameObjectWithTag("TutorialCanvas");
@@ -101,6 +104,14 @@ public class VisualManager : MonoBehaviour
         foreach(TotalCurrencyDisplay csd in totalCurrencyDisplay){
             print("updating currency for object: " + csd.gameObject.name);
             csd.updateStat();
+        }
+        foreach(TotalScoreDisplay tsd in totalScoreDisplay){
+            print("updating score for object: " + tsd.gameObject.name);
+            tsd.setThisRoundScore(newScore);
+        }
+        foreach(HighScoreDisplay hsd in highScoreDisplays){
+            print("updating highscore for object: " + hsd.gameObject.name);
+            hsd.setFromGameManager();
         }
         scoreText.SetText("¤" + newScore.ToString());
         if(newHighScore)

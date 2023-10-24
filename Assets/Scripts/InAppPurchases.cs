@@ -9,7 +9,7 @@ using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
 using UnityEngine.UI;
 
-public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
+public class InAppPurchases : MonoBehaviour//, IDetailedStoreListener
 {
 
     public const string ALL_SKINS_KEY = "UnlockAllSkins";
@@ -26,9 +26,9 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
             #else
                         .SetEnvironmentName("production");
             #endif
-            await UnityServices.InitializeAsync(options);
-            ResourceRequest operation = Resources.LoadAsync<TextAsset>("IAPProductCatalog");
-            operation.completed += HandleIAPCatalogLoaded;
+            //await UnityServices.InitializeAsync(options);
+            //ResourceRequest operation = Resources.LoadAsync<TextAsset>("IAPProductCatalog");
+            //operation.completed += HandleIAPCatalogLoaded;
         } catch (Exception e) {
             Debug.LogError("Error initializing Unity Services: " + e.ToString());
         }
@@ -61,8 +61,8 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
             builder.AddProduct(item.id, item.type);
         }
 
-        Debug.Log($"Initializing Unity IAP with {builder.products.Count} products");
-        UnityPurchasing.Initialize(this, builder);
+        //Debug.Log($"Initializing Unity IAP with {builder.products.Count} products");
+        //UnityPurchasing.Initialize(this, builder);
     }
 
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
@@ -73,6 +73,7 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
     }
 
 
+    // Now caught by Unity IAP
     public void RestorePurchase() // Use a button to restore purchase only in iOS device.
     {
 #if UNITY_IOS
@@ -80,7 +81,7 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
         print("AppleExtensions null? " + (ExtensionProvider.GetExtension<IAppleExtensions>() == null));
         ExtensionProvider.GetExtension<IAppleExtensions>().RestoreTransactions((result, str) => {
             Debug.Log($"Restore purchase result: {result}, string: {str}");
-            PurchaseManager.instance.purchasesRestored();
+            //PurchaseManager.instance.purchasesRestored(result);
         });
 #endif
     }
@@ -98,23 +99,25 @@ public class InAppPurchases : MonoBehaviour, IDetailedStoreListener
         StoreController.InitiatePurchase(product);
     }
 
+    // Now caught by Unity IAP
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription desc)
     {
-        PurchaseManager.instance.purchaseFailed();
+        //PurchaseManager.instance.purchaseFailed();
         Debug.Log($"Failed to purchase {product.definition.id} because {desc}");
     }
 
     //need both for interface implementation 
+    // Now caught by Unity IAP
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
-        PurchaseManager.instance.purchaseFailed();
+        //PurchaseManager.instance.purchaseFailed();
         Debug.Log($"Failed to purchase {product.definition.id} because {failureReason}");
     }
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
     {
         Debug.Log($"Successfully purchased {purchaseEvent.purchasedProduct.definition.id}");
-        PurchaseManager.instance.purchaseSucceeded(purchaseEvent.purchasedProduct.definition.id);
+        PurchaseManager.instance.purchaseSucceeded(purchaseEvent.purchasedProduct);
         // TODO: convert to an event
         processCallback();
         return PurchaseProcessingResult.Complete;

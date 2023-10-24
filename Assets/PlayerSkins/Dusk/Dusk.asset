@@ -20,4 +20,4 @@ MonoBehaviour:
   deathPS: {fileID: 9072473505103226727, guid: d2ae9224c1a9b814db549f94e046ea21, type: 3}
   nucleusMovement: 0
   particleYOffset: 0
-  price: 250
+  price: 2500

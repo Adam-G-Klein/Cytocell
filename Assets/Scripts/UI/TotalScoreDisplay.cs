@@ -13,17 +13,16 @@ public class TotalScoreDisplay : MonoBehaviour
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
-        Invoke("LateStart", 0.1f);
-    }
-
-    void LateStart(){
         constants = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DifficultyConstants>();
         scoreAtStartRound = PlayerPrefs.GetInt("TotalScore" + constants.SceneName, 0);
         setTextForScore();
-
     }
 
     public void setThisRoundScore(int thisRoundScore){
+        print("constnats null? " + (constants == null));
+        if(constants == null){
+            Start();
+        }
         PlayerPrefs.SetInt("TotalScore" + constants.SceneName, scoreAtStartRound + thisRoundScore);
         setTextForScore();
     }

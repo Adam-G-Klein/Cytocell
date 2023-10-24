@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     private PlayerSwiper playerSwiper;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         LeanTween.init(1600);
         score = 0;
@@ -105,8 +105,8 @@ public class GameManager : MonoBehaviour
             spawnFlits();
         }
         if(flitControl.noScoreOrXPonDeath) return;
-        score += 1;
-        PurchaseManager.instance.incrementCurrency(1);
+        score += constants.currencyPerFlit;
+        PurchaseManager.instance.incrementCurrency(constants.currencyPerFlit);
         updateHighScore();
         ui.updateScore(score, newHighScore);
     }
@@ -164,12 +164,16 @@ public class GameManager : MonoBehaviour
     }
 
     private void updateHighScore(){
-        int hScore = PlayerPrefs.GetInt("Highscore"+constants.SceneName, -1);
+        int hScore = getHighScore();
         if ((hScore == -1 || score > hScore) && score != 0)
         {
             newHighScore = true;
             PlayerPrefs.SetInt("Highscore"+constants.SceneName, score);
         }
+    }
+
+    public int getHighScore() {
+        return PlayerPrefs.GetInt("Highscore"+constants.SceneName, -1);
     }
 
     public bool soundEnabled()

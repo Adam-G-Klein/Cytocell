@@ -11,7 +11,6 @@ public class LevelUpStep : TutorialStep
 
     protected override void Start() {
         base.Start();
-        stepName = "LevelUp";
         manager = GameObject.FindGameObjectWithTag("Player").GetComponent<XPManager>();
     }
 
@@ -24,6 +23,10 @@ public class LevelUpStep : TutorialStep
         yield return new WaitUntil(() => manager.level > startingLevel);
         PlayerPrefs.SetInt(TutorialManager.LEVEL_UP_COMPLETION, 1);
         yield return endExecution();
+    }
+
+    public override string getStepName(){
+        return "LevelUp";
     }
 }
 

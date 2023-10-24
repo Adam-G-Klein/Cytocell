@@ -11,6 +11,12 @@ public abstract class TutorialStep : MonoBehaviour {
 
     private const float END_EXECUTION_WAIT_TIME = 1f;
 
+    public abstract string getStepName();
+
+    protected virtual void Awake() {
+        stepName = getStepName();
+    }
+
     protected virtual void Start() {
         alphaControls = GetComponent<TextGroupAlphaControls>();
     }
@@ -18,9 +24,9 @@ public abstract class TutorialStep : MonoBehaviour {
     public abstract IEnumerator executeStep();
 
     public virtual IEnumerator endExecution() {
-        yield return new WaitForSeconds(END_EXECUTION_WAIT_TIME);
         alphaControls.hideAll();
         PlayerPrefs.SetInt(completionKey(), 1);
+        yield return new WaitForSeconds(END_EXECUTION_WAIT_TIME);
     }
 
     public virtual void reset(){

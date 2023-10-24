@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 8304137207503444316}
   - component: {fileID: 4384498693790724778}
   - component: {fileID: 256108327791973451}
+  - component: {fileID: 2163635779701436520}
   m_Layer: 5
   m_Name: Restore
   m_TagString: Untagged
@@ -432,6 +433,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b91d4edcb6b40bcb45586b9cc12be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  processingMenuGO: {fileID: 0}
+--- !u!114 &2163635779701436520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3164451862705555113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79b5624d944058bd39aad2b90fb275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productId: 
+  buttonType: 1
+  consumePurchase: 1
+  onTransactionsRestored:
+    m_PersistentCalls:
+      m_Calls: []
+  onPurchaseComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onPurchaseFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  onProductFetched:
+    m_PersistentCalls:
+      m_Calls: []
+  button: {fileID: 8304137207503444316}
 --- !u!1 &3384469616975285809
 GameObject:
   m_ObjectHideFlags: 0

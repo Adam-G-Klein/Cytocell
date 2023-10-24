@@ -6,7 +6,7 @@ public class ProcessingPopupController : MonoBehaviour
 {
     public GameObject storePageWrapper;
     private ButtonGroupAlphaControls storePage;
-    private ButtonGroupAlphaControls processingMenu;
+    public ButtonGroupAlphaControls processingMenu;
 
     void Awake() {
         processingMenu = GetComponent<ButtonGroupAlphaControls>();

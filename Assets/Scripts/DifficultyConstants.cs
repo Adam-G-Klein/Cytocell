@@ -19,6 +19,7 @@ public class DifficultyConstants : MonoBehaviour
     public float firstLevelXp = 2;
     public float xpIncreaseFactor = 2;
     public float maxXpPerLevel = 16;
+    public int currencyPerFlit = 1;
 
     [Header("Knockback Settings")]
     public bool enemyKnockbackEnabled = true;

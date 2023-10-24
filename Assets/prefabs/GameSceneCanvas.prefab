@@ -2396,6 +2396,7 @@ MonoBehaviour:
   playerEndAlpha: 1
   initActive: 0
   textGroupBehavesTheSame: 1
+  isActive: 0
 --- !u!114 &6656748888726890530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3019,6 +3020,7 @@ MonoBehaviour:
   playerEndAlpha: 1
   initActive: 0
   textGroupBehavesTheSame: 1
+  isActive: 0
 --- !u!114 &3052913622209689036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3298,11 +3300,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5100494461650058140}
     m_Modifications:
-    - target: {fileID: 2744137712066878607, guid: 501faead3deb07e448a40ad4c659b92a,
-        type: 3}
-      propertyPath: m_Name
-      value: StatCountPauseScreen
-      objectReference: {fileID: 0}
     - target: {fileID: 2890458662127370580, guid: 501faead3deb07e448a40ad4c659b92a,
         type: 3}
       propertyPath: m_Name

@@ -439,7 +439,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6336335911c5d6b438b6a3181364329f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialSteps: []
+  tutorialSteps:
+  - {fileID: 4307658788579249337}
+  - {fileID: 7880421461934120286}
+  - {fileID: 6203099106144703878}
+  - {fileID: 3063839795685959212}
+  - {fileID: 3257121072549770485}
   initStepName: SwipeToMove
 --- !u!1 &4307658788089116027
 GameObject:

@@ -369,6 +369,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7346240284360117121, guid: efcb38418afcfcc46845994d3607bfb3,
         type: 3}
+      propertyPath: currencyPerFlit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346240284360117121, guid: efcb38418afcfcc46845994d3607bfb3,
+        type: 3}
       propertyPath: xpIncreaseFactor
       value: 1.5
       objectReference: {fileID: 0}
@@ -896,12 +901,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PurchaseManager
       objectReference: {fileID: 0}
-    - target: {fileID: 3037886720839834863, guid: 9a9fccfb308ed6c479ae5aa4077586bf,
-        type: 3}
-      propertyPath: equippedSkin
-      value: 
-      objectReference: {fileID: 11400000, guid: 191e5fb29b075a04490c0cc64a6ae844,
-        type: 2}
     - target: {fileID: 6759514839073031262, guid: 9a9fccfb308ed6c479ae5aa4077586bf,
         type: 3}
       propertyPath: m_LocalPosition.x
