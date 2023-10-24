@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,7 +78,6 @@ public class AdsManager : MonoBehaviour
         int[] topBannerPos = AdScreenPlacement.topBannerPos();
         print("Safe area: " + Screen.safeArea.xMin + ", " + Screen.safeArea.yMin + ", " + Screen.safeArea.xMax + ", " + Screen.safeArea.yMax);
         print("topBannerpos: " + topBannerPos[0] + ", " + topBannerPos[1]);
-        */
         //_bannerView = new BannerView(_adUnitId, AdSize.Banner, topBannerPos[0],topBannerPos[1]);
        // _bannerView = new BannerView(_adUnitId, AdSize.Banner, 0,0);
         _bannerView = new BannerView(_adUnitIdBanner, AdSize.Banner, AdPosition.Top);
@@ -246,3 +246,4 @@ public class AdsManager : MonoBehaviour
     }
 
 }
+*/

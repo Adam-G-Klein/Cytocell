@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
 
     public int currentPurgeKillCount = 0;
     public ResolutionSetter res; 
-    private AdsManager adsManager;
     public bool newHighScore = false;
     private PlayerSwiper playerSwiper;
 
@@ -57,7 +56,6 @@ public class GameManager : MonoBehaviour
             dNotes = GameObject.Find("Audio").GetComponentInChildren<DeathNotes>();
 
             spawnFlits();
-            adsManager = GetComponent<AdsManager>();
             playerSwiper = player.GetComponent<PlayerSwiper>();
 
         }

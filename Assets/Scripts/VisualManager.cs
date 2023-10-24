@@ -37,7 +37,6 @@ public class VisualManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> nonBannerOffsetObjects = new List<GameObject>();
     private GameObject tutorialCanvas;
-    private AdsManager adsManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +54,6 @@ public class VisualManager : MonoBehaviour
         addTrailText.alpha = 0;
         scoreText.text = constants.SceneName;
         tutorialCanvas = GameObject.FindGameObjectWithTag("TutorialCanvas");
-        adsManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<AdsManager>(); 
         newRecordText.gameObject.SetActive(false);
         updateScore(0, false);
     }
