@@ -137,6 +137,16 @@ PrefabInstance:
       propertyPath: m_text
       value: "Current \xA4"
       objectReference: {fileID: 0}
+    - target: {fileID: 4213129328094187265, guid: 3f5090ea99a18034788ab9e23cb20153,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 264.9263
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213129328094187265, guid: 3f5090ea99a18034788ab9e23cb20153,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 152.35287
+      objectReference: {fileID: 0}
     - target: {fileID: 6649956319901945181, guid: 3f5090ea99a18034788ab9e23cb20153,
         type: 3}
       propertyPath: m_Pivot.x
@@ -294,6 +304,16 @@ PrefabInstance:
       propertyPath: m_text
       value: "Mode High \xA4"
       objectReference: {fileID: 0}
+    - target: {fileID: 4213129328094187265, guid: 3f5090ea99a18034788ab9e23cb20153,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 268.2148
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213129328094187265, guid: 3f5090ea99a18034788ab9e23cb20153,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150.70859
+      objectReference: {fileID: 0}
     - target: {fileID: 6649956319901945181, guid: 3f5090ea99a18034788ab9e23cb20153,
         type: 3}
       propertyPath: m_Pivot.x
@@ -449,6 +469,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "Mode Total \xA4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213129328094187265, guid: 3f5090ea99a18034788ab9e23cb20153,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 238.6183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213129328094187265, guid: 3f5090ea99a18034788ab9e23cb20153,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 165.50687
       objectReference: {fileID: 0}
     - target: {fileID: 6649956319901945181, guid: 3f5090ea99a18034788ab9e23cb20153,
         type: 3}

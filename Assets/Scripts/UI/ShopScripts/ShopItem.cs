@@ -54,7 +54,7 @@ public class ShopItem : MonoBehaviour
     }
 
     void Update() {
-        equippedUpdate();
+        //equippedUpdate();
     }
 
 
@@ -66,6 +66,7 @@ public class ShopItem : MonoBehaviour
         else if(canAfford()) {
             shopManager.purchaseSkin(playerSkinSO);
         }
+        PurchaseManager.instance.updateShopItems();
     }
 
     private bool canAfford() {
@@ -88,9 +89,6 @@ public class ShopItem : MonoBehaviour
             buyText.text = "Need more ¤";
             buyText.fontSize = NotEnoughCurrencyFontSize;
         }
-
-
-        
     }
 
 }

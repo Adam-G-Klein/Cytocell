@@ -22,7 +22,7 @@ public class ShopManager : MonoBehaviour
 
     public void setEquippedSkin(PlayerSkinSO skin)
     {
-        PurchaseManager.instance.setEquippedSkin(skin);
+        PurchaseManager.instance.setEquippedSkin(skin.name);
         foreach (ShopItem item in shopItems)
         {
             item.equippedUpdate();

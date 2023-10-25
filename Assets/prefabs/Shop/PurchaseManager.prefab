@@ -48,6 +48,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currency: 0
   equippedSkin: {fileID: 11400000, guid: 0569bf02fb6d90646a3f85c22f18212c, type: 2}
+  allSkins:
+  - {fileID: 11400000, guid: 0569bf02fb6d90646a3f85c22f18212c, type: 2}
+  - {fileID: 11400000, guid: 97c12b5ad9646954e926de2aef1ff1be, type: 2}
+  - {fileID: 11400000, guid: 191e5fb29b075a04490c0cc64a6ae844, type: 2}
+  - {fileID: 11400000, guid: 2ea588b66018ac5408d91fd989807235, type: 2}
+  - {fileID: 11400000, guid: 1a811bf60d37f354cbbfc2d01cb37062, type: 2}
+  - {fileID: 11400000, guid: b1f50564a3c92494c81bce5f5e8fffc0, type: 2}
 --- !u!114 &5511279076785434068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +117,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3037886720839834863}
         m_TargetAssemblyTypeName: PurchaseManager, Assembly-CSharp
         m_MethodName: purchaseFailed
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
