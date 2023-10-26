@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
+using UnityEngine.iOS;
 
 
 public class PurchaseManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class PurchaseManager : MonoBehaviour
     public static string EQUIPPED_SKIN = "equippedSkin";
     public static string CURRENCY = "currency";
     public static string DEFAULT_SKIN = "Alpha";
+    public static string REVIEW_REQUESTED = "reviewRequested";
     public static PurchaseManager instance;
     private InAppPurchases inAppPurchases;
 
@@ -152,6 +154,15 @@ public class PurchaseManager : MonoBehaviour
 
     public void iapRestorePurchases() {
         inAppPurchases.RestorePurchase();
+    }
+
+    public void pollForReview() {
+        #if UNITY_IOS
+        if (PlayerPrefs.GetInt(REVIEW_REQUESTED, 0) == 0 && getCurrency() >= 1000) {
+            Device.RequestStoreReview();
+            PlayerPrefs.SetInt(REVIEW_REQUESTED, 1);
+        }
+        #endif
     }
 
     private void unlockAllSkins() {
