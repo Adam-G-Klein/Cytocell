@@ -51,6 +51,7 @@ public class PurchaseManager : MonoBehaviour
 
     public void updateShopItems(){
         foreach(ShopItem item in allShopItems) {
+            print("broadcasting equippedUpdate to " + item.name);
             item.BroadcastMessage("equippedUpdate");
         }
     }

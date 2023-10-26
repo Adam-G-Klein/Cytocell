@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 9e3c9597b9e36fe45a0958d7bc6a0ed2
-  - enabled: 1
+  - enabled: 0
     path: Assets/IronSource/DemoScene/IronSourceDemo.unity
     guid: ccc0ac08126704384bdda74c26d99797
   - enabled: 1

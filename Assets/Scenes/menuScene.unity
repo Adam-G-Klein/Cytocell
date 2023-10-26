@@ -713,6 +713,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a74639c32074bb4e974eb3c1807f5ef, type: 3}
+--- !u!114 &1824794824 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7793056652599041294, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2254421002014158394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1934651313
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1016,6 +1028,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvasTheThird
       objectReference: {fileID: 0}
+    - target: {fileID: 5883966759580327840, guid: bdfd0d02c9c2c764e9d89019d59e6d5c,
+        type: 3}
+      propertyPath: backText
+      value: 
+      objectReference: {fileID: 1824794824}
     m_RemovedComponents:
     - {fileID: 5604608844740608364, guid: bdfd0d02c9c2c764e9d89019d59e6d5c, type: 3}
     m_RemovedGameObjects: []

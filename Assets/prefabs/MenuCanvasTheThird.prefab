@@ -667,6 +667,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObjects:
   - {fileID: 3426608828092749584}
+  - {fileID: 1504622202756194974}
+  - {fileID: 4718032315185158253}
   buttons:
   - {fileID: 6230111623142354624}
   images: []
@@ -706,6 +708,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storePageWrapper: {fileID: 182615579047445540}
   processingMenu: {fileID: 0}
+  backText: {fileID: 0}
+  backTextDelay: 5
 --- !u!1 &1504622202756194974
 GameObject:
   m_ObjectHideFlags: 0
@@ -4322,7 +4326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1812319362a31e4a8fd4f8ca342f83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToChangeTo: 5
+  sceneToChangeTo: 4
   destroyAds: 0
 --- !u!114 &3224755964669923417
 MonoBehaviour:
