@@ -159,6 +159,7 @@ public class GameManager : MonoBehaviour
     {
         if(newHighScore) ui.newHighScore(score);
         ui.displayDeathMessage();
+        PurchaseManager.instance.pollForReview();
     }
 
     private void updateHighScore(){
